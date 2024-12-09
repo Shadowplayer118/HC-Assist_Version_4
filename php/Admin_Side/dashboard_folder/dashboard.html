@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    
+    <link rel="stylesheet" href="../dashboard.css">
+    <title>Document</title>
+</head>
+
+<body>
+    
+    <div class="container">
+
+
+<!---------TOP-------------------------------------------------------------------------------------------------------------->        
+        
+        <div class="top">
+            <div class="top-content">
+                <h1 class="title">HC-Assist</h1>
+                <h1 class="location">Application > Dashboard</h1> <!---Note, this will usually be an anchor tag-->
+                <div class="profile"><img src="../assets/profile.jpg" alt=""></div>
+            </div>
+         
+        </div>
+
+
+
+        <div class="staff-profile" id="staff-profile">
+
+
+        
+
+            <div class="staff-profile-container">
+            <span class="close" style="position:relative; bottom:20px; right: 15px;">&times;</span>
+
+
+                <div class="left">
+
+                    <div class="profile-pic"><img src="../assets/profile.jpg" alt=""></div>
+                    <a href="index.html" class="logout">Logout</a>
+
+                </div>
+
+
+                <div class="right">
+
+                    <div class="name">Dhaniel Malinao</div>
+                    <div class="position">Admin</div> 
+         
+                       
+
+                </div>
+
+              
+          
+
+            </div>
+
+        
+            
+        </div>
+
+
+
+<!---------SIDE-------------------------------------------------------------------------------------------------------------->        
+
+<div class="side">
+
+    <div class="side-bar">
+        <div class="link">
+            <img src="" alt="">
+            <a href="../dashboard_folder/dashboard.html">Dashboard</a>
+        </div>
+
+        <div class="link">
+            <img src="" alt="">
+            <a href="../patients_folder/patient.html">Patients</a>
+        </div>
+
+        <div class="link">
+            <img src="" alt="">
+            <a href="../referral_folder/referral.html">Referrals</a>
+        </div>
+
+        <div class="link">
+            <img src="" alt="">
+            <a href="../calendar_folder/calendar.html">Calendar</a>
+        </div>
+
+        <div class="link">
+            <img src="" alt="">
+            <a href="../pregnant_folder/pregnant.html">Pregnant</a>
+        </div>
+
+        <div class="link">
+            <img src="" alt="">
+            <a href="../child_nutrition_folder/child_nutrition.html">Child Nutrition</a>
+        </div>
+
+        <div class="link">
+            <img src="" alt="">
+            <a href="../disease_folder/disease.html">Disease</a>
+        </div>
+
+        <div class="link">
+            <img src="" alt="">
+            <a href="../immunization_folder/immunization.html">Immunization</a>
+        </div>
+
+        <div class="link">
+            <img src="" alt="">
+            <a href="../workflow_folder/workflow.html">Workflow</a>
+        </div>
+
+        <div class="link">
+            <img src="" alt="">
+            <a href="../medicine_folder/medicine.html">Medicine</a>
+        </div>
+
+        <div class="link">
+            <img src="" alt="">
+            <a href="../staff_folder/staff.html">Staff</a>
+        </div>
+    </div>
+
+</div>
+<!---------MAIN-------------------------------------------------------------------------------------------------------------->        
+        <div class="main">
+            <div class="main-container">
+                
+            <div class="records-modal">
+                <div class="records-modal-content">
+                    <div class="table-container">
+                        <h2 class="table-title">Healthcare Records</h2>
+                        <div class="healthRec-table"></div>
+                        <table class="styled-table" id="healthcare-table">
+                            <thead>
+                                <tr>
+                                    <th>Category</th>
+                                    <th>Total Count</th>
+                                </tr>
+                            </thead>
+                            <tbody id="records-body">
+                                
+                            </tbody>
+                        </table>
+                        <div class="button-actions">
+                            <button class="print" id="printTableBtn">Print</button>
+                            <!-- <button class="print">Full View</button> -->
+                            <button class="print" id="closeRecordsModalBtn">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+                <div class="main-top">
+                    <div class="general-report-label">Genral Report</div>
+                    <div class="month-filter">Monthly V</div> 
+                    <div class="monitoring-label">Monitoring</div>
+                    <button class="today">Today</button> 
+                    <div class="disease-label">Disease</div> 
+                </div>
+
+                <div class="main-bar">
+
+
+                    <div class="general-report-container">
+
+                  
+                        <div class="general-report">
+                        
+    
+                            <div class="left">
+                                <span>Registered Patients</span>
+                                <div class="statistic-list">
+
+                                    <div class="stats"> 
+                                    <p>Referrals</p> <p id=ref-count>0</p> <p id=ref-per>n%</p>
+                                    </div>
+
+                                    <div class="stats">
+                                    <p>Pregnant</p> <p id=preg-count>0</p> <p id=preg-per>n%</p>
+                                    </div>
+
+                                    <div class="stats">
+                                    <p>Children</p> <p id=child-count>0</p> <p id=child-per>n%</p>
+                                    </div>
+
+                                    <div class="stats">
+                                    <p>Diseased</p> <p id=dis-count>0</p> <p id=dis-per>n%</p>
+                                    </div>
+
+                                    <div class="stats">
+                                    <p>Immunized</p> <p id=Im-count>0</p> <p id=Im-per>n%</p>
+                                    </div>
+
+                                    <div class="stats">
+                                    <p>Total</p> <p id=total-count>0</p> <p id=total-percent>n%</p>
+                                    </div>
+
+                                    <button class="generate-report"> <img src="../assets/generate_report.png" alt=""> <div class="plus">+</div> </button>
+                                </div>
+    
+    
+                            
+                            </div>
+    
+                            <div class="right">
+                                <div class="month">January 1, 2024 - January 30, 2024</div>
+                                <canvas class="pie-chart" id="pie-chart"></canvas>
+                                <table class="purok-list">
+                                    <tr>
+                                        <td class="purok-color">c</td>
+                                        <td class="purok-name">Purok 1</td>
+                                        <td class="purok-residence">0</td>
+                                        <td class="purok-percent">n%</td>
+                                    </tr>
+                                </table>
+                                
+                                <div class="total-container">
+                                    <div class="total-label">Total</div>
+                                    <div class="total-residence">0</div>
+                                    <div class="total-percent">n%</div>
+                                </div>
+                                
+                            </div>
+                        </div>
+
+    
+                    </div>
+
+                    <div class="monitoring-container">.
+    
+                    </div>
+                    <div class="disease-container">
+               
+                        <div class="disease">
+                            <h3>Status</h3>
+                            <div class="flag">Safe</div>
+                            <canvas class="pie-chart" id="pie-chart"></canvas>
+    
+                            <table>
+                                <tr>
+                                    <td class="disease-name"></td>
+                                    <td class="disease-count"></td>
+                                    <td class="disease-percent"></td>
+                                </tr>
+                            </table>
+    
+                            <h2>Total</h2
+                            <div class="total-diseased">0</div>
+                            <div class="percent-disease">n%</div>
+                        </div>
+                        
+                    </div>
+                </div>
+    
+
+            </div>
+
+            
+        </div>
+
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src = "../jquery.js"></script>
+    <script src = "dashboard_true.js"></script>
+
+</body>
+</html>

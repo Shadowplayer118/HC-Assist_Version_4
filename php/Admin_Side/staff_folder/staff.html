@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="../dashboard.css">
+    <link rel="stylesheet" href="staff.css">
+
+    <title>Document</title>
+</head>
+
+<body>
+    
+    <div class="container">
+
+
+<!---------TOP-------------------------------------------------------------------------------------------------------------->        
+        
+        <div class="top">
+            <div class="top-content">
+                <h1 class="title">HC-Assist</h1>
+                <h1 class="location">Application > Staff</h1> <!---Note, this will usually be an anchor tag-->
+                <div class="profile"><img src="../assets/profile.jpg" alt=""></div>
+            </div>
+         
+        </div>
+
+        <div class="staff-profile" id="staff-profile">
+
+            <div class="staff-profile-container">
+            <span class="close" style="position:relative; bottom:20px; right: 15px;">&times;</span>
+
+
+                <div class="left">
+
+                    <div class="profile-pic"><img src="../assets/profile.jpg" alt=""></div>
+                    <a href="../index.html" class="logout">Logout</a>
+
+                </div>
+
+
+                <div class="right">
+
+                    <div class="name">Dhaniel Malinao</div>
+                    <div class="position">Admin</div> 
+         
+                       
+
+                </div>
+
+              
+          
+
+            </div>
+
+        
+            
+        </div>
+
+
+
+<!---------SIDE-------------------------------------------------------------------------------------------------------------->        
+
+<div class="side">
+
+    <div class="side-bar">
+        <div class="link">
+            <img src="" alt="">
+            <a href="../dashboard_folder/dashboard.html">Dashboard</a>
+        </div>
+
+        <div class="link">
+            <img src="" alt="">
+            <a href="../patients_folder/patient.html">Patients</a>
+        </div>
+
+        <div class="link">
+            <img src="" alt="">
+            <a href="../referral_folder/referral.html">Referrals</a>
+        </div>
+
+        <div class="link">
+            <img src="" alt="">
+            <a href="../calendar_folder/calendar.html">Calendar</a>
+        </div>
+
+        <div class="link">
+            <img src="" alt="">
+            <a href="../pregnant_folder/pregnant.html">Pregnant</a>
+        </div>
+
+        <div class="link">
+            <img src="" alt="">
+            <a href="../child_nutrition_folder/child_nutrition.html">Child Nutrition</a>
+        </div>
+
+        <div class="link">
+            <img src="" alt="">
+            <a href="../disease_folder/disease.html">Disease</a>
+        </div>
+
+        <div class="link">
+            <img src="" alt="">
+            <a href="../immunization_folder/immunization.html">Immunization</a>
+        </div>
+
+        <div class="link">
+            <img src="" alt="">
+            <a href="../workflow_folder/workflow.html">Workflow</a>
+        </div>
+
+        <div class="link">
+            <img src="" alt="">
+            <a href="../medicine_folder/medicine.html">Medicine</a>
+        </div>
+
+        <div class="link">
+            <img src="" alt="">
+            <a href="../staff_folder/staff.html">Staff</a>
+        </div>
+    </div>
+
+</div>
+<!---------MAIN-------------------------------------------------------------------------------------------------------------->        
+        <div class="main">
+
+
+            <div class="main-container">
+
+            <div class="main-top-staff">
+                <button class="openModalBtn" id="openModalBtn"><img src="../assets/medical-icon_i-care-staff-area.png" alt=""> <img src="../assets/+.png" alt="" class="plus"></button>
+
+                <select name="" id="roleSelect" class="roleSelect">
+                    <option value="All Roles">Purok</option>
+                    <option value="BHW">BHW</option>
+                    <option value="Midwife">Midwife</option>
+                    <option value="Assigned Nurse">Assigned Nurse</option>
+                    <option value="Admin">Admin</option>
+                </select>
+
+                <form action="" id="filterForm" class="filterForm">
+
+
+                    <button type = "submit" id="filter-btn" class="filter-btn"><img src="../assets/search.png" alt=""></button>
+
+                    <input type="text" id="filtername" class="filtername" name="name" value = "">
+
+                </form>
+            </div>    
+
+            <div class="table-container">
+
+                <table id="staff-table" class="staff-table">
+
+                    <div class="header">
+                        <thead>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Position</th>
+                            <th>Contact #</th>
+                            <th>Actions</th>
+                        </thead>
+                    </div>
+
+                    <tbody>
+                        <tr id="template-row" style="display:none;" class="table_tr">
+
+                            <td class="id"></td>
+                            <td class="name"></td>
+                            <td class="position"></td>
+                            <td class="contact_number"></td>
+                            <td class = "actions">      
+                            <button class="delete-btn">Delete</button>
+                            <button class="edit-btn">View</button>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+            </div>
+
+
+    </div>
+
+<!---------MODALS-------------------------------------------------------------------------------------------------------------->        
+
+     <div class="add-modal" id="add-modal">
+
+                <div class="add-modal-content">
+                    <span class="close">&times;</span>
+                    <h2 class="modal-title">Add Staff Member</h2>
+
+                    <form action="" id="addForm" enctype="multipart/form-data">
+
+                        <label for="Name">First Name:</label>
+                        <input type="text" id="first_name" name="first_name" required>
+        
+                        <label for="Name">Middle Name:</label>
+                        <input type="text" id="middle_name" name="middle_name" required><br>
+        
+                        <label for="Name">Last Name:</label>
+                        <input type="text" id="last_name" name="last_name" required><br>
+        
+                        <label for="title">Gender:</label>
+                        <select name="gender" id="gender">
+                            <option value="Admin">Male</option>
+                            <option value="Staff">Female</option>
+                        </select>
+        
+                        <label for="title">Purok:</label>
+                        <input type="text" id="purok_assigned" name="purok_assigned"><br>
+        
+                        <!-- <label for="title">Position:</label>
+                        <input type="text" id="position" name="position"><br> -->
+
+                        <label for="title">Position:</label>
+                        <select name="position" id="position">
+                            <option value="Admin">Admin</option>
+                            <option value="Staff">Staff</option>
+                            <option value="Midwife">Midwife</option>
+                        </select>
+        
+                        <label for="title">Civil Status:</label>
+                        <input type="text" id="civil_status" name="civil_status"><br>
+        
+                        <label for="title">Age:</label>
+                        <input type="number" id="age" name="age"><br>
+        
+                        <label for="title">Contact #:</label>
+                        <input type="text" id="contact_number" name="contact_number"><br>
+
+                        <label for="title">Password:</label>
+                        <input type="text" id="password" name="password"><br>
+
+                        <button type="submit">Add Character</button>
+                    </form>
+                </div>
+
+     </div>
+
+
+
+     <div id="edit-modal" class = "edit-modal" data-id="">
+                
+        <div class="edit-modal-content">
+        <span class="close-edit" id = "close-edit">&times;</span>
+        <h3>Edit Form</h3>
+            <form action="" id="edit-form">
+                <input type="text" id="edit-staff_id" name="staff_id" style="display:none"><br>
+
+                <div class="input-container">
+                    <label for="Name">First Name:</label>
+                    <input type="text" id="edit-first_name" name="first_name" required disabled="true">
+                </div>
+
+                <div class="input-container">
+                    <label for="Name">Middle Name:</label>
+                    <input type="text" id="edit-middle_name" name="middle_name" required disabled="true">
+                </div>
+
+               <div class="input-container">
+                <label for="Name">Last Name:</label><br>
+                <input type="text" id="edit-last_name" name="last_name" required disabled="true"><br>
+               </div>
+               <div class="input-container">
+                <label for="title">Age</label> <br>
+                <input type="text" id="edit-age" name="age" disabled="true"><br>
+               </div>
+               <div class="input-container">
+                <label for="title">Birthdate:</label> <br>
+                <input type="text" id="edit-birthdate" name="title" disabled="true">
+               </div>
+               <div class="input-container">
+                <label for="title">Gender:</label><br>
+                <input type="text" id="edit-gender" name="gender" disabled="true"><br>
+               </div>
+
+               <div class="input-container">
+                <label for="title">Civil Status:</label><br>
+                <input type="text" id="edit-civil_status" name="civil_status" disabled="true"><br>
+
+               </div>
+               <div class="input-container">
+                <label for="title">Purok Assigned:</label><br>
+                <input type="text" id="edit-purok_assigned" name="purok-assigned" disabled="true"><br>
+               </div>
+               <div class="input-container">
+                <label for="title">Position:</label><br>
+                <input type="text" id="edit-position" name="position" disabled="true"><br>
+               </div>
+              
+               <div class="input-container">
+                
+                <label for="title">Contact #:</label><br>
+                <input type="text" id="edit-contact_number" name="contact_number" disabled="true"><br>
+               </div>
+               <div class="input-container"></div>
+
+                <button type = "submit" id="save-changes" disabled="true">Save Changes</button>
+            </form>
+            <button id = "allow-edit">Edit</button>
+
+        </div>
+    </div>
+
+    <script src = "../jquery.js"></script>
+
+<script src = "../dashboard.js"></script>
+<script src = "staff.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+   
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="../dashboard.css">
+    <link rel="stylesheet" href="staff.css">
+    <link rel="stylesheet" href="calendar.css">
+
+
+    <title>Document</title>
+</head>
+
+<body>
+    
+    <div class="container">
+
+
+<!---------TOP-------------------------------------------------------------------------------------------------------------->        
+        
+        <div class="top">
+            <div class="top-content">
+                <h1 class="title">HC-Assist</h1>
+                <h1 class="location">Application > Calendar</h1> <!---Note, this will usually be an anchor tag-->
+                <div class="profile"><img src="assets/profile.jpg" alt=""></div>
+            </div>
+         
+        </div>
+
+
+
+        <div class="staff-profile" id="staff-profile">
+
+
+        
+
+            <div class="staff-profile-container">
+            <span class="close" style="position:relative; bottom:20px; right: 15px;">&times;</span>
+
+
+                <div class="left">
+
+                    <div class="profile-pic"><img src="assets/profile.jpg" alt=""></div>
+                    <a href="index.html" class="logout">Logout</a>
+
+                </div>
+
+
+                <div class="right">
+
+                    <div class="name">Dhaniel Malinao</div>
+                    <div class="position">Admin</div> 
+         
+                       
+
+                </div>
+
+              
+          
+
+            </div>
+
+        
+            
+        </div>
+
+
+
+<!---------SIDE-------------------------------------------------------------------------------------------------------------->        
+
+     
+<div class="side">
+
+    <div class="side-bar">
+        <div class="link">
+            <img src="" alt="">
+            <a href="../dashboard_folder/dashboard.html">Dashboard</a>
+        </div>
+
+        <div class="link">
+            <img src="" alt="">
+            <a href="../patients_folder/patient.html">Patients</a>
+        </div>
+
+        <div class="link">
+            <img src="" alt="">
+            <a href="../referral_folder/referral.html">Referrals</a>
+        </div>
+
+        <div class="link">
+            <img src="" alt="">
+            <a href="../calendar_folder/calendar.html">Calendar</a>
+        </div>
+
+        <div class="link">
+            <img src="" alt="">
+            <a href="../pregnant_folder/pregnant.html">Pregnant</a>
+        </div>
+
+        <div class="link">
+            <img src="" alt="">
+            <a href="../child_nutrition_folder/child_nutrition.html">Child Nutrition</a>
+        </div>
+
+        <div class="link">
+            <img src="" alt="">
+            <a href="../disease_folder/disease.html">Disease</a>
+        </div>
+
+        <div class="link">
+            <img src="" alt="">
+            <a href="../immunization_folder/immunization.html">Immunization</a>
+        </div>
+
+        <div class="link">
+            <img src="" alt="">
+            <a href="../workflow_folder/workflow.html">Workflow</a>
+        </div>
+
+        <div class="link">
+            <img src="" alt="">
+            <a href="../medicine_folder/medicine.html">Medicine</a>
+        </div>
+
+        <div class="link">
+            <img src="" alt="">
+            <a href="../staff_folder/staff.html">Staff</a>
+        </div>
+    </div>
+
+</div>
+<!---------MAIN-------------------------------------------------------------------------------------------------------------->        
+        <div class="main">
+
+           
+            <div class="main-container">
+
+                <div class="main-top-staff">
+                    <!-- <button class="openModalBtn" id="openModalBtn"><img src="../assets/medical-icon_i-care-staff-area.png" alt=""> <img src="../assets/+.png" alt="" class="plus"></button>
+    
+                    <select name="" id="roleSelect" class="roleSelect">
+                        <option value="Purok">Purok</option>
+                        <option value="Bartolome">Bartolome</option>
+                        <option value="Rosasa">Rosasa</option>
+                        
+                    </select>
+    
+                    <form action="" id="filterForm" class="filterForm">
+    
+    
+                        <button type = "submit" id="filter-btn" class="filter-btn"><img src="../assets/search.png" alt=""></button>
+    
+                        <input type="text" id="filtername" class="filtername" name="name" value = "">
+    
+                    </form> -->
+                </div>    
+    
+                <div class="table-container">
+    
+                    <div class="calendar">
+                        <div class="calendar-header">
+                            <span class="prev" onclick="changeMonth(-1)">&#10094;</span>
+                            <span id="month-year"></span>
+                            <span class="next" onclick="changeMonth(1)">&#10095;</span>
+                        </div>
+                        <div class="calendar-days">
+                            <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+                        </div>
+                        <div id="calendar-dates" class="calendar-dates">
+                            <div class="status">
+                                <div class="pregnant">q</div>
+                            <div class="child">q</div>
+                            <div class="medicine">q</div>
+                            </div>
+                            
+                        </div>
+                    </div>
+    
+                </div>
+            </div>
+                </div>
+    
+            
+            
+        </div>
+
+    </div>
+    <script src="calendar.js"></script>
+<script src = "dashboard.js"></script>
+</body>
+</html>

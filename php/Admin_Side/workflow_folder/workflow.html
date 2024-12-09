@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="../dashboard.css">
+    <link rel="stylesheet" href="staff.css">
+
+    <title>Document</title>
+
+    <style>
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .card {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 8px;
+            width: 800px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+        .card h3 {
+            margin: 0;
+            padding-bottom: 10px;
+        }
+
+        .card p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .workflow-buttons{
+            width: 100px;
+            position: relative;
+            bottom: 20px;
+            left: 700px;
+          
+        }
+    </style>
+</head>
+
+<body>
+    
+    <div class="container">
+
+
+<!---------TOP-------------------------------------------------------------------------------------------------------------->        
+        
+        <div class="top">
+            <div class="top-content">
+                <h1 class="title">HC-Assist</h1>
+                <h1 class="location">Application > Workflow</h1> <!---Note, this will usually be an anchor tag-->
+                <div class="profile"><img src="assets/profile.jpg" alt=""></div>
+            </div>
+         
+        </div>
+
+        <div class="staff-profile" id="staff-profile">
+
+
+        
+
+            <div class="staff-profile-container">
+            <span class="close" style="position:relative; bottom:20px; right: 15px;">&times;</span>
+
+
+                <div class="left">
+
+                    <div class="profile-pic"><img src="assets/profile.jpg" alt=""></div>
+                    <a href="index.html" class="logout">Logout</a>
+
+                </div>
+
+
+                <div class="right">
+
+                    <div class="name">Dhaniel Malinao</div>
+                    <div class="position">Admin</div> 
+         
+                       
+
+                </div>
+
+              
+          
+
+            </div>
+
+        
+            
+        </div>
+
+
+
+<!---------SIDE-------------------------------------------------------------------------------------------------------------->        
+
+<div class="side">
+
+    <div class="side-bar">
+        <div class="link">
+            <img src="" alt="">
+            <a href="../dashboard_folder/dashboard.html">Dashboard</a>
+        </div>
+
+        <div class="link">
+            <img src="" alt="">
+            <a href="../patients_folder/patient.html">Patients</a>
+        </div>
+
+        <div class="link">
+            <img src="" alt="">
+            <a href="../referral_folder/referral.html">Referrals</a>
+        </div>
+
+        <div class="link">
+            <img src="" alt="">
+            <a href="../calendar_folder/calendar.html">Calendar</a>
+        </div>
+
+        <div class="link">
+            <img src="" alt="">
+            <a href="../pregnant_folder/pregnant.html">Pregnant</a>
+        </div>
+
+        <div class="link">
+            <img src="" alt="">
+            <a href="../child_nutrition_folder/child_nutrition.html">Child Nutrition</a>
+        </div>
+
+        <div class="link">
+            <img src="../disease_folder/disease.html" alt="">
+            <a href="">Disease</a>
+        </div>
+
+        <div class="link">
+            <img src="" alt="">
+            <a href="../immunization_folder/immunization.html">Immunization</a>
+        </div>
+
+        <div class="link">
+            <img src="" alt="">
+            <a href="../workflow_folder/workflow.html">Workflow</a>
+        </div>
+
+        <div class="link">
+            <img src="" alt="">
+            <a href="../medicine_folder/medicine.html">Medicine</a>
+        </div>
+
+        <div class="link">
+            <img src="" alt="">
+            <a href="../staff_folder/staff.html">Staff</a>
+        </div>
+    </div>
+
+</div>
+<!---------MAIN-------------------------------------------------------------------------------------------------------------->        
+        <div class="main">
+
+
+            <div class="main-container">
+
+                <div class="main-top-staff">
+                    <button class="openModalBtn" id="openModalBtn"><img src="../assets/medical-icon_i-care-staff-area.png" alt=""> <img src="../assets/+.png" alt="" class="plus"></button>
+    
+                    <select name="" id="roleSelect" class="roleSelect">
+                        <option value="All Roles">All Roles</option>
+                        <option value="BHW">BHW</option>
+                        <option value="Midwife">Midwife</option>
+                        <option value="Assigned Nurse">Assigned Nurse</option>
+                        <option value="Admin">Admin</option>
+                    </select>
+    
+                    <form action="" id="filterForm" class="filterForm">
+    
+    
+                        <button type = "submit" id="filter-btn" class="filter-btn"><img src="../assets/search.png" alt=""></button>
+    
+                        <input type="text" id="filtername" class="filtername" name="name" value = "">
+    
+                    </form>
+                </div>    
+    
+                <div class="table-container">
+    
+                    <div class="card-container" id="card-container">
+                        <!-- Cards will be dynamically inserted here -->
+                    </div>
+    
+                </div>
+            </div>
+                </div>
+    
+            
+        </div>
+
+    </div>
+
+
+    <script>
+    
+    // Function to fetch data via AJAX
+function loadCards() {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'workflow_load.php', true);  // Adjust with your backend script
+
+    xhr.onload = function() {
+        if (this.status === 200) {
+            const data = JSON.parse(this.responseText);
+            const cardContainer = document.getElementById('card-container');
+
+            // Clear previous cards before appending new ones
+            cardContainer.innerHTML = ''; 
+
+            data.forEach(item => {
+                // Create a card element
+                const card = document.createElement('div');
+                card.classList.add('card');
+
+                // Insert the data into the card with buttons
+                card.innerHTML = `
+                    <h3>${item.title}</h3>
+                    <p>${item.description}</p>
+                    <div class="workflow-buttons">
+                        <button>Start</button>
+                        <button>Cancel</button>
+                    </div>
+                `;
+
+                // Append the card to the container
+                cardContainer.appendChild(card);
+            });
+        }
+    };
+
+    xhr.send();
+}
+
+// Load the cards when the page loads
+window.onload = function() {
+    loadCards();
+};
+
+    </script>
+
+<script src = "../jquery.js"></script>
+<script src = workflow.js"></script>
+<script src = "dashboard.js"></script>
+
+</body>
+</html>

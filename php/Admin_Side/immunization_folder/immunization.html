@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="../dashboard.css">
+    <link rel="stylesheet" href="staff.css">
+
+    <title>Document</title>
+</head>
+
+<body>
+    
+    <div class="container">
+
+
+<!---------TOP-------------------------------------------------------------------------------------------------------------->        
+        
+        <div class="top">
+            <div class="top-content">
+                <h1 class="title">HC-Assist</h1>
+                <h1 class="location">Application > Immunization</h1> <!---Note, this will usually be an anchor tag-->
+                <div class="profile"><img src="assets/profile.jpg" alt=""></div>
+            </div>
+        </div>
+
+
+
+        <div class="staff-profile" id="staff-profile">
+
+
+        
+
+            <div class="staff-profile-container">
+            <span class="close" style="position:relative; bottom:20px; right: 15px;">&times;</span>
+
+
+                <div class="left">
+
+                    <div class="profile-pic"><img src="assets/profile.jpg" alt=""></div>
+                    <a href="index.html" class="logout">Logout</a>
+
+                </div>
+
+
+                <div class="right">
+
+                    <div class="name">Dhaniel Malinao</div>
+                    <div class="position">Admin</div> 
+         
+                       
+
+                </div>
+
+              
+          
+
+            </div>
+
+        
+            
+        </div>
+
+
+
+<!---------SIDE-------------------------------------------------------------------------------------------------------------->        
+
+<div class="side">
+
+    <div class="side-bar">
+        <div class="link">
+            <img src="" alt="">
+            <a href="../dashboard_folder/dashboard.html">Dashboard</a>
+        </div>
+
+        <div class="link">
+            <img src="" alt="">
+            <a href="../patients_folder/patient.html">Patients</a>
+        </div>
+
+        <div class="link">
+            <img src="" alt="">
+            <a href="../referral_folder/referral.html">Referrals</a>
+        </div>
+
+        <div class="link">
+            <img src="" alt="">
+            <a href="../calendar_folder/calendar.html">Calendar</a>
+        </div>
+
+        <div class="link">
+            <img src="" alt="">
+            <a href="../pregnant_folder/pregnant.html">Pregnant</a>
+        </div>
+
+        <div class="link">
+            <img src="" alt="">
+            <a href="../child_nutrition_folder/child_nutrition.html">Child Nutrition</a>
+        </div>
+
+        <div class="link">
+            <img src="" alt="">
+            <a href="../disease_folder/disease.html">Disease</a>
+        </div>
+
+        <div class="link">
+            <img src="" alt="">
+            <a href="../immunization_folder/immunization.html">Immunization</a>
+        </div>
+
+        <div class="link">
+            <img src="" alt="">
+            <a href="../workflow_folder/workflow.html">Workflow</a>
+        </div>
+
+        <div class="link">
+            <img src="" alt="">
+            <a href="../medicine_folder/medicine.html">Medicine</a>
+        </div>
+
+        <div class="link">
+            <img src="" alt="">
+            <a href="../staff_folder/staff.html">Staff</a>
+        </div>
+    </div>
+
+</div>
+        
+<!---------MAIN-------------------------------------------------------------------------------------------------------------->        
+        <div class="main">
+
+            <div class="main-container">
+
+                <div class="main-top-staff">
+                    <button  class="openModalBtn" id="openModalBtn" onclick="window.location.href='select_patient.html';"><img src="../assets/medical-icon_i-care-staff-area.png" alt="""> <img src="../assets/+.png" alt="" class="plus"></button>
+                    <form action="" id="filterForm">
+    
+                        <button type = "submit" id="filter-btn" class="filter-btn"><img src="../assets/search.png" alt=""></button>
+
+                        <input type="text" id="filtername" class="filtername" name="name" value = "">
+    
+                    </form>
+                </div>    
+    
+                <div class="table-container">
+    
+                    <table id="staff-table" class="staff-table">
+    
+                        <div class="header">
+                            <thead>
+                                <th>Id</th>
+                                <th>jonel gelig</th>
+                                <th>Elvie</th>
+                                <th>Administrator</th>
+                                <th>Actions</th>
+                            </thead>
+                        </div>
+    
+                        <tbody>
+                            <tr id="template-row" style="display:none;" class="table_tr">
+    
+                                <td class="id"></td>
+                                <td class="name"></td>
+                                <td class="position"></td>
+                                <td class="contact_number"></td>
+                                <td class = "actions">      
+                                <button class="delete-btn">Delete</button>
+                                <button class="edit-btn">View</button>
+                                </td>
+    
+                            </tr>
+                        </tbody>
+                    </table>
+    
+                </div>
+            </div>
+            
+        </div>
+
+    </div>
+
+
+    <div id="edit-modal" class = "edit-modal" data-id="">
+                
+        <div class="edit-modal-content">
+        <span class="close-edit" id = "close-edit">&times;</span>
+        <h3>Create Pregnancy Record for:</h3>
+            <form action="" id="Immunization_Add-form">
+                <input type="text" id="edit-patient_id" name="edit-patient_id" style="display:none"><br>
+
+                <div class="input-container">
+                    <label for="Name">Patient:</label>
+                    <input type="text" id="edit-first_name" name="edit-first_name" required disabled="true">
+                </div>
+                
+                <label for="title">Immunization Name:</label>
+                <input type="text" id="immunization_name" name="immunization_name"><br>
+
+                <label for="title">Date Administered:</label>
+                <input type="date" id="administered_date" name="administered_date"><br>
+
+                <label for="title">Administered by:</label>
+                <input type="text" id="administered_by" name="administered_by"><br>
+
+              
+             
+               <div class="input-container"></div>
+
+                <button type = "submit" id="save-changes" >Save Changes</button>
+            </form>
+            
+
+        </div>
+    </div>
+
+
+    
+    <script src = "../jquery.js"></script>
+
+<script src = "dashboard.js"></script>
+<script src = "pregnant.js"></script>
+</body>
+</html>
