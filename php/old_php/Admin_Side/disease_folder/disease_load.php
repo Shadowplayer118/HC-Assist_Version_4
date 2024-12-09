@@ -6,7 +6,6 @@ contagious_disease.diagnosis_date, contagious_disease.disease_status from contag
 on contagious_disease.patient_id = patient.patient_id ORDER BY disease_id DESC";
 $result = mysqli_query($conn,$sqlQuery);
 
-
 if($result->num_rows > 0){
     $data = array();
     while($row = $result->fetch_assoc()){

@@ -4,25 +4,25 @@ import '../../../css/patient.css'
 import Topbar from "../../bars/topBar";
 import Sidebar from "../../bars/sideBar";
 import Mainbar from "../../bars/mainBar";
-import EditModal from './referral-editModal';
-import AddModal from './referral-addModal';
+import EditModal from './medicine-editModal';
+import AddModal from './medicine-addModal';
 
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
-const Referrals = () => {
+const Medicine = () => {
 
-  const [referralData, setReferralData] = useState(null)
+  const [pregnantData, setpregnantData] = useState(null)
   const [isOpenViewModal, setIsOpenViewModal] = useState(false)
   const [selectedReferral, setSelectedReferral] = useState(null)
   const [isOpenAddModal, setIsOpenAddModal] = useState(false)
 
-  async function fetchreferralData(){
+  async function fetchpregnantData(){
     try{
-      const res = await axios.get('http://localhost/HC-Assist_Version_4/php/old_php/Admin_Side/referral_folder/referral_load.php')
+      const res = await axios.get('http://localhost/HC-Assist_Version_4/php/old_php/Admin_Side/medicine_folder/medicine_load.php')
       // console.log(res.data)
-      setReferralData(res.data)
+      setpregnantData(res.data)
     }
     catch(err){
       console.error(err)
@@ -30,7 +30,7 @@ const Referrals = () => {
   }
 
   useEffect(() => {
-    fetchreferralData();
+    fetchpregnantData();
   }, [isOpenAddModal, selectedReferral]);
 
   function viewById(data){
@@ -42,14 +42,14 @@ const Referrals = () => {
     setIsOpenAddModal(true)
   }
 
-  async function deletereferralData(id){
+  async function deletepregnantData(id){
     try{
       const res = await axios.delete('http://localhost/HC_Assist_Version_2/HC-Assist_Version1/admin_side/patients_folder/patient_delete.php', {
         data: { id: id }
       })
       
       if(res.data.status){
-        fetchreferralData()
+        fetchpregnantData()
       }
     }
     catch(err){
@@ -76,6 +76,7 @@ const Referrals = () => {
             <img src="../assets/medical-icon_i-care-staff-area.png" alt="" />
             <img src="../assets/+.png" alt="" className="plus" />
           </button>
+
           <select id="roleSelect" className="roleSelect">
             <option value="Purok">Status</option>
             <option value="Bartolome">Approved</option>
@@ -83,6 +84,7 @@ const Referrals = () => {
             <option value="Rosasa">Denied</option>
 
           </select>
+
           <form id="filterForm" className="filterForm">
             <button type="submit" id="filter-btn" className="filter-btn">
               <img src="../assets/search.png" alt="" />
@@ -99,8 +101,8 @@ const Referrals = () => {
             <thead>
               <tr>
                 <th>Name</th>
-                <th>Purok</th>
-                <th>Contact #</th>
+                <th>Brand </th>
+                <th>Stock</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -115,13 +117,13 @@ const Referrals = () => {
                   <button className="edit-btn">View</button>
                 </td>
               </tr> */}
-              {referralData && referralData.map((data, index) => (
+              {pregnantData && pregnantData.map((data, index) => (
                 <tr key={index}>
-                  <td>{data.first_name} {data.last_name}</td>
-                  <td>{data.referral_date}</td>
-                  <td>{data.approval_status}</td>
+                  <td>{data.item_name}</td>
+                  <td>{data.brand}</td>
+                  <td>{data.stock}</td>
                   <td>
-                    <button className="delete-btn" onClick={() => deletereferralData(data.referral_id)}><img src="../../assets/icons/trashBin.png" alt="" /></button>
+                    <button className="delete-btn" onClick={() => deletepregnantData(data.inventory_id)}><img src="../../assets/icons/trashBin.png" alt="" /></button>
                     <button className="edit-btn" onClick={() => viewById(data)}><img src="../../assets/icons/mdi_eye.png" alt="" /></button>
                   </td>
                 </tr>
@@ -142,4 +144,4 @@ const Referrals = () => {
   );
 };
 
-export default Referrals;
+export default Medicine;

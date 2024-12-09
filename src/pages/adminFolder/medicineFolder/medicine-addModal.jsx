@@ -77,7 +77,7 @@ const AddModal = ({ visible, onClose, data }) => {
             &times;
           </span>
         </button>
-        <h3>Add Patient</h3>
+        <h3>Edit Form</h3>
         <form onSubmit={handleSubmit} id="edit-form">
           <div className="input-right">
             <div className="steady">
