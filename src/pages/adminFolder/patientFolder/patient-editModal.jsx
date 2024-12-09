@@ -1,27 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter, useFetcher } from 'react-router-dom';
-import axios from 'axios';
 
 const EditModal = ({ visible, onClose, data }) => {
   if (!visible) return null;
 
-  console.log(data) 
+  console.log(data)
 
   const [isEditable, setIsEditable] = useState(false);
   const [count, setCount] = useState(0);
-  const [fetchpatient, setFetchpatient] = useState(null);
+  const [fetchpatient, setFetchpatient] = useState({}); 
 
   function editable() {
     setCount(count === 0 ? 1 : 0);
     setIsEditable(count === 1);
   }
 
-    useEffect(() => {
-      setFetchpatient(data)
-      console.log(fetchpatient)
-    }, [fetchpatient])
-
- 
+  useEffect(() => {
+    if (data) {
+      setFetchpatient(data);
+    }
+  }, [data]); // Only set fetchpatient when data changes
 
   return (
     <div className="edit-modal">
@@ -40,7 +37,7 @@ const EditModal = ({ visible, onClose, data }) => {
                 id="edit-patient_id"
                 name="edit-patient_id"
                 style={{ display: 'none' }}
-                value={fetchpatient.patient_id} // Assuming the patient_id exists in the response
+                value={fetchpatient.patient_id || ''} // Ensure patient_id exists or fallback to empty string
               />
 
               <div className="input-container">
@@ -51,8 +48,8 @@ const EditModal = ({ visible, onClose, data }) => {
                   id="edit-first_name"
                   name="edit-first_name"
                   required
-                  value={fetchpatient.first_name} // Bind to fetched first name
-                  onChange={(e) => setFetchpatient({ ...fetchpatient, data: { ...fetchpatient.data, first_name: e.target.value } })}
+                  value={fetchpatient.first_name || ''} // Handle undefined first_name
+                  onChange={(e) => setFetchpatient({ ...fetchpatient, first_name: e.target.value })}
                 />
               </div>
 
@@ -64,8 +61,8 @@ const EditModal = ({ visible, onClose, data }) => {
                   id="edit-middle_name"
                   name="edit-middle_name"
                   required
-                  value={fetchpatient.data.middle_name || ''} // Handle undefined middle name
-                  onChange={(e) => setFetchpatient({ ...fetchpatient, data: { ...fetchpatient.data, middle_name: e.target.value } })}
+                  value={fetchpatient.middle_name || ''} // Handle undefined middle_name
+                  onChange={(e) => setFetchpatient({ ...fetchpatient, middle_name: e.target.value })}
                 />
               </div>
 
@@ -77,8 +74,8 @@ const EditModal = ({ visible, onClose, data }) => {
                   id="edit-last_name"
                   name="edit-last_name"
                   required
-                  value={fetchpatient.data.last_name} // Bind to fetched last name
-                  onChange={(e) => setFetchpatient({ ...fetchpatient, data: { ...fetchpatient.data, last_name: e.target.value } })}
+                  value={fetchpatient.last_name || ''} // Handle undefined last_name
+                  onChange={(e) => setFetchpatient({ ...fetchpatient, last_name: e.target.value })}
                 />
               </div>
 
@@ -91,8 +88,8 @@ const EditModal = ({ visible, onClose, data }) => {
                     id="edit-age"
                     name="edit-age"
                     required
-                    value={fetchpatient.data.age || ''} // Handle undefined age
-                    onChange={(e) => setFetchpatient({ ...fetchpatient, data: { ...fetchpatient.data, age: e.target.value } })}
+                    value={fetchpatient.age || ''} // Handle undefined age
+                    onChange={(e) => setFetchpatient({ ...fetchpatient, age: e.target.value })}
                   />
                 </div>
 
@@ -104,8 +101,8 @@ const EditModal = ({ visible, onClose, data }) => {
                     id="edit-bdate"
                     name="edit-bdate"
                     required
-                    value={fetchpatient.data.birthdate || ''} // Handle undefined birthdate
-                    onChange={(e) => setFetchpatient({ ...fetchpatient, data: { ...fetchpatient.data, birthdate: e.target.value } })}
+                    value={fetchpatient.birthdate || ''} // Handle undefined birthdate
+                    onChange={(e) => setFetchpatient({ ...fetchpatient, birthdate: e.target.value })}
                   />
                 </div>
               </div>
@@ -118,8 +115,8 @@ const EditModal = ({ visible, onClose, data }) => {
                     id="edit-gender"
                     name="edit-gender"
                     required
-                    value={fetchpatient.data.gender || ''}
-                    onChange={(e) => setFetchpatient({ ...fetchpatient, data: { ...fetchpatient.data, gender: e.target.value } })}
+                    value={fetchpatient.gender || ''}
+                    onChange={(e) => setFetchpatient({ ...fetchpatient, gender: e.target.value })}
                   >
                     <option value="">Select Gender</option>
                     <option value="Male">Male</option>
@@ -135,8 +132,8 @@ const EditModal = ({ visible, onClose, data }) => {
                     id="edit-civil_status"
                     name="edit-civil_status"
                     required
-                    value={fetchpatient.data.civil_status || ''}
-                    onChange={(e) => setFetchpatient({ ...fetchpatient, data: { ...fetchpatient.data, civil_status: e.target.value } })}
+                    value={fetchpatient.civil_status || ''}
+                    onChange={(e) => setFetchpatient({ ...fetchpatient, civil_status: e.target.value })}
                   />
                 </div>
               </div>
@@ -149,7 +146,7 @@ const EditModal = ({ visible, onClose, data }) => {
                   id="edit-purok"
                   name="edit-purok"
                   required
-                  value={fetchpatient.data.purok}
+                  value={fetchpatient.purok || ''}
                 />
               </div>
 
@@ -161,7 +158,7 @@ const EditModal = ({ visible, onClose, data }) => {
                   id="edit-household"
                   name="edit-household"
                   required
-                  value={fetchpatient.data.household || ''}
+                  value={fetchpatient.household || ''}
                 />
               </div>
 
@@ -173,8 +170,7 @@ const EditModal = ({ visible, onClose, data }) => {
                   id="edit-contact_number"
                   name="edit-contact_number"
                   required
-                  value={fetchpatient.data.contact_number || ''}
-                 
+                  value={fetchpatient.contact_number || ''}
                 />
               </div>
 
@@ -186,7 +182,7 @@ const EditModal = ({ visible, onClose, data }) => {
                   id="edit-blood_type"
                   name="edit-blood_type"
                   required
-                  value={fetchpatient.data.blood_type || ''}
+                  value={fetchpatient.blood_type || ''}
                 />
               </div>
             </div>
