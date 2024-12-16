@@ -2,3 +2,109 @@
     width: 80%;
     height: 80vh;
 }
+
+
+
+.monitoring-container{
+  
+}
+
+
+.monitoring-content{
+    height: 330px;
+    width: 440px;
+    padding-top: 0px;
+    margin-left: 9px;
+    border-radius: 5px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+ 
+    /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.462); */
+
+
+}
+
+.monitoring-card-left{
+    background-color: blue;
+    
+}
+
+.monitoring-card-right{
+    position: relative;
+    bottom: 15px;
+    background-color: red;
+    z-index: 1;
+}
+
+.monitoring-card{
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.462);
+    display: flex;
+    flex-direction: row;
+    height: 15px;
+    max-width: 170px;
+    overflow:hidden;
+   
+
+    
+}
+
+
+
+
+.monitoring-profile img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+    position: relative;
+    right:20px;
+    bottom: 35px;
+}
+
+.monitoring-info{
+   
+    position: relative;
+    bottom: 16px;
+    right: 50px;
+    min-width: 200px;
+  
+
+}
+
+.monitoring-title{
+font-size: small;
+}
+
+.monitoring-subtitle{
+ font-size: smaller;
+}
+.monitoring-content {
+    overflow-y: scroll; /* Keep scrolling functionality */
+    scrollbar-width: thin; /* For Firefox: makes the scrollbar thinner */
+}
+
+/* Hide the scrollbar track and customize the grip for WebKit browsers */
+.monitoring-content::-webkit-scrollbar {
+    width: 6px; /* Adjust width of the scrollbar grip */
+}
+
+.monitoring-content::-webkit-scrollbar-track {
+    background: transparent; /* Hides the track */
+}
+
+.monitoring-content::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.5); /* Adjust grip color and transparency */
+    border-radius: 3px; /* Round grip edges */
+}
+
+
+.general-report .right .pie-chart{
+    
+   
+   
+    
+}
+
+

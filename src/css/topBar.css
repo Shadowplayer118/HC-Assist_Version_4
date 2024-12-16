@@ -452,3 +452,50 @@ left:36px;
     border-top-left-radius: 0px;
 
 }
+
+
+
+/* Modal Background */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+  }
+  
+  /* Modal Content */
+  .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    text-align: center;
+    height: 400px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.462);
+    position: relative;
+    left: 400px;
+
+    
+  }
+  
+  /* Close Button */
+  .close {
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    position: relative;
+    right: -150px;
+    bottom: 20px;
+    color: red;
+  }
+  
+
+  .profile{
+    position: absolute;
+    left: 450px;
+  }

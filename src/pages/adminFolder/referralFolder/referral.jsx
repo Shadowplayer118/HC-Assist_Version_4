@@ -63,7 +63,7 @@ const Referrals = () => {
 
     <div>
 
-<Topbar location="Patient"/>
+<Topbar location="Referrals"/>
            <div class="mainbarContent">
            <Sidebar />
 

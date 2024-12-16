@@ -12,6 +12,7 @@ import Medicine from "./pages/adminFolder/medicineFolder/medicine"
 import Staff from "./pages/adminFolder/staffFolder/staff"
 import Calendar from "./pages/adminFolder/calendarFolder/calendar"
 import Workflow from "./pages/adminFolder/workflowFolder/workflow"
+import Patientselect_Disease from "./pages/adminFolder/diseaseFolder/disease-patientSelect"
 function App() {
  
   return (
@@ -29,6 +30,8 @@ function App() {
       <Route path="/staff" element={<Staff/>}/>
       <Route path="/calendar" element={<Calendar/>}/>
       <Route path="/workflow" element={<Workflow/>}/>
+      <Route path="/disease-patientSelect" element={<Patientselect_Disease/>}/>
+
 
 
 

@@ -17,7 +17,15 @@ body{
     overflow-y: hidden;
  
     overflow-x: hidden;
+
+
     
+}
+
+ 
+.container{
+  
+
 }
 
 .whole{
@@ -26,15 +34,13 @@ body{
 }
 
 
-
-  
-
 .titles{
     position: relative;
     z-index: 5;
     left: 100px;
     width: 300px;
     top: 10px;
+    color: white;
     
 }
 
@@ -58,10 +64,12 @@ body{
     width: 400px;
     padding: 20px;
     position: relative;
-    z-index: 4;    
-    left: 80px;
-    top: 80px;
+    z-index: 9;    
+    top: 30px;
+    left: 50px;
     padding: 10px;
+    top: 50px;
+    color: white;
 }
 
 .loginForm *{
@@ -74,6 +82,7 @@ height: 30px;
 width: 350px;
 border-radius: 5px;
 border: none;
+z-index: 1;
 }
 
 button{
@@ -121,7 +130,8 @@ z-index: 3;
 
 .right-slantbox{
     position: absolute;
-    background-color:  #3E4BBA;
+        background-color: #212fa9;
+
     /* background-color:  #14162f; */
 
     height: 80vh;
@@ -164,4 +174,128 @@ z-index: 3;
     position:absolute;
     z-index: 6;
     
+}
+
+
+
+.login-container{
+        
+background-color: #3E4BBA;
+    height: 600px;
+
+}
+
+
+.loading-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    font-size: 20px;
+    flex-direction: column;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(255, 255, 255, 0.3);
+    border-top: 5px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 10px;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.loading-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8); /* Dark background */
+    color: white;
+    font-size: 20px;
+    flex-direction: column;
+    opacity: 1;
+    animation: fadeOut 2.5s ease forwards;
+}
+
+.spinner {
+    border: 8px solid rgba(255, 255, 255, 0.2);
+    border-top: 8px solid white;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin-bottom: 15px;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+
+.welcome-screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #3E4BBA; /* Dark blue background */
+    color: white;
+    font-size: 2rem;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+.triangle-spinner {
+    margin-top: 20px;
+    width: 0;
+    height: 0;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-bottom: 35px solid white;
+    animation: spin 2s linear infinite;
+}
+
+/* Animation for spinning */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }

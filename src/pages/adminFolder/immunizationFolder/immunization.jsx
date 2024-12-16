@@ -63,7 +63,7 @@ const Immunization = () => {
 
     <div>
 
-<Topbar location="Patient"/>
+<Topbar location="Immunization"/>
            <div class="mainbarContent">
            <Sidebar />
 

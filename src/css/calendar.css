@@ -98,3 +98,9 @@
     margin-right: 25px;
     font-size: 12px;
 }
+
+.day.blank {
+    background-color: transparent;
+    border: none;
+  }
+  

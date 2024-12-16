@@ -63,7 +63,7 @@ const Medicine = () => {
 
     <div>
 
-<Topbar location="Patient"/>
+<Topbar location="Medicine"/>
            <div class="mainbarContent">
            <Sidebar />
 

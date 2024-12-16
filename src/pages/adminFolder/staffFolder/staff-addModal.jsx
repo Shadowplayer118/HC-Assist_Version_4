@@ -40,7 +40,7 @@ const AddModal = ({ visible, onClose, data }) => {
 
     // Prepare data for submission
     const formData = {
-      patient_id: data?.patient_id, // assuming patient_id exists in the data
+      staff_id: data?.staff_id, // assuming staff_id exists in the data
       first_name: firstName,
       middle_name: middleName,
       last_name: lastName,
@@ -83,9 +83,9 @@ const AddModal = ({ visible, onClose, data }) => {
             <div className="steady">
               <input
                 type="text"
-                id="edit-patient_id"
-                name="edit-patient_id"
-                value={data?.patient_id || ''}
+                id="edit-staff_id"
+                name="edit-staff_id"
+                value={data?.staff_id || ''}
                 style={{ display: 'none' }}
                 readOnly
               />

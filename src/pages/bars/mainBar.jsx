@@ -1,7 +1,39 @@
 import React from "react";
 import '../../css/mainBar.css'
 
+
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import PieChart from "./piechart";
+
+
+// Adjust the import path based on your project structure
+
+
+
 const Mainbar = () => {
+
+    const [monitoringData, setMonitoringData] = useState(null)
+  const [isOpenViewModal, setIsOpenViewModal] = useState(false)
+  const [selectedReferral, setSelectedReferral] = useState(null)
+  const [isOpenAddModal, setIsOpenAddModal] = useState(false)
+
+  async function fetchmonitoringData(){
+    try{
+      const res = await axios.get('http://localhost/HC-Assist_Version_4/php/old_php/Admin_Side/staff_folder/staff_load.php')
+      // console.log(res.data)
+      setMonitoringData(res.data)
+    }
+    catch(err){
+      console.error(err)
+    }
+  }
+
+  useEffect(() => {
+    fetchmonitoringData();
+  }, [isOpenAddModal, selectedReferral]);
+  
   return (
    
 
@@ -51,7 +83,10 @@ const Mainbar = () => {
                             </div>
                             <div className="right">
                                 <div className="month">January 1, 2024 - January 30, 2024</div>
-                                <canvas className="pie-chart" id="pie-chart"></canvas>
+                                <div className="pie-chart" id="pie-chart">
+                                 
+                                </div>
+
                                 <table className="purok-list">
                                     <tbody>
                                         <tr>
@@ -73,7 +108,38 @@ const Mainbar = () => {
 
                     {/* Monitoring Section */}
                     <div className="monitoring-container">
-                        {/* Add content as needed */}
+
+                            {/* <div className="monitoring-container"> */}
+                            
+                            <div className="monitoring-content">
+                            {/* <div className="monitoring-title">Monitoring</div> */}
+                            {monitoringData && monitoringData.map((data, index) => (
+
+                                    <div className='monitoring-card' key={index}>
+
+                            <div className="monitoring-card-left">
+
+                            <div className="monitoring-profile"><img src="../assets/profile.jpg" alt="Profile" /></div>
+                                
+                            </div>
+
+                            <div className="monitoring-card-right">
+
+                                <div className="monitoring-info">
+                                    <div className='monitoring-title'>{data.first_name} {data.last_name}</div>
+                                    <div className='monitoring-subtitle'>{data.position}</div>
+                                </div>
+
+                  
+                              
+                            </div>
+                        
+                                    </div>
+                                    
+                                    ))}
+                            </div>
+                        {/* </div> */}
+                        
                     </div>
 
                     {/* Disease Section */}
@@ -98,6 +164,8 @@ const Mainbar = () => {
                     </div>
                 </div>
             </div>
+
+            
         </div>
 
      

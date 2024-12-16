@@ -16,23 +16,11 @@ const AddModal = ({ visible, onClose, data }) => {
   const [household, setHousehold] = useState('');
   const [contactNumber, setContactNumber] = useState('');
   const [bloodType, setBloodType] = useState('');
+  const [image, setImage] = useState(null); // State for the image
+  const [imagePreview, setImagePreview] = useState(null);
 
   // Populate form with existing data
-  useEffect(() => {
-    if (data) {
-      setFirstName(data.first_name || '');
-      setMiddleName(data.middle_name || '');
-      setLastName(data.last_name || '');
-      setAge(data.age || '');
-      setBirthDate(data.birth_date || '');
-      setGender(data.gender || '');
-      setCivilStatus(data.civil_status || '');
-      setPurok(data.purok || '');
-      setHousehold(data.household || '');
-      setContactNumber(data.contact_number || '');
-      setBloodType(data.blood_type || '');
-    }
-  }, [data]);
+
 
   // Handle form submit
   const handleSubmit = async (e) => {
@@ -55,13 +43,13 @@ const AddModal = ({ visible, onClose, data }) => {
     };
 
     try {
-      const response = await axios.post('http://localhost/HC-Assist_API/Admin/patient/add-Patient.php', formData);
+      const response = await axios.post('http://localhost/HC-Assist_Version_4/php/new_php/HC-Assist_API/Admin/patient/add-Patient.php', formData);
 
       if (response.data.status === 'success') {
-        alert('Patient updated successfully!');
+        alert('Patient added successfully!');
         onClose(); // Close modal on success
       } else {
-        alert('Failed to update patient.');
+        alert('Failed to add patient.');
       }
     } catch (error) {
       console.error('Error updating patient:', error);
@@ -69,183 +57,155 @@ const AddModal = ({ visible, onClose, data }) => {
     }
   };
 
+ 
+
   return (
     <div className='add-modal'>
       <div className="add-modal-content">
-        <button onClick={onClose}>
-          <span className="close-add" id="close-add">
-            &times;
-          </span>
-        </button>
-        <h3>Add Patient</h3>
-        <form onSubmit={handleSubmit} id="edit-form">
-          <div className="input-right">
-            <div className="steady">
-              <input
-                type="text"
-                id="edit-patient_id"
-                name="edit-patient_id"
-                value={data?.patient_id || ''}
-                style={{ display: 'none' }}
-                readOnly
-              />
+       
+        <h3 className='add-modal-title'>Add Patient</h3>
 
+       
+
+        <form onSubmit={handleSubmit}>
+
+
+
+          <div className="add-input-left">
+            
+
+          <label htmlFor="">Profile Picture</label>
+            <div className="add-preview-container">
+           
+              <img className='add-preview' src="" alt="" />
+            </div>
+
+           <button className='add-image'>Choose Image</button>
+          </div>
+
+
+          <div className="add-input-right">
+
+            
+            <div className="steady">
+              <input type="text" id="add-patient_id" name="add-patient_id" value={data?.patient_id || ''} style={{ display: 'none' }} readOnly/>
+  
+              </div>
               <div className="input-container">
-                <label htmlFor="edit-first_name">First Name:</label>
+                <label htmlFor="add-first_name">First Name:</label>
                 <br />
-                <input
-                  type="text"
-                  id="edit-first_name"
-                  name="first_name"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  required
-                />
+                <input type="text" id="add-first_name" name="first_name" value={firstName} onChange={(e) => setFirstName(e.target.value)} required autoComplete='off'/>
               </div>
 
               <div className="input-container">
-                <label htmlFor="edit-middle_name">Middle Name:</label>
+                <label htmlFor="add-middle_name">Middle Name:</label>
                 <br />
-                <input
-                  type="text"
-                  id="middle_name"
-                  name="middle_name"
-                  value={middleName}
-                  onChange={(e) => setMiddleName(e.target.value)}
-                  required
-                />
+                <input type="text" id="middle_name" name="middle_name" value={middleName} onChange={(e) => setMiddleName(e.target.value)} required autoComplete='off'/>
               </div>
 
               <div className="input-container">
                 <label htmlFor="last_name">Last Name:</label>
                 <br />
-                <input
-                  type="text"
-                  id="edit-last_name"
-                  name="last_name"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  required
-                />
+                <input type="text" id="add-last_name" name="last_name" value={lastName} onChange={(e) => setLastName(e.target.value)} required autoComplete='off'/>
               </div>
 
-              <div className="age-dateContainer">
+              <div className="add-input-squeeze">
                 <div className="input-container">
                   <label htmlFor="age">Age:</label>
                   <br />
-                  <input
-                    type="text"
-                    id="edit-age"
-                    name="age"
-                    value={age}
-                    onChange={(e) => setAge(e.target.value)}
-                    required
-                  />
+                  <input type="text" id="add-age" name="age" value={age} onChange={(e) => setAge(e.target.value)} required autoComplete='off'/>
                 </div>
 
                 <div className="input-container">
-                  <label htmlFor="edit-bdate">Birthdate:</label>
+                  <label htmlFor="add-bdate">Birthdate:</label>
                   <br />
-                  <input
-                    type="date"
-                    id="edit-bdate"
-                    name="bdate"
-                    value={birthDate}
-                    onChange={(e) => setBirthDate(e.target.value)}
-                    required
-                  />
+                  <input type="date" id="add-bdate" name="bdate" value={birthDate} onChange={(e) => setBirthDate(e.target.value)} required/>
                 </div>
               </div>
 
-              <div className="gender-civilContainer">
+              
+
+              <div className="add-input-squeeze">
                 <div className="input-container">
                   <label htmlFor="gender">Gender:</label>
                   <br />
-                  <select
-                    id="edit-gender"
-                    name="gender"
-                    value={gender}
-                    onChange={(e) => setGender(e.target.value)}
-                    required
-                  >
+                  <select id="add-gender" name="gender" value={gender} onChange={(e) => setGender(e.target.value)} required>
                     <option value="">Select Gender</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                   </select>
                 </div>
+                
+
+           
+
+                  <div className="input-container">
+                    <label htmlFor="civil_status">Civil Status:</label>
+                    <br />
+                    <select type="text" id="add-civil_status" name="civil_status" value={civilStatus} onChange={(e) => setCivilStatus(e.target.value)} required>
+                      <option value="Single">Single</option>
+                      <option value="Married">Married</option>
+                    </select>
+                  </div>
+                </div>
 
                 <div className="input-container">
-                  <label htmlFor="civil_status">Civil Status:</label>
-                  <br />
-                  <input
-                    type="text"
-                    id="edit-civil_status"
-                    name="civil_status"
-                    value={civilStatus}
-                    onChange={(e) => setCivilStatus(e.target.value)}
-                    required
-                  />
-                </div>
+                <label htmlFor="add-household">Household:</label>
+                <br />
+                <input type="text" id="add-household" name="household" value={household} onChange={(e) => setHousehold(e.target.value)} required autoComplete='off'/>
               </div>
+
+                     
+              <div className="input-container">
+                <label htmlFor="add-contact_number">Contact #:</label>
+                <br />
+                <input type="text" id="add-contact_number" name="contact_number" value={contactNumber} onChange={(e) => setContactNumber(e.target.value)} required autoComplete='off'/>
+              </div>
+               
+
+              <div className="add-input-squeeze">
 
               <div className="input-container">
-                <label htmlFor="edit-purok">Purok:</label>
+                <label htmlFor="add-purok">Purok:</label>
                 <br />
-                <input
-                  type="text"
-                  id="edit-purok"
-                  name="purok"
-                  value={purok}
-                  onChange={(e) => setPurok(e.target.value)}
-                  required
-                />
+                <select type="text" id="add-purok" name="purok" value={purok} onChange={(e) => setPurok(e.target.value)} required>
+                  <option value="">Select Purok</option>
+                  <option value="Gumamela">Gumamela</option>
+                  <option value="Orchid">Rosasa</option>
+                </select>
               </div>
+
 
               <div className="input-container">
-                <label htmlFor="edit-household">Household:</label>
-                <br />
-                <input
-                  type="text"
-                  id="edit-household"
-                  name="household"
-                  value={household}
-                  onChange={(e) => setHousehold(e.target.value)}
-                  required
-                />
+                <label htmlFor="add-blood_type">Blood Type:</label>
+                <br/>
+                   <select type="text" id="add-blood_type" name="blood_type" value={bloodType} onChange={(e) => setBloodType(e.target.value)} required>   
+                    <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+                  </select>
+
               </div>
 
-              <div className="input-container">
-                <label htmlFor="edit-contact_number">Contact #:</label>
-                <br />
-                <input
-                  type="text"
-                  id="edit-contact_number"
-                  name="contact_number"
-                  value={contactNumber}
-                  onChange={(e) => setContactNumber(e.target.value)}
-                  required
-                />
+
               </div>
 
-              <div className="input-container">
-                <label htmlFor="edit-blood_type">Blood Type:</label>
-                <br />
-                <input
-                  type="text"
-                  id="edit-blood_type"
-                  name="blood_type"
-                  value={bloodType}
-                  onChange={(e) => setBloodType(e.target.value)}
-                  required
-                />
-              </div>
-
-              <button type="submit" id="save-changes">
+              <button type="submit" id="save-changes" className = "save-add">
                 Save Changes
               </button>
-            </div>
+            
           </div>
         </form>
+        <button onClick={onClose}>
+          <span className="close-add" id="close-add">
+            Close
+          </span>
+        </button>
       </div>
     </div>
   );

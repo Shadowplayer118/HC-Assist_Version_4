@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "../../../css/calendar.css"; // Ensure the CSS file path is correct
 import Topbar from "../../bars/topBar";
 import Sidebar from "../../bars/sideBar";
-import Mainbar from "../../bars/mainBar";// Update with the correct path to your Sidebar component
 
 const Calendar = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth() + 1);
@@ -55,9 +54,16 @@ const Calendar = () => {
   };
 
   const renderCalendar = () => {
-    const daysInMonth = new Date(currentYear, currentMonth, 0).getDate(); // Fix: Ensure correct number of days
+    const daysInMonth = new Date(currentYear, currentMonth, 0).getDate(); // Total days in the month
+    const firstDayOfWeek = new Date(currentYear, currentMonth - 1, 1).getDay(); // Weekday of the first day (0 = Sunday)
     const calendarDays = [];
 
+    // Add blank boxes for days before the first day of the month
+    for (let blank = 0; blank < firstDayOfWeek; blank++) {
+      calendarDays.push(<div key={`blank-${blank}`} className="day blank"></div>);
+    }
+
+    // Add boxes for each day in the month
     for (let day = 1; day <= daysInMonth; day++) {
       const date = `${currentYear}-${String(currentMonth).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
       const dayData = calendarData[date] || {};
@@ -89,17 +95,12 @@ const Calendar = () => {
           <div>Thursday</div>
           <div>Friday</div>
           <div>Saturday</div>
-
-
-
         </div>
 
-
         <div className="calendar-container">
-
           <div className="calendar-controls">
             <div className="name">Calendar</div>
-            <button onClick={handlePrevMonth}>yes</button>
+            <button onClick={handlePrevMonth}>Previous Month</button>
             <span>{`${getMonthName(currentMonth)} ${currentYear}`}</span>
             <button onClick={handleNextMonth}>Next Month</button>
           </div>
@@ -108,14 +109,10 @@ const Calendar = () => {
           </div>
 
           <div className="activity-container">
-          
-           
-
-              <div className="activity-table">
-              <div className="activity-date">Date</div>            
-                <div className="activities">Activities</div>
-              </div>
-            
+            <div className="activity-table">
+            <div className="activity-date"> Date {new Date().toLocaleDateString()}</div>
+              <div className="activities">Activities</div>
+            </div>
           </div>
         </div>
       </div>

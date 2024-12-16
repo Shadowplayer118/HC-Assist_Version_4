@@ -63,7 +63,7 @@ const Child = () => {
 
     <div>
 
-<Topbar location="Patient"/>
+<Topbar location="Child Nutrition"/>
            <div class="mainbarContent">
            <Sidebar />
 

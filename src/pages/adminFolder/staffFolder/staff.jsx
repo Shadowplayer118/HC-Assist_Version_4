@@ -12,15 +12,15 @@ import { useEffect, useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
 const Staff = () => {
-  const [pregnantData, setpregnantData] = useState(null)
+  const [staffData, setStaffData] = useState(null)
   const [isOpenViewModal, setIsOpenViewModal] = useState(false)
   const [selectedReferral, setSelectedReferral] = useState(null)
   const [isOpenAddModal, setIsOpenAddModal] = useState(false)
-  async function fetchpregnantData(){
+  async function fetchstaffData(){
     try{
       const res = await axios.get('http://localhost/HC-Assist_Version_4/php/old_php/Admin_Side/staff_folder/staff_load.php')
       // console.log(res.data)
-      setpregnantData(res.data)
+      setStaffData(res.data)
     }
     catch(err){
       console.error(err)
@@ -28,7 +28,7 @@ const Staff = () => {
   }
 
   useEffect(() => {
-    fetchpregnantData();
+    fetchstaffData();
   }, [isOpenAddModal, selectedReferral]);
 
   function viewById(data){
@@ -40,14 +40,14 @@ const Staff = () => {
     setIsOpenAddModal(true)
   }
 
-  async function deletepregnantData(id){
+  async function deletestaffData(id){
     try{
       const res = await axios.delete('http://localhost/HC_Assist_Version_2/HC-Assist_Version1/admin_side/patients_folder/patient_delete.php', {
         data: { id: id }
       })
       
       if(res.data.status){
-        fetchpregnantData()
+        fetchstaffData()
       }
     }
     catch(err){
@@ -59,7 +59,7 @@ const Staff = () => {
 
     <div>
 
-<Topbar location="Patient"/>
+<Topbar location="Staff"/>
            <div class="mainbarContent">
            <Sidebar />
 
@@ -113,13 +113,13 @@ const Staff = () => {
                   <button className="edit-btn">View</button>
                 </td>
               </tr> */}
-              {pregnantData && pregnantData.map((data, index) => (
+              {staffData && staffData.map((data, index) => (
                 <tr key={index}>
                   <td>{data.first_name} {data.last_name}</td>
                   <td>{data.position}</td>
                   <td>{data.contact_number}</td>
                   <td>
-                    <button className="delete-btn" onClick={() => deletepregnantData(data.staff_id)}><img src="../../assets/icons/trashBin.png" alt="" /></button>
+                    <button className="delete-btn" onClick={() => deletestaffData(data.staff_id)}><img src="../../assets/icons/trashBin.png" alt="" /></button>
                     <button className="edit-btn" onClick={() => viewById(data)}><img src="../../assets/icons/mdi_eye.png" alt="" /></button>
                   </td>
                 </tr>

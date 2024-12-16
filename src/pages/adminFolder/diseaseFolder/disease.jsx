@@ -63,7 +63,7 @@ const Pregnant = () => {
 
     <div>
 
-<Topbar location="Patient"/>
+<Topbar location="Contagious Disease"/>
            <div class="mainbarContent">
            <Sidebar />
 
@@ -73,8 +73,8 @@ const Pregnant = () => {
         
         <div className="main-top-staff">
           <button className="openModalBtn" id="openModalBtn"  onClick={() => addPatient()}>
-            <img src="../assets/medical-icon_i-care-staff-area.png" alt="" />
-            <img src="../assets/+.png" alt="" className="plus" />
+            {/* <img src="../assets/medical-icon_i-care-staff-area.png" alt="" /> */}
+            <a href="/disease-patientSelect">Staff</a>
           </button>
 
           <select id="roleSelect" className="roleSelect">
