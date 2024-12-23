@@ -1,35 +1,39 @@
-import React from 'react';
-import { Pie } from 'react-chartjs-2';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import React from "react";
+import { Pie } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  ArcElement,
+  Tooltip,
+  Legend,
+} from "chart.js";
 
-// Register necessary Chart.js components
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const PieChart = ({ data }) => {
-  const chartData = {
-    labels: data.labels, // Labels for the pie chart
-    datasets: [
-      {
-        data: data.values, // Values for each section of the pie
-        backgroundColor: data.colors, // Background colors for each section
-        borderWidth: 1, // Border width of each section
-      },
-    ],
-  };
-
-  const options = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: 'top',
-      },
-      tooltip: {
-        enabled: true,
-      },
-    },
-  };
-
-  return <Pie data={chartData} options={options} />;
+const PieChart = ({ chartData }) => {
+  return (
+    <div style={{ width: "230px", height: "230px", margin: "0 auto" }}> {/* Set fixed size */}
+      <Pie
+        data={chartData}
+        options={{
+          maintainAspectRatio: false, // Disable default aspect ratio to use custom dimensions
+          responsive: true,
+          plugins: {
+            legend: {
+              position: "bottom",
+              labels: {
+                font: {
+                  size: 10, // Adjust font size for legend
+                },
+              },
+            },
+            tooltip: {
+              enabled: true,
+            },
+          },
+        }}
+      />
+    </div>
+  );
 };
 
 export default PieChart;

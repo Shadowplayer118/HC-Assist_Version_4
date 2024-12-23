@@ -453,8 +453,6 @@ left:36px;
 
 }
 
-
-
 /* Modal Background */
 .modal {
     position: fixed;
@@ -465,7 +463,8 @@ left:36px;
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1;
+    z-index: 5;
+    background-color: red;
   }
   
   /* Modal Content */

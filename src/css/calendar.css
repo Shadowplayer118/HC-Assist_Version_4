@@ -1,106 +1,139 @@
-
-
-.calendar-container { text-align: center; margin-top: 20px; color: black; padding: 20px; border-radius: 10px; position: absolute; right: 100px; width: 500px;
+/* Container for the calendar */
+.calendar-container { 
+    text-align: center; 
+    margin-top: 20px; 
+    color: black; 
+    padding: 20px; 
+    border-radius: 10px; 
+    position: absolute; 
+    right: 100px; 
+    width: 500px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     background-color: white;
     min-height: 200px;
     min-height: 400px;
     height: 400px;
     width: 900px;
-    
-    
-}
-.calendar-controls { display: flex; 
+  }
+  
+  /* Controls for the calendar (previous, next buttons) */
+  .calendar-controls { 
+    display: flex; 
     justify-content: center;
-     gap: 10px;
-      margin-bottom: 15px;
-      background-color:rgb(62, 75, 186);
-      color: white;
+    gap: 10px;
+    margin-bottom: 15px;
+    background-color: rgb(62, 75, 186);
+    color: white;
     padding: 10px;
     position: relative;
     bottom: 20px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     width: 900px;
-
-    
-    }
-
-.calendar {
-    display: grid;
-    grid-template-columns: repeat(7, min-content); /* Ensure columns shrink to fit content */
-    column-gap: 15px; /* Remove horizontal spacing completely */
-    row-gap: 10px; /* Maintain a slight vertical gap */
-    position: relative;
-    left: 15px;
-    bottom: 5px;
+  }
   
-}
-
-.day {
-    padding: 10px;
-    position: relative;
-    width: 40px; /* Narrower day width */
-    height: 40px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.462);
-}
-
-.small-box { width: 10px; height: 10px; position: absolute; bottom: 5px; margin-left: 8px;}
-.red-box { background: rgb(170, 54, 54); left: 5px; border-radius: 2px;    width: 8px; /* Narrower day width */
-    height: 8px;}
-.blue-box { background: rgb(60, 60, 169); left: 20px;  border-radius: 2px; width: 8px; /* Narrower day width */
-    height: 8px;}
-.green-box { background: rgb(82, 183, 54); left: 35px;  border-radius: 2px; width: 8px; /* Narrower day width */
-    height: 8px;}
-.glow { box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.8); }
-
-
-
-.activity-container{
+  /* Grid for calendar days */
+  .calendar { 
+    display: grid; 
+    grid-template-columns: repeat(7, min-content); /* Ensure columns shrink to fit content */ 
+    column-gap: 15px; /* Remove horizontal spacing completely */ 
+    row-gap: 10px; /* Maintain a slight vertical gap */ 
+    position: relative; 
+    left: 15px; 
+    bottom: 5px; 
+  }
+  
+  /* Day cell styling */
+  .day { 
+    padding: 10px; 
+    position: relative; 
+    width: 40px; /* Narrower day width */ 
+    height: 40px; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.462); 
+  }
+  
+  /* Styling for the small boxes indicating activities */
+  .small-box { 
+    width: 8px; 
+    height: 8px; 
+    position: absolute; 
+    bottom: 5px; 
+    margin-left: 5px;
+    border: 1px solid #181818; /* Add border to small boxes */
+    border-radius: 2px; /* Make the borders rounded */
+    visibility: hidden; /* Make boxes invisible by default */
+  }
+  
+  /* Colors for different types of activities */
+  .red-box { 
+    background: rgb(170, 54, 54); 
+    left: 5px; 
+  }
+  .blue-box { 
+    background: rgb(60, 60, 169); 
+    left: 20px; 
+  }
+  .green-box { 
+    background: rgb(82, 183, 54); 
+    left: 35px; 
+  }
+  
+  /* Glow effect for boxes with data */
+  .glow { 
+    visibility: visible;
+    /* box-shadow: 0 0 2px 2px rgba(182, 22, 22, 0.8);  */
+  }
+  
+  /* Styling for the activity container and activity table */
+  .activity-container{
     position: absolute;
     width: 300px;
     height: 350px;
     bottom: 40px;
     left: 570px;
-}
-
-.activity-table{
+  }
+  
+  .activity-table{
     background-color: white;
     height: 350px;
     width: 350px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     border-radius: 10px;
-
-}
-
-.activity-date{
+  }
+  
+  .activity-date{
     color: white;
-    background-color:rgb(62, 75, 186);
+    background-color: rgb(62, 75, 186);
     padding: 5px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     text-align: left;
     text-indent: 10px;
-
-}
-
-.week{
+  }
+  
+  /* Styling for the week labels (Sunday-Saturday) */
+  .week{
     position: absolute;
     display: flex;
     flex-direction: row;
     z-index: 1;
     left: 270px;
     top: 140px;    
-}
-
-.week div{
+  }
+  
+  .week div{
     margin-right: 25px;
     font-size: 12px;
-}
-
-.day.blank {
+  }
+  
+  /* Blank day box styling */
+  .day.blank {
     background-color: transparent;
     border: none;
   }
+
+  
+
+  
   

@@ -1,39 +1,69 @@
 <?php
 include '../connection.php';
 
-if (!isset($_POST['patient_id'])) {
-    echo json_encode(['error' => 'Form data missing']);
+// Allow cross-origin requests
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: POST, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
+
+// Get the raw POST data
+$data = json_decode(file_get_contents('php://input'), true);
+
+// Validate the input
+if (!isset($data['patient_id'])) {
+    echo json_encode(['status' => 'error', 'message' => 'Patient ID is missing']);
     exit;
 }
-$patient_id = intval($_POST['patient_id']);
-$first_name = htmlspecialchars(trim($_POST['first_name']));
-$middle_name = htmlspecialchars(trim($_POST['middle_name']));
-$last_name = htmlspecialchars(trim($_POST['last_name']));
-$gender = htmlspecialchars(trim($_POST['gender']));
-$purok = htmlspecialchars(trim($_POST['purok']));
-$household = htmlspecialchars(trim($_POST['household']));
-$civil_status = htmlspecialchars(trim($_POST['civil_status']));
-$age = intval($_POST['age']);
-$contact = htmlspecialchars(trim($_POST['contact_number']));
-$blood_type = htmlspecialchars(trim($_POST['blood_type']));
 
+// Extract and sanitize input data
+$patient_id = intval($data['patient_id']);
+$first_name = htmlspecialchars(trim($data['first_name'] ?? ''));
+$middle_name = htmlspecialchars(trim($data['middle_name'] ?? ''));
+$last_name = htmlspecialchars(trim($data['last_name'] ?? ''));
+$gender = htmlspecialchars(trim($data['gender'] ?? ''));
+$purok = htmlspecialchars(trim($data['purok'] ?? ''));
+$household = htmlspecialchars(trim($data['household'] ?? ''));
+$civil_status = htmlspecialchars(trim($data['civil_status'] ?? ''));
+$age = intval($data['age'] ?? 0);
+$birth_date = htmlspecialchars(trim($data['birth_date'] ?? ''));
+$contact_number = htmlspecialchars(trim($data['contact_number'] ?? ''));
+$blood_type = htmlspecialchars(trim($data['blood_type'] ?? ''));
 
-$sql = "UPDATE patient SET first_name = ?, middle_name = ?, last_name = ?, gender = ?, purok= ?, household = ?, civil_status = ?, age = ?, contact_number = ? , blood_type = ? WHERE patient_id = ?";
+// Prepare the SQL query
+$sql = "UPDATE patient 
+        SET first_name = ?, middle_name = ?, last_name = ?, gender = ?, purok = ?, household = ?, civil_status = ?, age = ?, birth_date = ?, contact_number = ?, blood_type = ? 
+        WHERE patient_id = ?";
 $stmt = $conn->prepare($sql);
 
-if ($stmt === false) {
-    echo json_encode(['status' => 'error', 'message' => 'Failed to prepare statement']);
+if (!$stmt) {
+    echo json_encode(['status' => 'error', 'message' => 'Failed to prepare the SQL statement']);
     exit;
 }
 
-$stmt->bind_param("sssssssissi", $first_name, $middle_name, $last_name, $gender, $purok, $household, $civil_status, $age, $contact, $blood_type,$patient_id);
+// Bind parameters and execute the query
+$stmt->bind_param(
+    "ssssssisssi",
+    $first_name,
+    $middle_name,
+    $last_name,
+    $gender,
+    $purok,
+    $household,
+    $civil_status,
+    $age,
+    $birth_date,
+    $contact_number,
+    $blood_type,
+    $patient_id
+);
 
 if ($stmt->execute()) {
-    echo json_encode(['status' => 'success', 'message' => 'Character updated successfully']);
+    echo json_encode(['status' => 'success', 'message' => 'Patient updated successfully']);
 } else {
-    echo json_encode(['status' => 'error', 'message' => 'Failed to update character.']);
+    echo json_encode(['status' => 'error', 'message' => 'Failed to update patient']);
 }
 
+// Close connections
 $stmt->close();
 $conn->close();
 ?>

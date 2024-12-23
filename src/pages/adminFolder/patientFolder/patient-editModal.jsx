@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const EditModal = ({ visible, onClose, data }) => {
   if (!visible) return null;
@@ -15,8 +16,10 @@ const EditModal = ({ visible, onClose, data }) => {
   const [contactNumber, setContactNumber] = useState('');
   const [purok, setPurok] = useState('');
   const [bloodType, setBloodType] = useState('');
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [preview, setPreview] = useState('');
 
-  // Initialize states when `data` changes
+  // Initialize states when data changes
   useEffect(() => {
     if (data) {
       setFirstName(data.first_name || '');
@@ -30,44 +33,84 @@ const EditModal = ({ visible, onClose, data }) => {
       setContactNumber(data.contact_number || '');
       setPurok(data.purok || '');
       setBloodType(data.blood_type || '');
+      
+      // Set the image preview, check if there's an image path or fallback to default
+      setPreview(`../../../php/${data.image}` || '../../Images/blank_patient.jpg');
+      console.log(data);
     }
   }, [data]);
 
-  // Handle form submission
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Prepare the updated data to send back
-    const updatedData = {
-      first_name: firstName,
-      middle_name: middleName,
-      last_name: lastName,
-      age,
-      birth_date: birthDate,
-      gender,
-      civil_status: civilStatus,
-      household,
-      contact_number: contactNumber,
-      purok,
-      blood_type: bloodType,
-    };
-
-    console.log('Updated Data:', updatedData);
-    // Submit the data or pass it to the parent component
-    // Example: pass to a prop function like onSave(updatedData);
-    onClose();
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setSelectedImage(file);
+      setPreview(URL.createObjectURL(file));
+    }
   };
+
+  // Handle form submission
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  const formData = new FormData();
+  formData.append('patient_id', data?.patient_id || ''); 
+  formData.append('first_name', firstName);
+  formData.append('middle_name', middleName);
+  formData.append('last_name', lastName);
+  formData.append('age', age);
+  formData.append('birth_date', birthDate);
+  formData.append('gender', gender);
+  formData.append('civil_status', civilStatus);
+  formData.append('purok', purok);
+  formData.append('household', household);
+  formData.append('contact_number', contactNumber);
+  formData.append('blood_type', bloodType);
+
+  // Append the selected image if it exists
+  if (selectedImage) {
+    formData.append('edit_image', selectedImage);
+  } else {
+    formData.append('edit_image', '../../Images/blank_patient.jpg'); // default image path
+  }
+
+  try {
+    const response = await axios.post(
+      'http://localhost/HC-Assist_Version_4/php/new_php/HC-Assist_API/Admin/patient/edit-Patient.php',
+      formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data', // Ensure it's set to multipart/form-data
+        },
+      }
+    );
+
+    if (response.data.status === 'success') {
+      alert('Patient edited successfully!');
+      onClose(); // Close modal on success
+    } else {
+      alert('Failed to edit patient.');
+    }
+  } catch (error) {
+    console.error('Error editing patient:', error);
+    alert('An error occurred.');
+  }
+};
+
 
   return (
     <div className="edit-modal">
       <div className="edit-modal-content">
         <h3 className='edit-modal-title'>Edit Patient</h3>
+        <button type="button" className='edit-image-btn' onClick={() => document.getElementById('edit-image').click()}>
+          Select Image
+        </button>
+
         <form onSubmit={handleSubmit}>
           <div className="edit-input-left">
             <label htmlFor="">Profile Picture</label>
             <div className="edit-preview-container">
-              <img className='edit-preview' src="" alt="" />
+              {preview && <img className="edit-preview" src={preview} alt="Preview" />}
             </div>
-            <button type="button" className='edit-image'>Choose Image</button>
+            <input type="file" id='edit-image' name='edit-image' onChange={handleFileChange} />
           </div>
 
           <div className="edit-input-right">
@@ -136,7 +179,7 @@ const EditModal = ({ visible, onClose, data }) => {
                 <select id="edit-purok" name="edit-purok" value={purok} onChange={(e) => setPurok(e.target.value)} required>
                   <option value="">Select Purok</option>
                   <option value="Gumamela">Gumamela</option>
-                  <option value="Orchid">Rosasa</option>
+                  <option value="Rosasa">Rosasa</option>
                 </select>
               </div>
 
@@ -156,15 +199,11 @@ const EditModal = ({ visible, onClose, data }) => {
               </div>
             </div>
 
-            <button type="submit" id="save-changes" className="save-edit">
-              Save Changes
-            </button>
+            <button type="submit" id="save-changes" className="save-edit">Save Changes</button>
           </div>
         </form>
 
-        <button onClick={onClose} className="close-edit">
-          Close
-        </button>
+        <button onClick={onClose} className="close-edit">Close</button>
       </div>
     </div>
   );

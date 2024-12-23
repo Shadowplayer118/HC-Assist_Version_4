@@ -28,7 +28,7 @@ const StaffTable = () => {
 
   useEffect(() => {
     fetchPatientData();
-  }, [isOpenAddModal, selectedPatient]);
+  }, [isOpenAddModal, selectedPatient, isOpenViewModal]);
 
   function viewById(data) {
     setSelectedPatient(data);

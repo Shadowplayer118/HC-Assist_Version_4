@@ -141,6 +141,11 @@
 
 }
 
+thead{
+    position: relative;
+    z-index: 1;
+}
+
 
 
 
@@ -148,6 +153,7 @@
     border: 0px;
     background-color: transparent;
     margin-right: 50px; 
+  
     
 }
 
@@ -185,37 +191,6 @@
 }
 
 /*Modals*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -327,12 +302,11 @@ margin-top: 20px;
 .add-modal{
     /* display: none; */
     position: fixed;
-    z-index: 1000; /* Ensure modal appears above other content */
+    z-index: 2; /* Ensure modal appears above other content */
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-
     background-color: rgba(0, 0, 0, 0.5);
 }
 
@@ -342,12 +316,13 @@ margin-top: 20px;
     padding: 20px;
     border: 1px solid #888;
     width: 530px;
-    height: 450px;
+    height: 470px;
     /* max-width: 500px; */
     border-radius: 5px;
     position: relative;
     bottom: 50px;
     overflow: hidden;
+    z-index: 10;
  
 
 }
@@ -390,7 +365,7 @@ margin-top: 20px;
     width: 250px;
     position: absolute;
     right: 50px;
-    bottom: 60px;
+    bottom: 85px;
 
 
 
@@ -477,17 +452,13 @@ margin-top: 20px;
     bottom: 40px;
 }
 
-.save-add{
-    position: absolute;
-    bottom: -40px;
-    left: -100px;
-}
+
 
 .add-input-left{
     width:300px;
     height: 300px;
     position: absolute;
-    top: 70px;
+    top: 50px;
     left: 40px;
 }
 
@@ -498,9 +469,17 @@ margin-top: 20px;
     height: 230px;
     margin-top: 10px;
     border-radius: 10px;
+    overflow: hidden;
 }
 
-.add-image{
+.add-preview{
+    position: absolute;
+    width: 200px;
+    height: 230px;
+
+}
+
+.add_image{
     position: absolute;
     bottom: 0px;
     left: 0px;
@@ -514,6 +493,63 @@ margin-top: 20px;
 
 
 
+
+
+.close-add{
+    background-color: red;
+    position: absolute;
+    padding: 3px;
+    width: 80px;
+    border-width: 0px;
+    border-radius: 5px;
+    color: white;
+    box-shadow: -2px 2px rgb(51, 51, 51);
+    bottom: 20px;
+    left: 40px;
+
+    
+}
+
+.close-add:hover{
+    background-color: rgb(164, 0, 0);
+    color: rgb(184, 184, 184);
+}
+
+
+.save-add{
+    background-color: rgb(55, 182, 46);
+    position: absolute;
+    padding: 3px;
+    max-width: 120px;
+    width: 120px;
+    border-width: 0px;
+    border-radius: 5px;
+    color: white;
+    box-shadow: -2px 2px rgb(51, 51, 51);
+    bottom: -65px;
+    left: -140px;
+   
+}
+
+.save-add:hover{
+    background-color: rgb(39, 130, 33);
+    color: rgb(184, 184, 184);
+}
+
+
+.add_image-btn{
+    position: absolute;
+    bottom: 150px;
+    left: 40px;
+    overflow: hidden;
+}
+
+
+#add_image{
+    visibility: hidden;
+}
+
+    
 
 
     
@@ -650,7 +686,7 @@ margin-top: 20px;
     padding: 20px;
     border: 1px solid #888;
     width: 530px;
-    height: 450px;
+    height: 470px;
     /* max-width: 500px; */
     border-radius: 5px;
     position: relative;
@@ -694,7 +730,9 @@ margin-top: 20px;
     width: 250px;
     position: absolute;
     right: 50px;
-    bottom: 60px;
+    bottom: 85px;
+  
+ 
 
 
 
@@ -708,10 +746,6 @@ margin-top: 20px;
     margin: 4px;
   
 }
-
-
-
-
 
 
 
@@ -760,23 +794,16 @@ margin-top: 20px;
     
 }
 
-.close-add{
-    position: absolute;
-    bottom: 40px;
-}
 
-.save-add{
-    position: absolute;
-    bottom: -40px;
-    left: -100px;
-}
+
 
 .edit-input-left{
     width:300px;
     height: 300px;
     position: absolute;
-    top: 70px;
+    top: 50px;
     left: 40px;
+  
 }
 
 .edit-preview-container{
@@ -786,12 +813,21 @@ margin-top: 20px;
     height: 230px;
     margin-top: 10px;
     border-radius: 10px;
+    overflow: hidden;
 }
 
-.edit-image{
+.edit-preview{
     position: absolute;
-    bottom: 0px;
-    left: 0px;
+    width: 200px;
+    height: 230px;
+
+}
+
+.edit-image-btn{
+    position: absolute;
+    bottom: 150px;
+    left: 40px;
+    overflow: hidden;
 }
    
 
@@ -800,8 +836,47 @@ margin-top: 20px;
     left: 10px;
 }
 
-
-
-
+.close-edit{
+    background-color: red;
+    position: absolute;
+    padding: 3px;
+    width: 80px;
+    border-width: 0px;
+    border-radius: 5px;
+    color: white;
+    box-shadow: -2px 2px rgb(51, 51, 51);
+    bottom: 20px;
+    left: 40px;
 
     
+}
+
+.close-edit:hover{
+    background-color: rgb(164, 0, 0);
+    color: rgb(184, 184, 184);
+}
+
+
+.save-edit{
+    background-color: rgb(55, 182, 46);
+    position: absolute;
+    padding: 3px;
+    max-width: 120px;
+    width: 120px;
+    border-width: 0px;
+    border-radius: 5px;
+    color: white;
+    box-shadow: -2px 2px rgb(51, 51, 51);
+    bottom: -65px;
+    left: -140px;
+   
+}
+
+.save-edit:hover{
+    background-color: rgb(39, 130, 33);
+    color: rgb(184, 184, 184);
+}
+
+#edit-image{
+    visibility: hidden;
+}
