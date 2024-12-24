@@ -11,7 +11,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 const PieChart = ({ chartData }) => {
   return (
-    <div style={{ width: "230px", height: "230px", margin: "0 auto" }}> {/* Set fixed size */}
+    <div style={{ width: "200px", height: "200px", margin: "0 auto" }}> {/* Set fixed size */}
       <Pie
         data={chartData}
         options={{
