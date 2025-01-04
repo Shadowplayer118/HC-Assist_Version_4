@@ -2,48 +2,20 @@ import React, { useState, useEffect } from "react";
 import "../../../css/calendar.css"; // Ensure the CSS file path is correct
 import Topbar from "../../bars/topBar";
 import Sidebar from "../../bars/sideBar";
-import axios from 'axios';
-
 
 const Calendar = () => {
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth() + 1);
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [calendarData, setCalendarData] = useState({});
-  const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]); // YYYY-MM-DD
-  // New state for selected date
-  const [activitiesDate, setActivitiesDate] = useState([]);
-  // New state for selected date
-
+  const [selectedDate, setSelectedDate] = useState(new Date().toLocaleDateString());
+  const [activityData, setActivityData] = useState({});
 
   useEffect(() => {
-    // Fetch calendar data when the month or year changes
     fetchCalendarData(currentMonth, currentYear);
-    fetchActivity(selectedDate);
-    
+    fetchActivityData(currentMonth, currentYear);
+  }, [currentMonth, currentYear]);
 
-    console.log();
-  }, [currentMonth, currentYear,selectedDate]);
-
-  const fetchActivity = async (chosenDate) =>{
-    try {
-      const response = await axios.get('http://localhost/HC-Assist_Version_4/php/new_php/HC-Assist_API/Admin/calendar/activitySelect.php', {
-          params: {
-              date: chosenDate // Pass the date as a query parameter
-          }
-      });
-
-     
-        console.log('Data received:', response.data);
-        setActivitiesDate(response.data);
-      
-      // Handle the response as needed
-  } catch (error) {
-    setActivitiesDate(null);
-      console.error('Error fetching data:', error);
-  }
-  }
-
-  const fetchCalendarData = async (month, year) => {
+  const fetchActivityData = async (month, year) => {
     try {
       const response = await fetch(
         `http://localhost/HC-Assist_Version_4/php/new_php/HC-Assist_API/Admin/calendar/calendar.php?month=${month}&year=${year}`
@@ -54,7 +26,35 @@ const Calendar = () => {
       const data = await response.json();
       const formattedData = {};
 
-      // Format data to be easily accessed by date
+      data.forEach((item) => {
+        const date = item.schedule_date;
+        if (!formattedData[date]) {
+          formattedData[date] = [];
+        }
+        formattedData[date].push({
+          type: item.schedule_type,
+          activity: item.activity,
+        });
+      });
+
+      setActivityData(formattedData);
+    } catch (error) {
+      console.error("Error fetching activity data:", error);
+      setActivityData({});
+    }
+  };
+
+  const fetchCalendarData = async (month, year) => {
+    try {
+      const response = await fetch(
+        `http://localhost/HC-Assist_Version_4/php/new_php/HC-Assist_API/Admin/calendar/activitySelect.php?month=${month}&year=${year}`
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const data = await response.json();
+      const formattedData = {};
+
       data.forEach((item) => {
         const date = item.schedule_date;
         if (!formattedData[date]) {
@@ -66,7 +66,7 @@ const Calendar = () => {
       setCalendarData(formattedData);
     } catch (error) {
       console.error("Error fetching calendar data:", error);
-      setCalendarData({}); // Fallback to empty data
+      setCalendarData({});
     }
   };
 
@@ -98,21 +98,18 @@ const Calendar = () => {
 
   const handleDayClick = (day) => {
     const selectedDate = `${currentYear}-${String(currentMonth).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
-    setSelectedDate(selectedDate);
+    setSelectedDate(new Date(selectedDate).toLocaleDateString());
   };
-  
 
   const renderCalendar = () => {
-    const daysInMonth = new Date(currentYear, currentMonth, 0).getDate(); // Total days in the month
-    const firstDayOfWeek = new Date(currentYear, currentMonth - 1, 1).getDay(); // Weekday of the first day (0 = Sunday)
+    const daysInMonth = new Date(currentYear, currentMonth, 0).getDate();
+    const firstDayOfWeek = new Date(currentYear, currentMonth - 1, 1).getDay();
     const calendarDays = [];
 
-    // Add blank boxes for days before the first day of the month
     for (let blank = 0; blank < firstDayOfWeek; blank++) {
       calendarDays.push(<div key={`blank-${blank}`} className="day blank"></div>);
     }
 
-    // Add boxes for each day in the month
     for (let day = 1; day <= daysInMonth; day++) {
       const date = `${currentYear}-${String(currentMonth).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
       const dayData = calendarData[date] || [];
@@ -128,6 +125,22 @@ const Calendar = () => {
     }
 
     return calendarDays;
+  };
+
+  const renderActivities = () => {
+    const dateKey = new Date(selectedDate).toISOString().split("T")[0];
+    const activities = activityData[dateKey] || [];
+
+    if (activities.length === 0) {
+      return <div className="no-activities">No activities for this date.</div>;
+    }
+
+    return activities.map((activity, index) => (
+      <div key={index} className="activity-card">
+        <h3>{activity.type}</h3>
+        <p>{activity.activity}</p>
+      </div>
+    ));
   };
 
   return (
@@ -159,23 +172,8 @@ const Calendar = () => {
 
           <div className="activity-container">
             <div className="activity-table">
-              <div className="activity-date">Date: {selectedDate}</div> {/* Display selected date */}
-              <div className="activities">
-  {activitiesDate && activitiesDate.length > 0 ? (
-    activitiesDate.map((data, index) => (
-      <div className="activityDate-card" key={index}>
-        <div className="activityDate-image">{data.image}</div>
-        <div className="activityDate-patient">
-          {data.first_name} {data.last_name}
-        </div>
-        <div className="activityDate-activity">{data.activity}</div>   
-      </div>
-    ))
-  ) : (
-    <div className="no-activities">No activities for this date.</div> // Fallback message
-  )}
-</div>
-
+              <div className="activity-date">Date: {selectedDate}</div>
+              <div className="activities">{renderActivities()}</div>
             </div>
           </div>
         </div>

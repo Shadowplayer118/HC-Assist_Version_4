@@ -11,7 +11,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
-const Pregnant = () => {
+const Disease = () => {
 
   const [pregnantData, setpregnantData] = useState(null)
   const [isOpenViewModal, setIsOpenViewModal] = useState(false)
@@ -72,7 +72,7 @@ const Pregnant = () => {
       <div className="main-container">
         
         <div className="main-top-staff">
-          <button className="openModalBtn" id="openModalBtn"  onClick={() => addPatient()}>
+          <button className="openModalBtn" id="openModalBtn">
             {/* <img src="../assets/medical-icon_i-care-staff-area.png" alt="" /> */}
             <a href="/disease-patientSelect">Staff</a>
           </button>
@@ -144,4 +144,4 @@ const Pregnant = () => {
   );
 };
 
-export default Pregnant;
+export default Disease;

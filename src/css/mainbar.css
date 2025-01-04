@@ -18,6 +18,7 @@
     border-radius: 5px;
     overflow-y: scroll;
     overflow-x: hidden;
+    overflow: hidden;
  
     /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.462); */
 
@@ -37,19 +38,35 @@
 }
 
 .monitoring-card{
-    background-color: white;
+ 
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.462);
     display: flex;
     flex-direction: row;
     height: 15px;
-    max-width: 170px;
+    max-width: 190px;
     overflow:hidden;
+    color: aliceblue;
    
-
-    
 }
+
+.green-bg {
+    background-color: rgb(125, 231, 72);
+
+
+  }
+  
+  .yellow-bg {
+    background-color: rgb(78, 171, 229);
+
+  }
+  
+  .red-bg {
+    background-color: rgb(232, 66, 66);
+
+  }
+  
 
 
 
@@ -80,24 +97,6 @@ font-size: small;
 .monitoring-subtitle{
  font-size: smaller;
 }
-.monitoring-content {
-    overflow-y: scroll; /* Keep scrolling functionality */
-    scrollbar-width: thin; /* For Firefox: makes the scrollbar thinner */
-}
-
-/* Hide the scrollbar track and customize the grip for WebKit browsers */
-.monitoring-content::-webkit-scrollbar {
-    width: 6px; /* Adjust width of the scrollbar grip */
-}
-
-.monitoring-content::-webkit-scrollbar-track {
-    background: transparent; /* Hides the track */
-}
-
-.monitoring-content::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.5); /* Adjust grip color and transparency */
-    border-radius: 3px; /* Round grip edges */
-}
 
 
 .general-report .right .pie-chart{
@@ -108,3 +107,12 @@ font-size: small;
 }
 
 
+.flag{
+    width: 10px;
+    position: absolute;
+    left: 100px;
+}
+
+.flag svg{
+    fill: black;
+}

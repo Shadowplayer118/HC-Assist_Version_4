@@ -15,8 +15,9 @@
 
 body{
     overflow-y: hidden;
- 
+ position: relative;
     overflow-x: hidden;
+  
 
 
     

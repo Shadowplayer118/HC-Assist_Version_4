@@ -9,6 +9,7 @@ import Mainbar from "../../bars/mainBar";
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
+import AddDiseaseModal from './disease-addModal';
 
 const Patientselect_Disease = () => {
   const [patientData, setPatientData] = useState(null);
@@ -29,32 +30,25 @@ const Patientselect_Disease = () => {
     fetchPatientData();
   }, [isOpenAddModal, selectedPatient]);
 
-  function viewById(data) {
-    setSelectedPatient(data);
-    setIsOpenViewModal(true);
-  }
+ 
 
   function addPatient() {
     setIsOpenAddModal(true);
   }
 
-//   async function deletePatientData(id) {
-//     try {
-//       const res = await axios.delete('http://localhost/HC_Assist_Version_2/HC-Assist_Version1/admin_side/patients_folder/patient_delete.php', {
-//         data: { id: id }
-//       });
 
-//       if (res.data.status) {
-//         fetchPatientData();
-//       }
-//     } catch (err) {
-//       console.error(err);
-//     }
-//   }
+  function selectPatient(data){
+    setSelectedPatient(data);
+    setIsOpenAddModal(true);
+  }
 
   return (
     <div>
-      <Topbar location="Select Disease" />
+      <Topbar location={
+          <>
+            <a href="/disease" className='topLink'>Disease</a>  &gt; Patient Select
+          </>
+        } />
       <div className="mainbarContent">
         <Sidebar />
 
@@ -79,6 +73,8 @@ const Patientselect_Disease = () => {
               </form>
             </div>
 
+            <AddDiseaseModal  visible={isOpenAddModal} onClose={() => setIsOpenAddModal(false)} data={selectedPatient}/>
+
        
 
             <div className="table-container">
@@ -98,7 +94,7 @@ const Patientselect_Disease = () => {
                       <td>{data.purok}</td>
                       <td>{data.contact_number}</td>
                       <td>
-                        <button className="delete-btn" onClick={() => deletePatientData(data.patient_id)}>
+                        <button className="select-btn" onClick={() => selectPatient(data)}>
                           Select
                         </button>
                       

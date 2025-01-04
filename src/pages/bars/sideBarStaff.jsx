@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import NotificationBadge from "../adminFolder/medicineFolder/medicine-Expiration";
 
-function Sidebar() {
+function SidebarStaff() {
   useEffect(() => {
     const linkElements = document.querySelectorAll(".link");
 
@@ -63,10 +63,10 @@ function Sidebar() {
           
           </a>  <NotificationBadge />
         </div>
-        <div className="link"><a href="/staff">Staff</a></div>
+       
       </div>
     </div>
   );
 }
 
-export default Sidebar;
+export default SidebarStaff;

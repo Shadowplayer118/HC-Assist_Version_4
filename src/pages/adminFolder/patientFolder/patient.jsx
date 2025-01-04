@@ -57,7 +57,7 @@ const StaffTable = () => {
     <div>
       <Topbar location="Patient" />
       <div className="mainbarContent">
-        <Sidebar />
+        <Sidebar/>
 
         <div className="main">
           <div className="main-container">

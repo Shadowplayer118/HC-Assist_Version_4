@@ -1,0 +1,49 @@
+.Notification{
+    position: fixed;
+    /* top: 445px;
+    left: 30px; */
+    /* z-index: 1; */
+ 
+     color: white;
+     left: 150px;
+ 
+     border-radius: 100px;
+     padding: 10px;
+     font-size: 15px;
+     bottom: 60px;
+     /* width: 150px;
+    height: 29px;
+    text-align: end;
+    padding-top: 10px;
+    padding-right: 20px; */
+    
+     
+}
+
+.badge:hover{
+    background-color: rgb(176, 55, 55);
+    cursor: pointer;
+}
+
+.badge{
+
+    background-color: rgb(231, 62, 62);
+
+    border-radius: 50px;
+    height: 25px;
+    width: 25px;
+text-align: center;
+    
+    
+    /* cursor: 'pointer';
+    color: 'white';
+    background: 'red';
+    borderRadius: '50%';
+    padding: '10px';
+    position: 'absolute';
+    zIndex: 1;
+    top: '10px';
+    right: '10px'; */
+}
+
+    

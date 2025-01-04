@@ -7,10 +7,27 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false); // Loading state
     const [showWelcome, setShowWelcome] = useState(false); // Welcome screen state
+    const [position, setPosition] = useState(''); // Position state
 
     const isLoggedIn = () => {
         const token = localStorage.getItem('token');
         if (token) {
+
+            // if(position == 'Patient'){
+            //     alert(' Patient Logged in');
+            // }
+
+            // else if(position == 'Staff'){
+            //     alert(' Staff Logged in');
+            // }
+
+            // else if(position == 'Midwife'){
+            //     alert(' Midwife Logged in');
+            // }
+
+            // else if(position == 'Admin'){
+            //     alert('Admin Logged in');
+            // }
             window.location.href = '/dashboard';
             return;
         }
@@ -25,7 +42,7 @@ const Login = () => {
         setLoading(true); // Set loading to true
         try {
             const res = await axios.post(
-                'http://localhost/HC_Assist_Version_2/HC-Assist_Version1/loginAPI.php',
+                'http://localhost/HC-Assist_Version_4/php/old_php/loginAPI.php',
                 {
                     username: username,
                     password: password,
@@ -33,7 +50,10 @@ const Login = () => {
             );
             console.log(res.data);
             if (res.data.status) {
+                // Save user data and position into state/local storage
+                setPosition(res.data.user.position); // Save the position
                 localStorage.setItem('token', JSON.stringify(res.data.user));
+                
                 // Show the welcome screen for 3 seconds after loading
                 setLoading(false);
                 setShowWelcome(true);
@@ -41,6 +61,7 @@ const Login = () => {
                     window.location.href = '/dashboard'; // Redirect to the dashboard
                 }, 3000); // 3 seconds delay
             } else {
+                alert('Invalid username or password');
                 console.error("Login failed: Incorrect credentials");
             }
         } catch (error) {
@@ -50,23 +71,14 @@ const Login = () => {
         }
     }
 
-    if (loading) {
-        // Loading screen content
-        return (
-            <div className="loading-screen">
-                <div className="spinner"></div>
-                <p>Loading, please wait...</p>
-            </div>
-        );
-    }
-
     if (showWelcome) {
         // Welcome screen content
         return (
             <div className="welcome-screen">
                 <h1>Welcome to HC-Assist</h1>
+                <h2>{username}</h2>
+                <h3>Your position: {position}</h3> {/* Display the position */}
                 <div className="triangle-spinner"></div>
-
             </div>
         );
     }

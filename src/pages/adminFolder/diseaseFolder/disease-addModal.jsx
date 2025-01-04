@@ -1,254 +1,154 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const AddModal = ({ visible, onClose, data }) => {
-  if (!visible) return null; // Prevent rendering when modal is not visible
+const EditModal = ({ visible, onClose, data }) => {
+  if (!visible) return null;
 
-  // State to manage form input values
+  // State hooks for all fields
   const [firstName, setFirstName] = useState('');
   const [middleName, setMiddleName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [age, setAge] = useState('');
-  const [birthDate, setBirthDate] = useState('');
-  const [gender, setGender] = useState('');
-  const [civilStatus, setCivilStatus] = useState('');
-  const [purok, setPurok] = useState('');
-  const [household, setHousehold] = useState('');
-  const [contactNumber, setContactNumber] = useState('');
-  const [bloodType, setBloodType] = useState('');
 
-  // Populate form with existing data
+  const [diseaseName, setDiseaseName] = useState('');
+  const [diseaseStatus, setDiseaseStatus] = useState('');
+  const [diseaseStage, setDiseaseStage] = useState('');
+  const [diseaseSched, setDiseaseSched] = useState('');
+
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [preview, setPreview] = useState('');
+  const patient_name = firstName+" " +lastName
+
+  // Initialize states when data changes
   useEffect(() => {
     if (data) {
       setFirstName(data.first_name || '');
-      setMiddleName(data.middle_name || '');
       setLastName(data.last_name || '');
-      setAge(data.age || '');
-      setBirthDate(data.birth_date || '');
-      setGender(data.gender || '');
-      setCivilStatus(data.civil_status || '');
-      setPurok(data.purok || '');
-      setHousehold(data.household || '');
-      setContactNumber(data.contact_number || '');
-      setBloodType(data.blood_type || '');
+
+      // Set the image preview, check if there's an image path or fallback to default
+      setPreview(`../../../php/${data.image}` || '../../Images/blank_patient.jpg');
+      console.log(data);
     }
   }, [data]);
 
-  // Handle form submit
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    // Prepare data for submission
-    const formData = {
-      patient_id: data?.patient_id, // assuming patient_id exists in the data
-      first_name: firstName,
-      middle_name: middleName,
-      last_name: lastName,
-      age,
-      birth_date: birthDate,
-      gender,
-      civil_status: civilStatus,
-      purok,
-      household,
-      contact_number: contactNumber,
-      blood_type: bloodType,
-    };
-
-    try {
-      const response = await axios.post('http://localhost/HC-Assist_API/Admin/patient/add-Patient.php', formData);
-
-      if (response.data.status === 'success') {
-        alert('Patient updated successfully!');
-        onClose(); // Close modal on success
-      } else {
-        alert('Failed to update patient.');
-      }
-    } catch (error) {
-      console.error('Error updating patient:', error);
-      alert('An error occurred.');
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setSelectedImage(file);
+      setPreview(URL.createObjectURL(file));
     }
   };
 
+  // Handle form submission
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  const formData = new FormData();
+  formData.append('disease_patient_id', data?.patient_id || ''); 
+  formData.append('disease_patient_name', diseaseName);
+  formData.append('disease_status', diseaseStatus);
+  formData.append('disease_stage', diseaseStage);
+  formData.append('disease_treatmentSched', diseaseSched);
+
+
+  // Append the selected image if it exists
+
+  try {
+    const response = await axios.post(
+      'http://localhost/HC-Assist_Version_4/php/new_php/HC-Assist_API/Admin/disease/disease_add.php',
+      formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data', // Ensure it's set to multipart/form-data
+        },
+      }
+    );
+
+    if (response.data.status === 'success') {
+      alert('Patient edited successfully!');
+      onClose(); // Close modal on success
+    } else {
+      alert('Failed to edit patient.');
+    }
+  } catch (error) {
+    console.error('Error editing patient:', error);
+    alert('An error occurred.');
+  }
+};
+
+
   return (
-    <div className='add-modal'>
-      <div className="add-modal-content">
-        <button onClick={onClose}>
-          <span className="close-add" id="close-add">
-            &times;
-          </span>
-        </button>
-        <h3>Add Patient</h3>
-        <form onSubmit={handleSubmit} id="edit-form">
-          <div className="input-right">
-            <div className="steady">
-              <input
-                type="text"
-                id="edit-patient_id"
-                name="edit-patient_id"
-                value={data?.patient_id || ''}
-                style={{ display: 'none' }}
-                readOnly
-              />
+    <div className="edit-modal">
+      <div className="edit-modal-content">
+        <h3 className='edit-modal-title'>Edit Patient</h3>
+ 
 
-              <div className="input-container">
-                <label htmlFor="edit-first_name">First Name:</label>
-                <br />
-                <input
-                  type="text"
-                  id="edit-first_name"
-                  name="first_name"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  required
-                />
-              </div>
-
-              <div className="input-container">
-                <label htmlFor="edit-middle_name">Middle Name:</label>
-                <br />
-                <input
-                  type="text"
-                  id="middle_name"
-                  name="middle_name"
-                  value={middleName}
-                  onChange={(e) => setMiddleName(e.target.value)}
-                  required
-                />
-              </div>
-
-              <div className="input-container">
-                <label htmlFor="last_name">Last Name:</label>
-                <br />
-                <input
-                  type="text"
-                  id="edit-last_name"
-                  name="last_name"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  required
-                />
-              </div>
-
-              <div className="age-dateContainer">
-                <div className="input-container">
-                  <label htmlFor="age">Age:</label>
-                  <br />
-                  <input
-                    type="text"
-                    id="edit-age"
-                    name="age"
-                    value={age}
-                    onChange={(e) => setAge(e.target.value)}
-                    required
-                  />
-                </div>
-
-                <div className="input-container">
-                  <label htmlFor="edit-bdate">Birthdate:</label>
-                  <br />
-                  <input
-                    type="date"
-                    id="edit-bdate"
-                    name="bdate"
-                    value={birthDate}
-                    onChange={(e) => setBirthDate(e.target.value)}
-                    required
-                  />
-                </div>
-              </div>
-
-              <div className="gender-civilContainer">
-                <div className="input-container">
-                  <label htmlFor="gender">Gender:</label>
-                  <br />
-                  <select
-                    id="edit-gender"
-                    name="gender"
-                    value={gender}
-                    onChange={(e) => setGender(e.target.value)}
-                    required
-                  >
-                    <option value="">Select Gender</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                  </select>
-                </div>
-
-                <div className="input-container">
-                  <label htmlFor="civil_status">Civil Status:</label>
-                  <br />
-                  <input
-                    type="text"
-                    id="edit-civil_status"
-                    name="civil_status"
-                    value={civilStatus}
-                    onChange={(e) => setCivilStatus(e.target.value)}
-                    required
-                  />
-                </div>
-              </div>
-
-              <div className="input-container">
-                <label htmlFor="edit-purok">Purok:</label>
-                <br />
-                <input
-                  type="text"
-                  id="edit-purok"
-                  name="purok"
-                  value={purok}
-                  onChange={(e) => setPurok(e.target.value)}
-                  required
-                />
-              </div>
-
-              <div className="input-container">
-                <label htmlFor="edit-household">Household:</label>
-                <br />
-                <input
-                  type="text"
-                  id="edit-household"
-                  name="household"
-                  value={household}
-                  onChange={(e) => setHousehold(e.target.value)}
-                  required
-                />
-              </div>
-
-              <div className="input-container">
-                <label htmlFor="edit-contact_number">Contact #:</label>
-                <br />
-                <input
-                  type="text"
-                  id="edit-contact_number"
-                  name="contact_number"
-                  value={contactNumber}
-                  onChange={(e) => setContactNumber(e.target.value)}
-                  required
-                />
-              </div>
-
-              <div className="input-container">
-                <label htmlFor="edit-blood_type">Blood Type:</label>
-                <br />
-                <input
-                  type="text"
-                  id="edit-blood_type"
-                  name="blood_type"
-                  value={bloodType}
-                  onChange={(e) => setBloodType(e.target.value)}
-                  required
-                />
-              </div>
-
-              <button type="submit" id="save-changes">
-                Save Changes
-              </button>
+        <form onSubmit={handleSubmit}>
+          <div className="edit-input-left">
+            <label htmlFor="">Profile Picture</label>
+            <div className="edit-preview-container">
+              {preview && <img className="edit-preview" src={preview} alt="Preview" />}
             </div>
+            <input type="file" id='edit-image' name='edit-image' onChange={handleFileChange} />
+          </div>
+
+
+          <div className="edit-input-right">
+            <input type="hidden" id="edit-patient_id" name="disease_patient_id" value={data?.patient_id || ''} readOnly/>
+
+            <div className="input-container">
+              <label htmlFor="edit-first_name">Patient Name:</label>
+              <input type="text" id="edit-first_name" name="edit-first_name" value={patient_name} onChange={(e) => setFirstName(e.target.value)} required autoComplete='off'   disabled='true' />
+            </div>
+
+           
+
+            <div className="input-container">
+              <label htmlFor="edit-last_name">Disease:</label>
+              <input type="text" id="edit-last_name" name="disease_patient_name"  onChange={(e) => setDiseaseName(e.target.value)} required autoComplete='off'  />
+            </div>
+
+            <div className="edit-input-squeeze">
+
+            <div className="input-container">
+                <label htmlFor="edit-blood_type">Disease Status:</label> <br />
+                <select id="edit-blood_type" name="disease_status" onChange={(e) => setDiseaseStatus(e.target.value)} required>
+                  <option value="">Select Status</option>
+                  <option value="MILD">MILD</option>
+                  <option value="SEVERE">SEVERE</option>
+                  <option value="CURED">CURED</option>
+                </select>
+              </div>
+
+              <div className="input-container">
+              <label htmlFor="edit-household">Disease Stage:</label>
+              <input type="text" id="edit-household" name="disease_stage" onChange={(e) => setDiseaseStage(e.target.value)} required autoComplete='off' />
+            </div>
+
+            </div>
+
+               <div className="input-container">
+                <label htmlFor="edit-bdate">Treatment Schedule:</label>
+                <input type="date" id="edit-bdate" name="disease_treatmentSched"  onChange={(e) => setDiseaseSched(e.target.value)} required />
+              </div>
+
+            <div className="edit-input-squeeze">
+            
+             
+            </div>
+
+          
+
+            
+
+            
+
+            <button type="submit" id="save-changes" className="save-edit">Save Changes</button>
           </div>
         </form>
+
+        <button onClick={onClose} className="close-edit">Close</button>
       </div>
     </div>
   );
 };
 
-export default AddModal;
+export default EditModal;

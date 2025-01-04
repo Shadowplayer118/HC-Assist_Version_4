@@ -2,9 +2,57 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import PieChart from "./piechart"; // Adjust the import path based on your structure
 import "../../css/mainBar.css";
+import DPieChart from "./Diseasepiechart"; // Adjust the import path based on your structure
+import ReportTable from "../adminFolder/dashboardFolder/monthlyReport";
+
 
 const Mainbar = () => {
+  
+
+
+
+const [monitorSched,setMonitoringSched] = useState([]);
   const [monitoringData, setMonitoringData] = useState(null);
+  const [diseaseMonitorData, setDiseaseMonitorData] = useState(null);
+  const[isOpenModal,setIsOpenModal] = useState(false);
+  
+
+
+  
+  useEffect(() => {
+    fetchDiseaseMonitorData();
+    fetchMonitoringData();
+    fetchPurokData();
+    fetchDiseaseData();
+    fetchMonitoringSched();
+
+    console.log(diseaseMonitorData);
+    console.log("FLG");
+
+  }, [diseaseMonitorData]);
+  
+
+  function openReport(){
+    setIsOpenModal(true);
+  }
+
+
+
+
+  const fetchDiseaseMonitorData = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost/HC-Assist_Version_4/php/new_php/HC-Assist_API/Admin/dashboard/diseaseMonitor.php"
+      );
+      setDiseaseMonitorData(response.data);
+      console.log(response.data); // Log after setting state
+    } catch (error) {
+      console.error("Error fetching disease monitor data:", error);
+    }
+  };
+  
+  
+
   const [userData, setUserData] = useState({
     labels: [],
     datasets: [
@@ -40,6 +88,18 @@ const Mainbar = () => {
       },
     ],
   });
+
+
+
+  const fetchMonitoringSched = async () => {
+    try {
+      const monitoring = await axios.get("http://localhost/HC-Assist_Version_4/php/new_php/HC-Assist_API/Admin/dashboard/monitoring.php");
+      setMonitoringSched(monitoring.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
 
   const fetchMonitoringData = async () => {
     try {
@@ -86,14 +146,25 @@ const Mainbar = () => {
     }
   };
 
-  useEffect(() => {
-    fetchMonitoringData();
-    fetchPurokData();
-    fetchDiseaseData();
-  }, []);
+
+
+  const getCardColorClass = (scheduleType) => {
+    switch (scheduleType) {
+      case 'Contagious Disease':
+        return 'green-bg'; // Green for Contagious Disease
+      case 'Immunization':
+        return 'yellow-bg'; // Yellow for Immunization
+      case 'Pregnancy':
+        return 'red-bg'; // Red for Pregnancy
+      default:
+        return ''; // Default (no color change) if no match
+    }
+  };
+  
 
   return (
     <div className="main">
+        <ReportTable visible={isOpenModal} onClose={() => setIsOpenModal(false)}/>
       <div className="main-container">
         {/* Main Top Section */}
         <div className="main-top">
@@ -106,6 +177,7 @@ const Mainbar = () => {
 
         {/* Main Bar Section */}
         <div className="main-bar">
+      
           {/* General Report Section */}
           <div className="general-report-container">
             <div className="general-report">
@@ -142,7 +214,8 @@ const Mainbar = () => {
                     <p id="total-count">0</p>
                     <p id="total-percent">n%</p>
                   </div>
-                  <button className="generate-report">
+                  <button className="generate-report"  onClick={() => openReport()}>
+                  
                     <img
                       src="../assets/generate_report.png"
                       alt="Generate Report"
@@ -180,29 +253,42 @@ const Mainbar = () => {
           {/* Monitoring Section */}
           <div className="monitoring-container">
             <div className="monitoring-content">
-              {monitoringData &&
-                monitoringData.map((data, index) => (
-                  <div className="monitoring-card" key={index}>
-                    <div className="monitoring-card-left">
-                      <div className="monitoring-profile">
-                        <img
-                          src="../assets/profile.jpg"
-                          alt="Profile"
-                        />
-                      </div>
-                    </div>
-                    <div className="monitoring-card-right">
-                      <div className="monitoring-info">
-                        <div className="monitoring-title">
-                          {data.first_name} {data.last_name}
-                        </div>
-                        <div className="monitoring-subtitle">
-                          {data.position}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+
+    {monitorSched && monitorSched.length > 0? (
+monitorSched &&
+  monitorSched.map((data, index) => (
+    <div className={`monitoring-card ${getCardColorClass(data.schedule_type)}`} key={index}>
+      <div className="monitoring-card-left">
+        <div className="monitoring-profile">
+          <img
+            src="../assets/profile.jpg"
+            alt="Profile"
+          />
+        </div>
+      </div>
+      <div className="monitoring-card-right">
+        <div className="monitoring-info">
+          <div className="monitoring-title">
+            {data.first_name} {data.last_name}
+          </div>
+          <div className="monitoring-subtitle">
+            {data.activity}
+          </div>
+        </div>
+      </div>
+    </div>
+  ))
+    ):(
+      
+      <div className="activityDate-activity">
+        <div className="noActivity">
+        <div className="noActiviy-text">No Activities Today</div>
+        <div className="noActiviy-image"><img src="/Images/happy_nurse.jpg" alt="" /></div>
+
+      
+        </div>
+      </div>   
+    )}
             </div>
           </div>
 
@@ -211,10 +297,29 @@ const Mainbar = () => {
             <div className="disease">
               <div className="squeez">
                 <h3>Status</h3>
-                <div className="flag">Safe</div>
+                <div className="flag">
+                {diseaseMonitorData && (
+  <img
+    src={
+      diseaseMonitorData === "    Danger"
+        ? "/assets/icons/redFlag.png"
+        : diseaseMonitorData === "    Warning"
+        ? "/assets/icons/yellowFlag.png"
+        : diseaseMonitorData === "    Safe"
+        ? "/assets/icons/greenFlag.png"
+        : "/assets/icons/defaultFlag.png"
+    }
+    alt="Flag"
+  />
+)}
+
+
+
+
+                </div>
               </div>
               <div className="Diseasepie-chart" id="Diseasepie-chart">
-                <PieChart chartData={diseaseData} />
+                <DPieChart chartData={diseaseData} />
               </div>
               <table>
                 <tbody>

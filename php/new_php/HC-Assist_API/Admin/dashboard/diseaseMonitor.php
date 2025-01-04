@@ -51,21 +51,20 @@ if ($resultMostEntries->num_rows > 0) {
 
     // Calculate the percentage
     $percentage = round(($totalCases / $totalPatients) * 100, 2);
+    
 
     // Determine the status based on the percentage
     if ($percentage > 75) {
-        echo $totalCases;
-        echo $percentage;
-        echo "danger";
-    } elseif ($percentage > 50) {
-        echo $totalCases;
 
-        echo $percentage;
-        echo "warning";
+   
+        echo "Danger";
+    } elseif ($percentage > 50) {
+
+  
+        echo trim("Warning");
     } else {
        
-        echo $totalPatients;
-        echo $percentage;
+   
         echo "Safe";
     }
 

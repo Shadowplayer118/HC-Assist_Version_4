@@ -8,22 +8,26 @@ header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
 date_default_timezone_set('Asia/Manila'); // Set your time zone
 
-$currentDate = date('Y-m-d');
+// Get the selected date from the request (if provided)
 
-// Query to fetch data with date format adjustment and include activity
+$chosenDate = isset($_GET['date']) ? $_GET['date'] : date('Y-m-d'); // Default to today's date if not provided
+
+
+
+// Query to fetch data for the selected date
 $sql = "
     SELECT 
         p.first_name, 
         p.last_name, 
         p.image, 
         DATE(ps.pregnant_schedule_date) AS schedule_date, 
-        'Pregnancy' AS schedule_type,
-        ps.activity AS activity
+        ps.activity AS activity,
+        'Pregnancy' AS schedule_type
     FROM patient p
     JOIN pregnant pr ON p.patient_id = pr.patient_id
     JOIN pregnant_schedule ps ON pr.pregnant_id = ps.pregnant_id
-    WHERE DATE(ps.pregnant_schedule_date) = '$currentDate'
-    
+    WHERE DATE(ps.pregnant_schedule_date) = '$chosenDate'
+   
     UNION ALL
     
     SELECT 
@@ -31,13 +35,13 @@ $sql = "
         p.last_name, 
         p.image, 
         DATE(ds.disease_schedule_date) AS schedule_date, 
-        'Contagious Disease' AS schedule_type,
-        ds.activity AS activity
+        ds.activity AS activity,
+        'Contagious Disease' AS schedule_type
     FROM patient p
     JOIN contagious_disease cd ON p.patient_id = cd.patient_id
     JOIN disease_schedule ds ON cd.disease_id = ds.disease_id
-    WHERE DATE(ds.disease_schedule_date) = '$currentDate'
-    
+    WHERE DATE(ds.disease_schedule_date) = '$chosenDate'
+  
     UNION ALL
     
     SELECT 
@@ -45,12 +49,12 @@ $sql = "
         p.last_name, 
         p.image, 
         DATE(isch.immunization_schedule_date) AS schedule_date, 
-        'Immunization' AS schedule_type,
-        isch.activity AS activity
+        isch.activity AS activity,
+        'Immunization' AS schedule_type
     FROM patient p
     JOIN immunization im ON p.patient_id = im.patient_id
     JOIN immunization_schedule isch ON im.immunization_id = isch.immunization_id
-    WHERE DATE(isch.immunization_schedule_date) = '$currentDate'
+    WHERE DATE(isch.immunization_schedule_date) = '$chosenDate'
 ";
 
 // Execute the query
@@ -65,12 +69,13 @@ if ($result && $result->num_rows > 0) {
             'last_name' => $row['last_name'],
             'image' => $row['image'],
             'schedule_date' => $row['schedule_date'],
-            'schedule_type' => $row['schedule_type'],
-            'activity' => $row['activity']  // Include the activity
+            'activity' => $row['activity'], // Include activity in the response
+            'schedule_type' => $row['schedule_type']
         ];
     }
 } else {
-    $response['message'] = "No data found for today's date.";
+    $response['message'] = "No activity";
+
 }
 
 header('Content-Type: application/json');

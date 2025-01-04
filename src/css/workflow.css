@@ -1,3 +1,8 @@
+@font-face{
+    font-family: poppins;
+    src: url('/assets/Poppins/Poppins-Regular.ttf');
+}
+
 .workflow-container{
  
     height: 300px;
@@ -17,7 +22,7 @@
     top: 0px;
     width: 490px;
     margin-left: -20px;
-    
+    z-index: 1;    
 }
 
 .workflow-content{
@@ -53,6 +58,7 @@
     display: flex;
     flex-direction: row;
     height: 50px;
+    position: relative;
 
     
 }
@@ -61,21 +67,26 @@
 
     border:0px;
     padding: 10px;
-    width: 60px;
+    width: 100px;
+    height: 40px;
     border-radius: 5px;
     background-color: #3E4BBA;
     color: white;
     font-weight: lighter;
+    position: absolute;
+
+    right: 20px;
+    
 
 }
 
 .title{
     font-weight: bold;
-    font-size: 20px;
+    font-size: 15px;
 }
 
 .subtitle{
-    font-size: 15px;
+    font-size: 12px;
 }
 
 
@@ -89,3 +100,614 @@
     left: 720px;
     top: 160px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.workflowSteps-container{
+ 
+    height: 300px;
+    width: 550px;
+    border-radius: 10px;
+    position: absolute;
+    align-content: center;
+    left: 220px;
+    top: 145px;
+}
+
+.workflowSteps-title{
+    color: white;
+    background-color: #3E4BBA;
+    padding: 10px;
+    position: sticky;
+    top: 0px;
+    width: 700px;
+    margin-left: -20px;
+    z-index: 1;    
+}
+
+.workflowSteps-content{
+    height: 340px;
+    width: 550px;
+    background-color: white;
+    padding: 20px;
+    padding-top: 0px;
+    margin-left: 15px;
+    border-radius: 5px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.462);
+
+}
+
+
+.workflowSteps-content::-webkit-scrollbar{
+    scrollbar-color: transparent;
+}
+
+.workflowSteps-card-left{
+ 
+    width: 300px;
+}
+
+.workflowSteps-card-right{
+   
+}
+
+.workflowSteps-card{
+    background-color: white;
+    margin: 10px;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.462);
+    display: flex;
+    flex-direction: row;
+    height: 50px;
+    position: relative;
+
+    
+}
+
+.edit-workflowSteps{
+
+    border:0px;
+    padding: 10px;
+    width: 100px;
+    height: 40px;
+    border-radius: 5px;
+    background-color: #3E4BBA;
+    color: white;
+    font-weight: lighter;
+    position: absolute;
+
+    right: 20px;
+    
+
+}
+
+.title{
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.subtitle{
+    font-size: 12px;
+}
+
+
+.active-workflow-container{
+ 
+    height: 300px;
+    width: 550px;
+    border-radius: 10px;
+    position: absolute;
+    align-content: center;
+    left: 720px;
+    top: 160px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* .active-workflowSteps-container{
+ 
+    height: 300px;
+    width: 550px;
+    border-radius: 10px;
+    position: absolute;
+    align-content: center;
+    left: 720px;
+    top: 160px;
+} */
+
+
+.workflowCommands-container{
+ 
+    height: 300px;
+    width: 10px;
+    border-radius: 10px;
+    position: absolute;
+    align-content: center;
+    left: 720px;
+    top: 160px;
+   
+}
+
+
+
+
+.assignment-container{
+ 
+    height: 300px;
+    width: 20px;
+    border-radius: 10px;
+    position: absolute;
+    align-content: center;
+    left: 840px;
+    top: 100px;
+}
+
+
+.assignment-content{
+    height: 385px;
+    width: 300px;
+    background-color: white;
+    padding: 20px;
+    padding-top: 0px;
+    margin-left: 15px;
+    border-radius: 5px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.462);
+    overflow: hidden;
+
+
+
+}
+
+
+
+.assignment-title{
+    color: white;
+    background-color: #3E4BBA;
+    padding: 10px;
+    position: sticky;
+    top: 0px;
+    width: 490px;
+    margin-left: -20px;
+    z-index: 1;    
+}
+
+
+.assignment-card{
+    background-color: white;
+    margin: 12px;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.462);
+    display: flex;
+    flex-direction: row;
+    height: 50px;
+    position: relative;
+    
+
+    
+}
+
+
+.flex-assignment{
+    display: flex;
+    background-color: white;
+    padding: 25px;
+    position: relative;
+    margin: 5px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.312);
+    top: 15px;
+}
+
+.flex-assignment button{
+    position: absolute;
+    right: 10px;
+}
+
+.flex-commands{
+    display: flex;
+    padding: 15px;
+    position: relative;
+    margin: 5px;
+    border-radius: 5px;
+    padding: 0px;
+    margin-top: 10px;
+    top: 30px;
+}
+
+.clear-selection{
+    background-color:white;
+    padding: 15px;
+    border-radius: 5px;
+    position: absolute;
+    right: 0px;    
+    width: 80px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.101);
+    background-color: #dd2b2b;
+    color: white;
+}
+
+
+.clear-selection:hover{
+    cursor: pointer;
+    background-color: #a22121;
+    color: rgba(255, 255, 255, 0.693);
+    
+
+}
+
+.confirmSelection{
+    background-color: white;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.101);
+
+    background-color: #55dd2b;
+    color: white;
+
+}
+
+.confirmSelection:hover{
+    cursor: pointer;
+    background-color: #3a951e;
+    color: rgba(255, 255, 255, 0.693);
+
+}
+
+.display-assignmentName{
+    position: absolute;
+    bottom: 4px;
+    font-size: 10px;
+    left: 70px;
+    bottom: 15px;
+}
+
+.image-circle{
+    
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.462);
+    overflow: hidden;
+}
+
+.image-circle img{
+    width: 50px;
+    height: 50px;
+}
+
+
+.assign-name{
+    position: relative;
+    left: 45px;
+    bottom: 8px;
+}
+
+
+.date-iconDisplay{
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.462);
+
+    
+
+}
+
+.date-iconDisplay-head{
+    position: absolute;
+    top: 0px;
+    background-color: rgb(101, 101, 228);
+    color: white;
+    width: 50px;
+    height: 12px;
+    font-size: 7px;
+    text-align: center;
+}
+
+.date-iconDisplay-day{
+    position: absolute;
+    top: 15px;
+    left: 10px;
+    font-size: 15px;
+    width: 30px;
+    text-align: center;
+}
+
+.select-deadline{
+    width: 20px;
+    position: absolute;
+    right: 10px;
+}
+
+
+
+.selectPatient{
+    position: fixed;
+    z-index: 10;
+    background-color: rgba(44, 30, 107, 0.301);
+    width: 100%;
+    height: 47.5vw;
+
+
+}
+
+
+.selectPatient-modal{
+    position: absolute;
+    background-color: white;
+    width: 530px;
+    height: 520px;
+    border-radius: 5px;
+    left: 400px;
+    top: 20px;
+
+}
+
+
+.selectPatient-cardContainer{
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.462);
+    width: 430px;
+    height: 320px;
+    margin: 10px;
+    position: relative;
+    left: 40px;
+    overflow-y: scroll;
+    border-radius: 5px;
+    
+}
+
+.selectPatient-card{
+    display: flex;
+    margin: 8px;
+    padding: 20px;
+    position: relative;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.462);
+
+
+}
+
+
+.selectPatient-card:hover{
+    cursor: pointer;
+    background-color: rgba(164, 164, 164, 0.712);
+}
+
+.selectPatient-card:active{
+}
+ 
+
+.selectPatient-Image{
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    border-radius: 50px;
+    bottom: 10px;
+    overflow: hidden;
+}
+
+
+.selectPatient-Image img{
+    width: 50px;
+    height: 50px;
+}
+
+.selectPatient-Name{
+    position: absolute;
+    left: 80px;
+}
+
+.selectPatient-Actions{
+position: relative;
+left: 300px;
+}
+
+.selectPatient-btns{
+    width: 300px;
+    position: relative;
+    padding: 10px;
+    left: 50px;
+}
+
+.selectPatientsearch-box{
+    position: relative;
+    left: 50px;
+}
+
+
+
+
+
+  
+  .selectPatient-card.selected {
+    border: 2px solid #007bffb2; /* Blue border for the selected card */
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5); /* Optional glow effect */
+  }
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+.selectStaff{
+    position: fixed;
+    z-index: 10;
+    background-color: rgba(44, 30, 107, 0.301);
+    width: 100%;
+    height: 47.5vw;
+
+
+}
+
+
+.selectStaff-modal{
+    position: absolute;
+    background-color: white;
+    width: 530px;
+    height: 520px;
+    border-radius: 5px;
+    left: 400px;
+    top: 20px;
+
+}
+
+
+.selectStaff-cardContainer{
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.462);
+    width: 430px;
+    height: 320px;
+    margin: 10px;
+    position: relative;
+    left: 40px;
+    overflow-y: scroll;
+    border-radius: 5px;
+    
+}
+
+.selectStaff-card{
+    display: flex;
+    margin: 8px;
+    padding: 20px;
+    position: relative;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.462);
+
+
+}
+
+
+.selectStaff-card:hover{
+    cursor: pointer;
+    background-color: rgba(164, 164, 164, 0.712);
+}
+
+.selectStaff-card:active{
+}
+ 
+
+.selectStaff-Image{
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    border-radius: 50px;
+    bottom: 10px;
+    overflow: hidden;
+}
+
+
+.selectStaff-Image img{
+    width: 50px;
+    height: 50px;
+}
+
+.selectStaff-Name{
+    position: absolute;
+    left: 80px;
+}
+
+.selectStaff-Actions{
+position: relative;
+left: 300px;
+}
+
+.selectStaff-btns{
+    width: 300px;
+    position: relative;
+    padding: 10px;
+    left: 50px;
+}
+
+.selectStaffsearch-box{
+    position: relative;
+    left: 50px;
+}
+
+
+
+
+
+  
+  .selectStaff-card.selected {
+    border: 2px solid #007bffb2; /* Blue border for the selected card */
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5); /* Optional glow effect */
+  }
+  
+
+
+
+
+
+
+
+
+
+
+  .activeStep_status {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .status-finished {
+    background-color: blue;
+  }
+  
+  .status-not-finished {
+    background-color: red;
+  }
+  
