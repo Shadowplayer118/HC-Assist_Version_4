@@ -8,6 +8,7 @@ include '../../connection.php';
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     // Retrieve the workflow_id from the query parameter
     $workflow_id = isset($_GET['workflow_id']) ? $_GET['workflow_id'] : '';
+ 
 
     if (empty($workflow_id)) {
         // Return an error if workflow_id is not provided

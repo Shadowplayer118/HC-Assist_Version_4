@@ -8,34 +8,43 @@ const Login = () => {
     const [loading, setLoading] = useState(false); // Loading state
     const [showWelcome, setShowWelcome] = useState(false); // Welcome screen state
     const [position, setPosition] = useState(''); // Position state
+    const [userId, setUserId] = useState(null); // id state
+
+
+
+
 
     const isLoggedIn = () => {
         const token = localStorage.getItem('token');
-        if (token) {
+        if (token && position) {
+            // Only redirect if position is available
+            setTimeout(() => {
+    // Redirect logic after 3 seconds
+    switch (position) {
+        case 'Patient':
+            window.location.href = '/PatientCalendar';
+            break;
+        case 'Staff':
+            window.location.href = '/StaffWorkflow';
+            break;
+        case 'Midwife':
+            window.location.href = '/MidwifeCalendar';
 
-            // if(position == 'Patient'){
-            //     alert(' Patient Logged in');
-            // }
-
-            // else if(position == 'Staff'){
-            //     alert(' Staff Logged in');
-            // }
-
-            // else if(position == 'Midwife'){
-            //     alert(' Midwife Logged in');
-            // }
-
-            // else if(position == 'Admin'){
-            //     alert('Admin Logged in');
-            // }
+            break;
+        case 'Admin':
             window.location.href = '/dashboard';
-            return;
+            break;
+        default:
+            console.error('Unknown position:', position);
+    }
+}, 3000);
+
         }
     };
 
     useEffect(() => {
         isLoggedIn();
-    }, []);
+    }, [position]);
 
     async function handleLogin(e) {
         e.preventDefault();
@@ -52,13 +61,20 @@ const Login = () => {
             if (res.data.status) {
                 // Save user data and position into state/local storage
                 setPosition(res.data.user.position); // Save the position
+
                 localStorage.setItem('token', JSON.stringify(res.data.user));
-                
+                localStorage.setItem('logPosition', JSON.stringify(res.data.user.position));
+                localStorage.setItem('logId', JSON.stringify(res.data.user.staff_id));
+
                 // Show the welcome screen for 3 seconds after loading
                 setLoading(false);
                 setShowWelcome(true);
                 setTimeout(() => {
-                    window.location.href = '/dashboard'; // Redirect to the dashboard
+
+                    isLoggedIn();
+                   
+                   
+                    return; // Redirect to the dashboard
                 }, 3000); // 3 seconds delay
             } else {
                 alert('Invalid username or password');

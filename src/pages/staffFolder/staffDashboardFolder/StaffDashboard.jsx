@@ -14,12 +14,13 @@ import {
   ArcElement,
   CategoryScale,
 } from "chart.js";
+import SidebarStaff from "../../bars/sideBarStaff";
 
 // Register chart.js components
 ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale);
 
 
-const Dashboard = () => {
+const StaffDashboard = () => {
 
 
     const [account, setAccount] = useState();
@@ -46,7 +47,7 @@ const Dashboard = () => {
         <div>
             <Topbar location="Dashboard"/>
            <div class="mainbarContent">
-           <Sidebar />
+           <SidebarStaff/>
            <Mainbar />
            </div>
             <button onClick={handleDelete}>Logout</button>
@@ -54,4 +55,4 @@ const Dashboard = () => {
     );
 };
 
-export default Dashboard;
+export default StaffDashboard;

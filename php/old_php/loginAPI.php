@@ -68,6 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 "message" => "Patient login successful.",
                 "user" => [
                     "username" => $username,
+                    "staff_id" => $patient_id,
                     "first_name" => $first_name,
                     "last_name" => $last_name,
                     "position" => "Patient"

@@ -107,10 +107,15 @@ button:active{
     color:  #7f87cf;
 }
 
+.image-container{
+background-color: red;
+}
+
 .image-container img{
     position: absolute;
     left: 350px;
-    bottom: 2px;
+    bottom: 15px;
+    z-index: 1;
 
 }
 
@@ -131,7 +136,9 @@ z-index: 3;
 
 .right-slantbox{
     position: absolute;
-        background-color: #212fa9;
+
+background-color: #3E4BBA;
+
 
     /* background-color:  #14162f; */
 
@@ -146,12 +153,12 @@ z-index: 3;
 }
 
 .design{
-    position: absolute;
+    position: relative;
     width: 100%; /* Or a specific width like 100vw or a fixed value */
-    height: 100vh; /* Or a specific height */
+    height: 660px; /* Or a specific height */
     overflow: hidden; /* Prevents content from overflowing */
     box-sizing: border-box; 
-    bottom: 0px;
+    bottom: 460px;
     margin: 0px;
     left: 150px;
 }
@@ -166,6 +173,9 @@ z-index: 3;
     margin-left: 100px;
     margin-top: 50px;
 }
+
+
+
 
 .triangle {
     width: 100px;

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import '../../../css/disease.css'
+
 
 const EditModal = ({ visible, onClose, data }) => {
   if (!visible) return null;
@@ -76,41 +78,56 @@ const EditModal = ({ visible, onClose, data }) => {
 
 
   return (
-    <div className="edit-modal">
-      <div className="edit-modal-content">
-        <h3 className='edit-modal-title'>Edit Patient</h3>
+    <div className="addDisease-modal">
+      <div className="addDisease-modal-content">
+        <h3 className='addDisease-modal-title'>Disease Information</h3>
  
 
         <form onSubmit={handleSubmit}>
-          <div className="edit-input-left">
+          <div className="addDisease-input-left">
             <label htmlFor="">Profile Picture</label>
-            <div className="edit-preview-container">
-              {preview && <img className="edit-preview" src={preview} alt="Preview" />}
+            <div className="addDisease-preview-container">
+              {preview && <img className="addDisease-preview" src={preview} alt="Preview" />}
             </div>
-            <input type="file" id='edit-image' name='edit-image' onChange={handleFileChange} />
+            <input type="file" id='addDisease-image' name='addDisease-image' onChange={handleFileChange} />
           </div>
 
 
-          <div className="edit-input-right">
-            <input type="hidden" id="edit-patient_id" name="disease_patient_id" value={data?.patient_id || ''} readOnly/>
+          <div className="addDisease-input-right Fix-inputRightDiseaseAdd">
+            <input type="hidden" id="addDisease-patient_id" name="disease_patient_id" value={data?.patient_id || ''} readOnly/>
 
             <div className="input-container">
-              <label htmlFor="edit-first_name">Patient Name:</label>
-              <input type="text" id="edit-first_name" name="edit-first_name" value={patient_name} onChange={(e) => setFirstName(e.target.value)} required autoComplete='off'   disabled='true' />
+              <label htmlFor="addDisease-first_name">Patient Name:</label>
+              <input type="text" id="addDisease-first_name" name="addDisease-first_name" value={patient_name} onChange={(e) => setFirstName(e.target.value)} required autoComplete='off'   disabled='true' />
             </div>
+
+            <div className="input-container">
+              <label htmlFor="addDisease-last_name">Disease:</label>
+              <input type="text" id="addDisease-last_name" name="disease_patient_name"  onChange={(e) => setDiseaseName(e.target.value)} required autoComplete='off'  />
+            </div>
+
+            
+
+              <div className="input-container">
+              <label htmlFor="addDisease-household">Disease Stage:</label>
+              <input type="text" id="addDisease-household" name="disease_stage" onChange={(e) => setDiseaseStage(e.target.value)} required autoComplete='off' />
+            </div>
+
+         
+            <div className="addDisease-input-squeeze">
 
            
 
-            <div className="input-container">
-              <label htmlFor="edit-last_name">Disease:</label>
-              <input type="text" id="edit-last_name" name="disease_patient_name"  onChange={(e) => setDiseaseName(e.target.value)} required autoComplete='off'  />
             </div>
 
-            <div className="edit-input-squeeze">
+               <div className="input-container">
+                <label htmlFor="addDisease-bdate">Treatment Schedule:</label>
+                <input type="date" id="addDisease-bdate" name="disease_treatmentSched"  onChange={(e) => setDiseaseSched(e.target.value)} required />
+              </div>
 
-            <div className="input-container">
-                <label htmlFor="edit-blood_type">Disease Status:</label> <br />
-                <select id="edit-blood_type" name="disease_status" onChange={(e) => setDiseaseStatus(e.target.value)} required>
+              <div className="input-container">
+                <label htmlFor="addDisease-blood_type">Disease Status:</label> <br />
+                <select id="addDisease-blood_type" name="disease_status" onChange={(e) => setDiseaseStatus(e.target.value)} required>
                   <option value="">Select Status</option>
                   <option value="MILD">MILD</option>
                   <option value="SEVERE">SEVERE</option>
@@ -118,19 +135,8 @@ const EditModal = ({ visible, onClose, data }) => {
                 </select>
               </div>
 
-              <div className="input-container">
-              <label htmlFor="edit-household">Disease Stage:</label>
-              <input type="text" id="edit-household" name="disease_stage" onChange={(e) => setDiseaseStage(e.target.value)} required autoComplete='off' />
-            </div>
 
-            </div>
-
-               <div className="input-container">
-                <label htmlFor="edit-bdate">Treatment Schedule:</label>
-                <input type="date" id="edit-bdate" name="disease_treatmentSched"  onChange={(e) => setDiseaseSched(e.target.value)} required />
-              </div>
-
-            <div className="edit-input-squeeze">
+            <div className="addDisease-input-squeeze">
             
              
             </div>
@@ -141,11 +147,11 @@ const EditModal = ({ visible, onClose, data }) => {
 
             
 
-            <button type="submit" id="save-changes" className="save-edit">Save Changes</button>
+            <button type="submit" id="save-changes" className="save-addDisease">Save Changes</button>
           </div>
         </form>
 
-        <button onClick={onClose} className="close-edit">Close</button>
+        <button onClick={onClose} className="close-addDisease">Close</button>
       </div>
     </div>
   );

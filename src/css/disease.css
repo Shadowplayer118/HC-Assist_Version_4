@@ -1,0 +1,280 @@
+/* add disease */
+
+
+.addDisease-modal-title{
+    background-color: #3E4BBA;
+    padding: 5px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    color: white;
+    padding-left:20px; 
+    
+ }
+
+
+
+#addDiseaseForm{
+    width: 600px;
+    justify-content: left;
+    height: 300px;
+    margin-top: 20px;
+    width: 200px;
+
+    
+}
+
+#addDiseaseForm input{
+    height: 20px;
+    width: 200px;
+    margin-right: 10px;
+
+
+}
+
+#addDiseaseForm select{
+    height: 20px;
+    margin-right: 10px;
+
+}
+
+
+#addDiseaseForm label{
+    width: 110px;
+    font-size: 15px;
+    
+}
+
+
+
+
+.input-container{
+margin-bottom: -10px;
+position: relative;
+
+}
+
+
+
+#save-changes{
+margin-top: 20px;    
+}
+
+.steady{
+    position: absolute;
+    bottom: 90px;
+}
+
+.addDisease-modal{
+    /* display: none; */
+    position: fixed;
+    z-index: 1000; /* Ensure modal appears above other content */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.addDisease-modal-content{
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 530px;
+    height: 470px;
+    /* max-width: 500px; */
+    border-radius: 5px;
+    position: relative;
+    bottom: 50px;
+    overflow: hidden;
+ 
+
+}
+
+
+#addDisease-form{
+    
+  
+    display: flex;
+    flex-wrap: wrap;
+    width: 600px;
+    justify-content: left;
+    height: 300px;
+    margin-top: 20px;
+    background-color: red;
+    
+
+
+}
+
+#addDisease-form input{
+    height: 20px;
+    margin-right: 10px;
+}
+
+
+#addDisease-form label{
+    width: 110px;
+    font-size: 11px;
+}
+
+
+.addDisease-input-right{
+    display: flex;
+    flex-wrap: wrap;
+    width: 250px;
+    position: absolute;
+    right: 50px;
+    bottom: 200px;
+  
+ 
+
+
+
+}
+
+.addDisease-modal input{
+    width: 250px;
+    border-width: 1px;
+    border-radius: 4px;
+    padding: 2px;
+    margin: 4px;
+  
+}
+
+
+
+#addDisease-age{
+    width: 3vw;
+}
+
+#addDisease-bdate{
+    width:14vw;
+    
+    
+}
+
+.gender-civilContainer{
+    display: flex;
+    flex-wrap: wrap;
+    
+    width: 45vw;
+}
+
+#addDisease-gender{
+    width: 110px;
+}
+
+#addDisease-civil_status{
+    width: 120px;
+}
+
+#save-changes{
+margin-top: 20px;    
+}
+
+.steady{
+    position: absolute;
+    bottom: 90px;
+}
+
+
+
+.addDisease-input-squeeze{
+   
+    display: flex;
+    
+    justify-content: stretch;
+   
+    
+}
+
+
+
+
+.addDisease-input-left{
+    width:300px;
+    height: 300px;
+    position: absolute;
+    top: 50px;
+    left: 40px;
+  
+}
+
+.addDisease-preview-container{
+    background-color: red;
+    position: absolute;
+    width: 200px;
+    height: 230px;
+    margin-top: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.addDisease-preview{
+    position: absolute;
+    width: 200px;
+    height: 230px;
+
+}
+
+.addDisease-image-btn{
+    position: absolute;
+    bottom: 150px;
+    left: 40px;
+    overflow: hidden;
+}
+   
+
+.addDisease-preview-whole{
+    position: relative;
+    left: 10px;
+}
+
+.close-addDisease{
+    background-color: red;
+    position: absolute;
+    padding: 3px;
+    width: 80px;
+    border-width: 0px;
+    border-radius: 5px;
+    color: white;
+    box-shadow: -2px 2px rgb(51, 51, 51);
+    bottom: 20px;
+    left: 40px;
+
+    
+}
+
+.close-addDisease:hover{
+    background-color: rgb(164, 0, 0);
+    color: rgb(184, 184, 184);
+}
+
+
+.save-addDisease{
+    background-color: rgb(55, 182, 46);
+    position: absolute;
+    padding: 3px;
+    max-width: 120px;
+    width: 120px;
+    border-width: 0px;
+    border-radius: 5px;
+    color: white;
+    box-shadow: -2px 2px rgb(51, 51, 51);
+    bottom: -180px;
+    left: -140px;
+   
+}
+
+.save-addDisease:hover{
+    background-color: rgb(39, 130, 33);
+    color: rgb(184, 184, 184);
+}
+
+#addDisease-image{
+    visibility: hidden;
+}

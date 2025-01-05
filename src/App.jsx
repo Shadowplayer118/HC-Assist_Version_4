@@ -16,6 +16,18 @@ import WorkflowSteps from "./pages/adminFolder/workflowFolder/workflowSteps";  /
 import ActiveWorkflowSteps from "./pages/adminFolder/workflowFolder/activeWorkflowSteps";
 import ReportTable from "./pages/adminFolder/dashboardFolder/monthlyReport";
 
+import PatientCalendar from "./pages/patientFolder/PatientCalendarFolder/PatientCalendar";
+
+import StaffDashboard from "./pages/staffFolder/staffDashboardFolder/StaffDashboard";
+
+import StaffActiveWorkflowSteps from "./pages/staffFolder/staffWorkflowFolder/StaffActiveWorkflowSteps";
+import StaffWorkflowSteps from "./pages/staffFolder/staffWorkflowFolder/StaffWorkflowSteps";
+import StaffWorkflow from "./pages/staffFolder/staffWorkflowFolder/Staffworkflow";
+
+
+import MidwifePregnant from "./pages/midwifeFolder/midwifePregnantFolder/MidwifePregnant";
+import MidwifeCalendar from "./pages/midwifeFolder/midwifeCalendarFolder/MidwifeCalendar";
+
 function App() {
   return (
     <>
@@ -42,6 +54,31 @@ function App() {
         <Route path="/workflowSteps/:workflow_id" element={<WorkflowSteps />} />
         <Route path="/activeWorkflowSteps/:activeWorkflow_id" element={<ActiveWorkflowSteps />} />
         <Route path="/monthlyReport" element={<ReportTable />} />
+
+
+
+
+        <Route path="/PatientCalendar" element={<PatientCalendar/>} />
+
+
+
+
+
+        <Route path="/StaffDashboard" element={<StaffDashboard/>} />
+        
+        <Route path="/Staffworkflow" element={<StaffWorkflow />} />
+       
+        <Route path="/StaffActiveWorkflowSteps/:activeWorkflow_id" element={<StaffActiveWorkflowSteps/>} />
+        <Route path="/StaffWorkflowSteps/:workflow_id" element={<StaffWorkflowSteps/>} />
+
+        
+
+
+        <Route path="/MidwifePregnant" element={<MidwifePregnant/>} />
+        <Route path="/MidwifeCalendar" element={<MidwifeCalendar/>} />
+
+
+
 
       </Routes>
     </>

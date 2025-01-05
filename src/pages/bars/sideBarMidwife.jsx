@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import NotificationBadge from "../adminFolder/medicineFolder/medicine-Expiration";
 
-function SidebarStaff() {
+function SidebarMidwife() {
   useEffect(() => {
     const linkElements = document.querySelectorAll(".link");
 
@@ -47,26 +47,14 @@ function SidebarStaff() {
 
   return (
     <div className="side">
-      <div className="side-bar">
-        <div className="link"><a href="/StaffDashboard">Dashboard</a></div>
-        <div className="link"><a href="/patient">Patients</a></div>
-        <div className="link"><a href="/referral">Referrals</a></div>
-        <div className="link"><a href="/calendar">Calendar</a></div>
-        <div className="link"><a href="/pregnant">Pregnant</a></div>
-        <div className="link"><a href="/child">Child Nutrition</a></div>
-        <div className="link"><a href="/disease">Disease</a></div>
-        <div className="link"><a href="/immunization">Immunization</a></div>
-        <div className="link"><a href="/StaffWorkflow">Workflow</a></div>
-        <div className="link">
-          <a href="/medicine">
-            Medicine
-          
-          </a>  <NotificationBadge />
-        </div>
-       
+      <div className="side-bar side-barMidwife">
+        <div className="link"><a href="/MidwifeCalendar">Calendar</a></div>
+        <div className="link"><a href="/MidwifePregnant">Pregnant</a></div>
+        <div className="link"><a href="/MidwifePregnant">Child Nutrition</a></div>
+        <div className="link"><a href="/MidwifePregnant">Workflow</a></div>
       </div>
     </div>
   );
 }
 
-export default SidebarStaff;
+export default SidebarMidwife;
