@@ -1,208 +1,231 @@
-import React, { useEffect, useState } from 'react';
-import { BrowserRouter, useFetcher } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import '../../../css/inventory.css'
+import StockInModal from './medicine-stockIn';
+
 
 const EditModal = ({ visible, onClose, data }) => {
-  if (!visible) return null;
+  if (!visible) return null; // Prevent rendering when modal is not visible
 
-  console.log(data) 
+  // State to manage form input values
+  const [itemName, setitemName] = useState('');
+  const [brand, setbrand] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [category, setcategory] = useState('');
+  const [stock, setstock] = useState('');
+  const [price, setprice] = useState('');
+  const [expirationDate, setexpirationDate] = useState('');
 
-  const [isEditable, setIsEditable] = useState(false);
-  const [count, setCount] = useState(0);
-  const [fetchpatient, setFetchpatient] = useState(null);
+  const [selectedImage, setSelectedImage] = useState('../../Images/medicine.png');
+  const [preview, setPreview] = useState('../../Images/medicine.png');
 
-  function editable() {
-    setCount(count === 0 ? 1 : 0);
-    setIsEditable(count === 1);
+  const [expirations,SetExpirations] = useState([]);
+
+  const[isDisabled,setisDisabled] = useState(true);
+
+
+  const[isOpenStockinModal,setisOpenStockinModal] = useState(true);
+  
+
+  // Populate form with existing data if available
+  useEffect(() => {
+    if (data) {
+
+      fetchExpirations(data.inventory_id);
+      setitemName(data.item_name);
+      setbrand(data.brand);
+      setcategory(data.category);
+      setstock(data.stock);
+      setprice(data.price);
+      setSelectedImage(data.image);
+      if(data.image==null||data.image.length==0){
+        setPreview('../../Images/medicine.png');
+      }
+      else{
+        setPreview(`../../../php/${data.image}`);
+      }
+
+    }
+  }, [data],expirations);
+  
+  function enableEdit(){
+    if(isDisabled == true){
+      setisDisabled(false);
+    }
+
+    else{
+      setisDisabled(true);
+    }
+
   }
+  
 
-    useEffect(() => {
-      setFetchpatient(data)
-      console.log(fetchpatient)
-    }, [fetchpatient])
+  const fetchExpirations = async (inventory_id) => {
+    try {
+      const response = await axios.get(
+        'http://localhost/HC-Assist_Version_4/php/new_php/HC-Assist_API/Admin/inventory/expirations.php',
+        { params: { inventory_id } }
+      );
+  
+      if (response.data && Array.isArray(response.data)) {
+        SetExpirations(response.data); // Update the state with API data
+      } else {
+        console.error('Unexpected API response format:', response.data);
+        SetExpirations([]); // Clear state if response is invalid
+      }
+    } catch (error) {
+      console.error('Error fetching expirations:', error);
+      SetExpirations([]); // Clear state on error
+    }
+  };
 
- 
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setSelectedImage(file);
+      setPreview(URL.createObjectURL(file));
+    }
+  };
+
+  // Handle form submit
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Prepare data for submission
+    const formData = new FormData();
+     // patient_id
+    formData.append('item_name', itemName);
+    formData.append('brand', brand);
+    formData.append('category', category);
+    formData.append('stock', stock);
+    formData.append('price', price);
+    formData.append('expiration', expirationDate);
+
+
+    // Append the selected image if it exists
+    if (selectedImage && selectedImage !== '../../Images/medicine.png') {
+      formData.append('image', selectedImage);
+    } else {
+      formData.append('image', '../../Images/medicine.png'); // default image path
+    }
+
+    try {
+      const response = await axios.post('http://localhost/HC-Assist_Version_4/php/new_php/HC-Assist_API/Admin/inventory/addInventory.php', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      console.log(response.data); 
+      if (response.data === 'success') {
+        alert('Inventory added successfully!');
+        onClose(); // Close modal on success
+      } else {
+        alert('Failed to add patientss.');
+        console.log(response.data)
+        onClose(); 
+      }
+    } catch (error) {
+      console.error('Error adding patient:', error);
+      alert('An error occurred.');
+      onClose(); 
+    }
+  };
 
   return (
-    <div className="edit-modal">
-      <div className="edit-modal-content">
-        <button onClick={onClose}>
-          <span className="close-edit" id="close-edit">
-            &times;
-          </span>
-        </button>
-        <h3>Add Referral</h3>
-        <form id="edit-form">
-          <div className="input-right">
+    <div className='add-modal'>
+      {/* <StockInModal visible={isOpenStockinModal} onClose={() => setIsOpenViewModal(false)} data={selectedMed}/> */}
+      <div className="add-modal-content">
+        <h3 className='add-modal-title'>Add Inventory</h3>
+        <button className='add_image-btn' onClick={() => document.getElementById('add_image').click()}>Choose Image</button>
+
+        <form onSubmit={handleSubmit}>
+          <div className="add-input-left">
+            <label htmlFor="">Item Image</label>
+            <div className="add-preview-containerInventory">
+              {preview && <img className="add-preview" src={preview} alt="Preview" />}
+            </div>
+            <input type="file" id='add_image' name='add_image' onChange={handleFileChange} />
+          </div>
+
+          <div className="add-input-right">
             <div className="steady">
-              <input
-                type="text"
-                id="edit-patient_id"
-                name="edit-patient_id"
-                style={{ display: 'none' }}
-                value={fetchpatient.patient_id} // Assuming the patient_id exists in the response
-              />
+              <input type="text" id="add-patient_id" name="add-patient_id" value={data?.patient_id || ''} style={{ display: 'none' }} readOnly />
+            </div>
+            <div className="input-container">
+              <label htmlFor="add-first_name">Item Name:</label>
+              <input type="text" id="add-first_name" name="first_name" value={itemName} onChange={(e) => setitemName(e.target.value)} required autoComplete='off' disabled={isDisabled}/>
+            </div>
 
+            <div className="input-container">
+                <label htmlFor="price">Category:</label><br />
+                <select id="add-price" name="price" value={category} onChange={(e) => setcategory(e.target.value)} required disabled={isDisabled}>
+                  <option value="">Select price</option>
+                  <option value="Medicine">Medicine</option>
+                  <option value="Bandage">Bandage</option>
+                  <option value="Anti-Biotic">Anti-Biotic</option>
+
+                </select>
+              </div>
+
+            <div className="input-container">
+              <label htmlFor="add-first_name">Item Brand:</label>
+              <input type="text" id="add-first_name" name="first_name" value={brand} onChange={(e) => setbrand(e.target.value)} required autoComplete='off' disabled={isDisabled}/>
+            </div>
+
+        
+            <div className="add-input-squeeze">
+            
+            </div>
+
+           
+
+            <div className="add-input-squeeze">
               <div className="input-container">
-                <label htmlFor="edit-first_name">First Name:</label>
-                <br />
-                <input
-                  type="text"
-                  id="edit-first_name"
-                  name="edit-first_name"
-                  required
-                  value={fetchpatient.first_name} // Bind to fetched first name
-                  onChange={(e) => setFetchpatient({ ...fetchpatient, data: { ...fetchpatient.data, first_name: e.target.value } })}
-                />
-              </div>
-
-              <div className="input-container">
-                <label htmlFor="edit-middle_name">Middle Name:</label>
-                <br />
-                <input
-                  type="text"
-                  id="edit-middle_name"
-                  name="edit-middle_name"
-                  required
-                  value={fetchpatient.data.middle_name || ''} // Handle undefined middle name
-                  onChange={(e) => setFetchpatient({ ...fetchpatient, data: { ...fetchpatient.data, middle_name: e.target.value } })}
-                />
-              </div>
-
-              <div className="input-container">
-                <label htmlFor="edit-last_name">Last Name:</label>
-                <br />
-                <input
-                  type="text"
-                  id="edit-last_name"
-                  name="edit-last_name"
-                  required
-                  value={fetchpatient.data.last_name} // Bind to fetched last name
-                  onChange={(e) => setFetchpatient({ ...fetchpatient, data: { ...fetchpatient.data, last_name: e.target.value } })}
-                />
-              </div>
-
-              <div className="age-dateContainer">
-                <div className="input-container">
-                  <label htmlFor="edit-age">Age:</label>
-                  <br />
-                  <input
-                    type="text"
-                    id="edit-age"
-                    name="edit-age"
-                    required
-                    value={fetchpatient.data.age || ''} // Handle undefined age
-                    onChange={(e) => setFetchpatient({ ...fetchpatient, data: { ...fetchpatient.data, age: e.target.value } })}
-                  />
-                </div>
-
-                <div className="input-container">
-                  <label htmlFor="edit-bdate">Birthdate:</label>
-                  <br />
-                  <input
-                    type="date"
-                    id="edit-bdate"
-                    name="edit-bdate"
-                    required
-                    value={fetchpatient.data.birthdate || ''} // Handle undefined birthdate
-                    onChange={(e) => setFetchpatient({ ...fetchpatient, data: { ...fetchpatient.data, birthdate: e.target.value } })}
-                  />
-                </div>
-              </div>
-
-              <div className="gender-civilContainer">
-                <div className="input-container">
-                  <label htmlFor="edit-gender">Gender:</label>
-                  <br />
-                  <select
-                    id="edit-gender"
-                    name="edit-gender"
-                    required
-                    value={fetchpatient.data.gender || ''}
-                    onChange={(e) => setFetchpatient({ ...fetchpatient, data: { ...fetchpatient.data, gender: e.target.value } })}
-                  >
-                    <option value="">Select Gender</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                  </select>
-                </div>
-
-                <div className="input-container">
-                  <label htmlFor="edit-civil_status">Civil Status:</label>
-                  <br />
-                  <input
-                    type="text"
-                    id="edit-civil_status"
-                    name="edit-civil_status"
-                    required
-                    value={fetchpatient.data.civil_status || ''}
-                    onChange={(e) => setFetchpatient({ ...fetchpatient, data: { ...fetchpatient.data, civil_status: e.target.value } })}
-                  />
-                </div>
+                <label htmlFor="age">Stock:</label>
+                <input type="number" id="add-age" name="age" value={stock} onChange={(e) => setstock(e.target.value)} required disabled={isDisabled} autoComplete='off'/>
               </div>
 
               <div className="input-container">
-                <label htmlFor="edit-purok">Purok:</label>
-                <br />
-                <input
-                  type="text"
-                  id="edit-purok"
-                  name="edit-purok"
-                  required
-                  value={fetchpatient.data.purok}
-                />
-              </div>
-
-              <div className="input-container">
-                <label htmlFor="edit-household">Household:</label>
-                <br />
-                <input
-                  type="text"
-                  id="edit-household"
-                  name="edit-household"
-                  required
-                  value={fetchpatient.data.household || ''}
-                />
-              </div>
-
-              <div className="input-container">
-                <label htmlFor="edit-contact_number">Contact #:</label>
-                <br />
-                <input
-                  type="text"
-                  id="edit-contact_number"
-                  name="edit-contact_number"
-                  required
-                  value={fetchpatient.data.contact_number || ''}
-                 
-                />
-              </div>
-
-              <div className="input-container">
-                <label htmlFor="edit-blood_type">Blood Type:</label>
-                <br />
-                <input
-                  type="text"
-                  id="edit-blood_type"
-                  name="edit-blood_type"
-                  required
-                  value={fetchpatient.data.blood_type || ''}
-                />
+                <label htmlFor="add-bdate">Price:</label>
+                <input type="number" id="add-bdate" name="bdate" value={price} onChange={(e) => setprice(e.target.value)} required disabled={isDisabled}/>
               </div>
             </div>
 
-            <button
-              type="submit"
-              id="save-changes"
-              required
-              style={{ display: count === 0 ? 'none' : '' }}
-            >
-              Save Changes
-            </button>
+
+            <label htmlFor="add-bdate">Expirations:</label> <br />
+             <div className="expirations-container">
+             {expirations.length > 0 ? (
+        <div className='expirations-content'>
+          {expirations.map((item) => (
+            <div className='expiration-card' key={item.id}>
+              <div className="expDate">{item.expiration_date}</div>
+              <div className="expStocks">{item.stocked} Stocks</div>
+              <div className="resolve">res</div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className='noActivity-container'> <div className="noActiviy-text">No Items have expired</div>
+        <div className="noActiviy-image"><img src="/Images/safe_medicine.png" alt="" /></div></div>
+      )}
+
+             </div>
+
+
+            <button type="submit" id="save-changes" className="save-add" disabled={isDisabled}>Save Changes</button>
           </div>
         </form>
-        <button id="allow-edit" onClick={editable}>
-          {count === 0 ? 'Edit' : 'Cancel'}
+
+        <button onClick={onClose}>
+          <span className="close-add" id="close-add">Close</span>
+        </button>
+
+        <button onClick={onClose}>
+          <span className="stock-in" id="close-add">Stock In</span>
+        </button>
+
+        <button onClick={enableEdit}>
+          <span className="edit" id="close-add">Edit</span>
         </button>
       </div>
     </div>

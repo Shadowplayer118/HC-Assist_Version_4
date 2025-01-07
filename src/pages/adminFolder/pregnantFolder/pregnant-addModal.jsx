@@ -1,254 +1,319 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import '../../../css/pregnant.css'
 
-const AddModal = ({ visible, onClose, data }) => {
-  if (!visible) return null; // Prevent rendering when modal is not visible
 
-  // State to manage form input values
+const AddPregnantModal = ({ visible, onClose, data }) => {
+  if (!visible) return null;
+
+  // State hooks for all fields
   const [firstName, setFirstName] = useState('');
   const [middleName, setMiddleName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [age, setAge] = useState('');
-  const [birthDate, setBirthDate] = useState('');
-  const [gender, setGender] = useState('');
-  const [civilStatus, setCivilStatus] = useState('');
-  const [purok, setPurok] = useState('');
-  const [household, setHousehold] = useState('');
-  const [contactNumber, setContactNumber] = useState('');
-  const [bloodType, setBloodType] = useState('');
 
-  // Populate form with existing data
+  const [DateConcieved, setDateConcieved] = useState('');
+  const [ExpectedDate, setExpectedDate] = useState('');
+  const [FirstTri, setFirstTri] = useState('');
+  const [SecondTri, setSecondTri] = useState('');
+  const [ThirdTri, setThirdTri] = useState('');
+  const [Status, setStatus] = useState('');
+  const [FatherName, setFatherName] = useState('');
+  const [FatherContact, setFatherContact] = useState('');
+
+
+  const [IsEditFirst, setIsEditFirst] = useState(true);
+  const [IsEditSecond, setIsEditSecond] = useState(false);
+  const [IsEditThird, setIsEditThird] = useState(false);
+
+
+
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [preview, setPreview] = useState('');
+  const patient_name = firstName+" " +lastName;
+
+  const staff_id = localStorage.getItem('logId');
+
+  // Initialize states when data changes
   useEffect(() => {
     if (data) {
       setFirstName(data.first_name || '');
-      setMiddleName(data.middle_name || '');
       setLastName(data.last_name || '');
-      setAge(data.age || '');
-      setBirthDate(data.birth_date || '');
-      setGender(data.gender || '');
-      setCivilStatus(data.civil_status || '');
-      setPurok(data.purok || '');
-      setHousehold(data.household || '');
-      setContactNumber(data.contact_number || '');
-      setBloodType(data.blood_type || '');
+
+      // Set the image preview, check if there's an image path or fallback to default
+      setPreview(`../../../php/${data.image}` || '../../Images/blank_patient.jpg');
+      console.log(data);
     }
   }, [data]);
 
-  // Handle form submit
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  function ValidateTrimester(){
+    const dateConcievedObj = new Date(DateConcieved);
+  }
 
-    // Prepare data for submission
-    const formData = {
-      patient_id: data?.patient_id, // assuming patient_id exists in the data
-      first_name: firstName,
-      middle_name: middleName,
-      last_name: lastName,
-      age,
-      birth_date: birthDate,
-      gender,
-      civil_status: civilStatus,
-      purok,
-      household,
-      contact_number: contactNumber,
-      blood_type: bloodType,
-    };
+  function AutoFill() {
 
-    try {
-      const response = await axios.post('http://localhost/HC-Assist_API/Admin/patient/add-Patient.php', formData);
+    setFirstTri('');
+    setExpectedDate('');
+    setSecondTri('');
+    setThirdTri('');
 
-      if (response.data.status === 'success') {
-        alert('Patient updated successfully!');
-        onClose(); // Close modal on success
-      } else {
-        alert('Failed to update patient.');
-      }
-    } catch (error) {
-      console.error('Error updating patient:', error);
-      alert('An error occurred.');
+    
+    if (!DateConcieved) {
+      alert('Please input Date Conceived');
+      return;
+    }
+  
+    // Convert the input to a Date object
+    const dateConcievedObj = new Date(DateConcieved);
+  
+    if (isNaN(dateConcievedObj.getTime())) {
+      alert('Invalid date format. Please enter a valid date.');
+      return;
+    }
+  
+    const today = new Date();
+  if(dateConcievedObj < today){
+    const yes = today-dateConcievedObj;
+    const diffDays = yes / (1000 * 60 * 60 * 24);
+    let daysSinceConception = Math.floor(diffDays);
+    console.log(daysSinceConception);
+
+    if(daysSinceConception > 280){
+      console.log('Long Term');
+      console.log(daysSinceConception);
+      setStatus('LONG TERM');
+
+    }
+
+    else if(daysSinceConception <= 91){
+      console.log('First Tri');
+      setStatus('FIRST TRIMESTER');
+      console.log(daysSinceConception);
+      trimesterCalculator(dateConcievedObj,1,0,0)
+
+    }
+
+
+    else if(daysSinceConception <= 189){
+      console.log('2nd tri');
+      setStatus('SECOND TRIMESTER');
+      console.log(daysSinceConception);
+      trimesterCalculator(dateConcievedObj,0,1,0)
+
+    }
+
+    else if(daysSinceConception <= 280){
+      console.log('3rd Tri');
+      setStatus('THIRD TRIMESTER');
+      console.log(daysSinceConception);
+      trimesterCalculator(dateConcievedObj,0,0,1)
+
+    }
+
+    else{
+
+    }
+  }
+
+  
+
+    // Calculate trimester start and end dates
+    // Format as YYYY-MM-DD for input type="date"
+  }
+
+  function trimesterCalculator(currDate,first,second,third){
+
+
+    const firstTrimesterEnd = new Date(currDate);
+    firstTrimesterEnd.setDate(firstTrimesterEnd.getDate() + 91);
+   
+    const secondTrimesterStart = new Date(firstTrimesterEnd);
+      secondTrimesterStart.setDate(secondTrimesterStart.getDate() + 1);
+      const secondTrimesterEnd = new Date(currDate);
+      secondTrimesterEnd.setDate(secondTrimesterEnd.getDate() + 189);
+
+    const thirdTrimesterStart = new Date(secondTrimesterEnd);
+    thirdTrimesterStart.setDate(thirdTrimesterStart.getDate() + 1);
+    const dueDate = new Date(currDate);
+    dueDate.setDate(dueDate.getDate() + 280);
+
+    if(first==1){
+        setFirstTri(firstTrimesterEnd.toISOString().split('T')[0]);
+    setSecondTri(secondTrimesterStart.toISOString().split('T')[0]);
+    setThirdTri(thirdTrimesterStart.toISOString().split('T')[0]);
+    setExpectedDate(dueDate.toISOString().split('T')[0]); 
+    }
+
+    else if(second==1){
+      setThirdTri(thirdTrimesterStart.toISOString().split('T')[0]);
+      setExpectedDate(dueDate.toISOString().split('T')[0]); 
+    }
+
+    else if(third==1){
+    
+      setExpectedDate(dueDate.toISOString().split('T')[0]); 
+    }
+
+   
+
+    
+
+  
+   
+
+  }
+  
+  
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setSelectedImage(file);
+      setPreview(URL.createObjectURL(file));
     }
   };
 
+  // Handle form submission
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  const formData = new FormData();
+  formData.append('Pregnant_patient_id', data?.patient_id || ''); 
+  formData.append('Pregnant_patient_name', PregnantName);
+  formData.append('Pregnant_status', PregnantStatus);
+  formData.append('Pregnant_stage', PregnantStage);
+  formData.append('Pregnant_treatmentSched', PregnantSched);
+  formData.append('staff_id', staff_id);
+  
+
+
+  // Append the selected image if it exists
+
+  try {
+    const response = await axios.post(
+      'http://localhost/HC-Assist_Version_4/php/new_php/HC-Assist_API/Admin/Pregnant/Pregnant_add.php',
+      formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data', // Ensure it's set to multipart/form-data
+        },
+      }
+    );
+
+    if (response.data.status === 'success') {
+      alert('Patient edited successfully!');
+      onClose(); // Close modal on success
+    } else {
+      alert('Failed to edit patient.');
+    }
+  } catch (error) {
+    console.error('Error editing patient:', error);
+    alert('An error occurred.');
+  }
+};
+
+
   return (
-    <div className='add-modal'>
-      <div className="add-modal-content">
-        <button onClick={onClose}>
-          <span className="close-add" id="close-add">
-            &times;
-          </span>
-        </button>
-        <h3>Edit Form</h3>
-        <form onSubmit={handleSubmit} id="edit-form">
-          <div className="input-right">
-            <div className="steady">
-              <input
-                type="text"
-                id="edit-patient_id"
-                name="edit-patient_id"
-                value={data?.patient_id || ''}
-                style={{ display: 'none' }}
-                readOnly
-              />
+    <div className="addPregnant-modal">
+      <div className="addPregnant-modal-content">
+        <h3 className='addPregnant-modal-title'>Pregnant Information</h3>
+ 
 
-              <div className="input-container">
-                <label htmlFor="edit-first_name">First Name:</label>
-                <br />
-                <input
-                  type="text"
-                  id="edit-first_name"
-                  name="first_name"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  required
-                />
-              </div>
-
-              <div className="input-container">
-                <label htmlFor="edit-middle_name">Middle Name:</label>
-                <br />
-                <input
-                  type="text"
-                  id="middle_name"
-                  name="middle_name"
-                  value={middleName}
-                  onChange={(e) => setMiddleName(e.target.value)}
-                  required
-                />
-              </div>
-
-              <div className="input-container">
-                <label htmlFor="last_name">Last Name:</label>
-                <br />
-                <input
-                  type="text"
-                  id="edit-last_name"
-                  name="last_name"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  required
-                />
-              </div>
-
-              <div className="age-dateContainer">
-                <div className="input-container">
-                  <label htmlFor="age">Age:</label>
-                  <br />
-                  <input
-                    type="text"
-                    id="edit-age"
-                    name="age"
-                    value={age}
-                    onChange={(e) => setAge(e.target.value)}
-                    required
-                  />
-                </div>
-
-                <div className="input-container">
-                  <label htmlFor="edit-bdate">Birthdate:</label>
-                  <br />
-                  <input
-                    type="date"
-                    id="edit-bdate"
-                    name="bdate"
-                    value={birthDate}
-                    onChange={(e) => setBirthDate(e.target.value)}
-                    required
-                  />
-                </div>
-              </div>
-
-              <div className="gender-civilContainer">
-                <div className="input-container">
-                  <label htmlFor="gender">Gender:</label>
-                  <br />
-                  <select
-                    id="edit-gender"
-                    name="gender"
-                    value={gender}
-                    onChange={(e) => setGender(e.target.value)}
-                    required
-                  >
-                    <option value="">Select Gender</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                  </select>
-                </div>
-
-                <div className="input-container">
-                  <label htmlFor="civil_status">Civil Status:</label>
-                  <br />
-                  <input
-                    type="text"
-                    id="edit-civil_status"
-                    name="civil_status"
-                    value={civilStatus}
-                    onChange={(e) => setCivilStatus(e.target.value)}
-                    required
-                  />
-                </div>
-              </div>
-
-              <div className="input-container">
-                <label htmlFor="edit-purok">Purok:</label>
-                <br />
-                <input
-                  type="text"
-                  id="edit-purok"
-                  name="purok"
-                  value={purok}
-                  onChange={(e) => setPurok(e.target.value)}
-                  required
-                />
-              </div>
-
-              <div className="input-container">
-                <label htmlFor="edit-household">Household:</label>
-                <br />
-                <input
-                  type="text"
-                  id="edit-household"
-                  name="household"
-                  value={household}
-                  onChange={(e) => setHousehold(e.target.value)}
-                  required
-                />
-              </div>
-
-              <div className="input-container">
-                <label htmlFor="edit-contact_number">Contact #:</label>
-                <br />
-                <input
-                  type="text"
-                  id="edit-contact_number"
-                  name="contact_number"
-                  value={contactNumber}
-                  onChange={(e) => setContactNumber(e.target.value)}
-                  required
-                />
-              </div>
-
-              <div className="input-container">
-                <label htmlFor="edit-blood_type">Blood Type:</label>
-                <br />
-                <input
-                  type="text"
-                  id="edit-blood_type"
-                  name="blood_type"
-                  value={bloodType}
-                  onChange={(e) => setBloodType(e.target.value)}
-                  required
-                />
-              </div>
-
-              <button type="submit" id="save-changes">
-                Save Changes
-              </button>
+        <form onSubmit={handleSubmit}>
+          <div className="addPregnant-input-left">
+            <label htmlFor="">Profile Picture</label>
+            <div className="addPregnant-preview-container">
+              {preview && <img className="addPregnant-preview" src={preview} alt="Preview" />}
             </div>
+            <input type="file" id='addPregnant-image' name='addPregnant-image' onChange={handleFileChange} />
+          </div>
+
+
+          <div className="addPregnant-input-right">
+            <input type="hidden" id="addPregnant-patient_id" name="Pregnant_patient_id" value={data?.patient_id || ''} readOnly/>
+
+            <div className="input-container">
+              <label htmlFor="addPregnant-first_name">Patient Name:</label>
+              <input type="text" id="addPregnant-first_name" name="addPregnant-first_name" value={patient_name} onChange={(e) => setFirstName(e.target.value)} required autoComplete='off'   disabled='true' />
+            </div>
+
+            <div className="input-container">
+              <label htmlFor="addPregnant-last_name">Date Concieved:</label>
+              <input type="date" id="addPregnant-last_name" name="Pregnant_patient_name"  onChange={(e) => setDateConcieved(e.target.value)} required autoComplete='off'  />
+            </div>
+
+            <div className="addPregnant-input-squeeze">
+            <div className="input-container">
+                <label htmlFor="addPregnant-blood_type">Preganancy Status:</label> <br />
+                <select id="addPregnant-status" name="Pregnant_status" value={Status} onChange={(e) => setStatus(e.target.value)} required>
+                  <option value="">Select Status</option>
+                  <option value="FIRST TRIMESTER">FIRST TRIMESTER</option>
+                  <option value="SECOND TRIMESTER">SECOND TRIMESTER</option>
+                  <option value="THIRD TRIMESTER">THIRD TRIMESTER</option>
+                  <option value="LONG TERM">LONG TERM</option>
+                  <option value="DELIVERED">DELIVERED</option>
+                  <option value="MISCARRIAGE">MISCARRIAGE</option>
+                  <option value="MISCARRIAGE">ABORTED</option>
+
+
+
+                </select>
+              </div>
+
+              <div className="input-container">
+               <div className="autoLoad" onClick={AutoFill}>AutoLoad</div>
+              </div>
+
+         
+            </div>
+
+           
+            
+
+            <div className="addPregnant-input-squeeze">
+
+                
+            <div className="input-container">
+              <label htmlFor="addPregnant-household">Second-Trimester:</label>
+              <input type="date" id="addPregnant-household" name="Pregnant_stage" value={SecondTri} onChange={(e) => setSecondTri(e.target.value)} autoComplete='off' disabled={IsEditSecond}/>
+            </div>
+
+            <div className="input-container">
+              <label htmlFor="addPregnant-household">Third-Trimester:</label>
+              <input type="date" id="addPregnant-household" name="Pregnant_stage" value={ThirdTri} onChange={(e) => setThirdTri(e.target.value)}  autoComplete='off' disabled={IsEditThird}/>
+            </div>
+            
+             
+            </div>
+
+            <div className="input-container">
+              <label htmlFor="addPregnant-household">Due Date/ Birth:</label>
+              <input type="date" id="addPregnant-household" name="Pregnant_stage" value={ExpectedDate} onChange={(e) => setExpectedDate(e.target.value)}  autoComplete='off' />
+            </div>
+
+              <div className="addPregnant-input-squeeze">
+
+                <div className="input-container">
+                  <label htmlFor="addPregnant-bdate">Father:</label><br />
+                  <input type="text" id="addPregnant-bdate" name="Pregnant_treatmentSched"  onChange={(e) => setFatherName(e.target.value)}  />
+                </div>
+
+                <div className="input-container">
+                  <label htmlFor="addPregnant-bdate">Father Contact:</label>
+                  <input type="text" id="addPregnant-bdate" name="Pregnant_treatmentSched"  onChange={(e) => setFatherContact(e.target.value)}  />
+                </div>
+
+              </div>
+
+              
+          
+
+            <button type="submit" id="save-changes" className="save-addPregnant">Save Changes</button>
           </div>
         </form>
+
+        <button onClick={onClose} className="close-addPregnant">Close</button>
       </div>
     </div>
   );
 };
 
-export default AddModal;
+export default AddPregnantModal;

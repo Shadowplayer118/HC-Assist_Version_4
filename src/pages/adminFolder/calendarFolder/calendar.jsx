@@ -120,9 +120,9 @@ const Calendar = () => {
       calendarDays.push(
         <div key={date} className="day" onClick={() => handleDayClick(day)}>
           {day}
-          <div className={`small-box red-box ${dayData.includes("Pregnancy") ? "glow" : ""}`} />
-          <div className={`small-box blue-box ${dayData.includes("Contagious Disease") ? "glow" : ""}`} />
-          <div className={`small-box green-box ${dayData.includes("Immunization") ? "glow" : ""}`} />
+          <div className={`small-box red-box ${dayData.includes("Pregnancy") ? "glow" : "empty-day"}`} />
+          <div className={`small-box blue-box ${dayData.includes("Contagious Disease") ? "glow" : "empty-day"}`} />
+          <div className={`small-box green-box ${dayData.includes("Immunization") ? "glow" : "empty-day"}`} />
         </div>
       );
     }
@@ -167,12 +167,17 @@ const Calendar = () => {
         <div className="activityDate-image">{data.image}</div>
         <div className="activityDate-patient">
           {data.first_name} {data.last_name}
-        </div>
+        </div> <br/>
         <div className="activityDate-activity">{data.activity}</div>   
       </div>
     ))
   ) : (
-    <div className="no-activities">No activities for this date.</div> // Fallback message
+    <div className="noActivity">
+        <div className="noActiviy-text" style={{position:'relative',left:'5px',top:'20px'}}>No Activities Today</div>
+        <div className="noActiviy-image"><img src="/Images/happy_nurse.jpg" alt=""  style={{position:'relative',left:'80px',top:'20px'}}/></div>
+
+      
+        </div> // Fallback message
   )}
 </div>
 

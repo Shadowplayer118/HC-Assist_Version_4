@@ -1,0 +1,287 @@
+/* add disease */
+
+
+.addReferral-modal-title{
+    background-color: #3E4BBA;
+    padding: 5px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    color: white;
+    padding-left:20px; 
+    
+ }
+
+
+
+#addReferral{
+    width: 600px;
+    justify-content: left;
+    height: 300px;
+    margin-top: 20px;
+    width: 200px;
+
+    
+}
+
+#addReferral input{
+    height: 20px;
+    width: 200px;
+    margin-right: 10px;
+
+
+}
+
+#addReferral select{
+    height: 20px;
+    margin-right: 10px;
+
+}
+
+
+#addReferral label{
+    width: 110px;
+    font-size: 15px;
+    
+}
+
+
+
+
+.input-container{
+margin-bottom: -10px;
+position: relative;
+
+}
+
+
+
+#save-changes{
+margin-top: 20px;    
+}
+
+.steady{
+    position: absolute;
+    bottom: 90px;
+}
+
+.addReferral-modal{
+    /* display: none; */
+    position: fixed;
+    z-index: 1000; /* Ensure modal appears above other content */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.addReferral-modal-content{
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 530px;
+    height: 470px;
+    /* max-width: 500px; */
+    border-radius: 5px;
+    position: relative;
+    bottom: 50px;
+    overflow: hidden;
+ 
+
+}
+
+
+#addReferral-form{
+    
+  
+    display: flex;
+    flex-wrap: wrap;
+    width: 600px;
+    justify-content: left;
+    height: 300px;
+    margin-top: 20px;
+    background-color: red;
+    
+
+
+}
+
+#addReferral-form input{
+    height: 20px;
+    margin-right: 10px;
+}
+
+
+#addReferral-form label{
+    width: 110px;
+    font-size: 11px;
+}
+
+
+.addReferral-input-right{
+    display: flex;
+    flex-wrap: wrap;
+    width: 250px;
+    position: absolute;
+    right: 50px;
+    bottom: 200px;
+  
+ 
+
+
+
+}
+
+.addReferral-modal input{
+    width: 250px;
+    border-width: 1px;
+    border-radius: 4px;
+    padding: 2px;
+    margin: 4px;
+  
+}
+
+
+
+#addReferral-age{
+    width: 3vw;
+}
+
+#addReferral-bdate{
+    width:14vw;
+    
+    
+}
+
+.gender-civilContainer{
+    display: flex;
+    flex-wrap: wrap;
+    
+    width: 45vw;
+}
+
+#addReferral-gender{
+    width: 110px;
+}
+
+#addReferral-civil_status{
+    width: 120px;
+}
+
+#save-changes{
+margin-top: 20px;    
+}
+
+.steady{
+    position: absolute;
+    bottom: 90px;
+}
+
+
+
+.addReferral-input-squeeze{
+   
+    display: flex;
+    
+    justify-content: stretch;
+   
+    
+}
+
+
+
+
+.addReferral-input-left{
+    width:300px;
+    height: 300px;
+    position: absolute;
+    top: 50px;
+    left: 40px;
+  
+}
+
+.addReferral-preview-container{
+    background-color: red;
+    position: absolute;
+    width: 200px;
+    height: 230px;
+    margin-top: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.addReferral-preview{
+    position: absolute;
+    width: 200px;
+    height: 230px;
+
+}
+
+.addReferral-image-btn{
+    position: absolute;
+    bottom: 150px;
+    left: 40px;
+    overflow: hidden;
+}
+   
+
+.addReferral-preview-whole{
+    position: relative;
+    left: 10px;
+}
+
+.close-addReferral{
+    background-color: red;
+    position: absolute;
+    padding: 3px;
+    width: 80px;
+    border-width: 0px;
+    border-radius: 5px;
+    color: white;
+    box-shadow: -2px 2px rgb(51, 51, 51);
+    bottom: 20px;
+    left: 40px;
+
+    
+}
+
+.close-addReferral:hover{
+    background-color: rgb(164, 0, 0);
+    color: rgb(184, 184, 184);
+}
+
+
+.save-addReferral{
+    background-color: rgb(55, 182, 46);
+    position: absolute;
+    padding: 3px;
+    max-width: 120px;
+    width: 120px;
+    border-width: 0px;
+    border-radius: 5px;
+    color: white;
+    box-shadow: -2px 2px rgb(51, 51, 51);
+    bottom: -180px;
+    left: -140px;
+   
+}
+
+.save-addReferral:hover{
+    background-color: rgb(39, 130, 33);
+    color: rgb(184, 184, 184);
+}
+
+#addReferral-image{
+    visibility: hidden;
+}
+
+
+#addReferral-last_name{
+    height: 100px;
+    
+    
+}

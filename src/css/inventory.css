@@ -1,0 +1,474 @@
+
+
+ /* ++++++++++++++++++++++++++create++++++++++++++++++++++++ */
+
+ .add-modal-title{
+    background-color: #3E4BBA;
+    padding: 5px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    color: white;
+    padding-left:20px; 
+    
+ }
+
+label{
+  font-size: smaller;
+ 
+}
+
+#addForm{
+    width: 600px;
+    justify-content: left;
+    height: 300px;
+    margin-top: 20px;
+    width: 200px;
+
+    
+}
+
+#addForm input{
+    height: 20px;
+    width: 200px;
+    margin-right: 10px;
+
+
+}
+
+#addForm select{
+    height: 20px;
+    margin-right: 10px;
+
+}
+
+
+#addForm label{
+    width: 110px;
+    font-size: 15px;
+    
+}
+
+
+
+
+.input-container{
+margin-bottom: -10px;
+position: relative;
+
+}
+
+
+
+input{
+    width: 250px;
+    margin-right: 5px;
+}
+
+select{
+    margin-right:  5px;
+    height: 25px;
+}
+
+label{
+    position: relative;
+    top: 5px;
+}
+
+.age-dateContainer{
+    display: flex;
+    flex-wrap: wrap;
+    
+    width: 45vw;
+}
+
+
+.gender-civilContainer{
+    display: flex;
+    flex-wrap: wrap;
+    
+    width: 45vw;
+}
+
+
+#save-changes{
+margin-top: 20px;    
+}
+
+.steady{
+    position: absolute;
+    bottom: 90px;
+}
+
+.add-modal{
+    /* display: none; */
+    position: fixed;
+    z-index: 2; /* Ensure modal appears above other content */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.add-modal-content{
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 530px;
+    height: 470px;
+    /* max-width: 500px; */
+    border-radius: 5px;
+    position: relative;
+    bottom: 50px;
+    overflow: hidden;
+    z-index: 10;
+ 
+
+}
+
+
+#add-form{
+    
+  
+    display: flex;
+    flex-wrap: wrap;
+    width: 600px;
+    justify-content: left;
+    height: 300px;
+    margin-top: 20px;
+    background-color: red;
+    
+
+
+}
+
+#add-form input{
+    height: 20px;
+    margin-right: 10px;
+}
+
+
+#add-form label{
+    width: 110px;
+    font-size: 11px;
+}
+
+
+.input-container{
+
+}
+
+.add-input-right{
+    display: flex;
+    flex-wrap: wrap;
+    width: 250px;
+    position: absolute;
+    right: 50px;
+    bottom: 90px;
+
+
+
+}
+
+.add-modal input{
+    width: 250px;
+    border-width: 1px;
+    border-radius: 4px;
+    padding: 2px;
+    margin: 4px;
+  
+}
+
+select{
+    margin-right:  5px;
+    height: 25px;
+    border-width: 1px;
+    border-radius: 4px;
+    margin: 4px;
+
+  
+}
+
+label{
+    position: relative;
+    top: 5px;
+}
+
+.age-dateContainer{
+    display: flex;
+    flex-wrap: wrap;
+    
+    width: 45vw;
+}
+
+#add-age{
+    width: 3vw;
+}
+
+#add-bdate{
+    width:14vw;
+    
+    
+}
+
+.gender-civilContainer{
+    display: flex;
+    flex-wrap: wrap;
+    
+    width: 45vw;
+}
+
+#add-gender{
+    width: 110px;
+}
+
+#add-civil_status{
+    width: 120px;
+}
+
+#save-changes{
+margin-top: 20px;    
+}
+
+.steady{
+    position: absolute;
+    bottom: 90px;
+}
+
+
+
+.add-input-squeeze{
+   
+    display: flex;
+    
+    justify-content: stretch;
+   
+    
+}
+
+.close-add{
+    position: absolute;
+    bottom: 40px;
+    background-color: blue;
+}
+
+.stock-in{
+    position: absolute;
+    bottom: 40px;  
+    background-color: yellow;
+}
+
+
+
+.add-input-left{
+    width:300px;
+    height: 300px;
+    position: absolute;
+    top: 50px;
+    left: 40px;
+}
+
+.add-preview-containerInventory{
+    position: absolute;
+    width: 200px;
+    height: 230px;
+    margin-top: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.add-preview-containerInventory img{
+ 
+}
+
+.add-preview{
+    position: absolute;
+    width: 200px;
+    height: 230px;
+
+}
+
+.add_image{
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+}
+   
+
+.add-preview-whole{
+    position: relative;
+    left: 10px;
+}
+
+
+.edit{
+    background-color: rgb(55, 182, 46);
+    position: absolute;
+    padding: 3px;
+    width: 50px;
+    border-width: 0px;
+    border-radius: 5px;
+    color: white;
+    box-shadow: -2px 2px rgb(51, 51, 51);
+    bottom: 20px;
+    left: 255px;
+}
+
+.edit:hover{
+    background-color: rgb(39, 130, 33);
+    color: rgb(184, 184, 184);
+}
+
+.stock-in{
+    background-color: rgb(255, 174, 0);
+    position: absolute;
+    padding: 3px;
+    width: 80px;
+    border-width: 0px;
+    border-radius: 5px;
+    color: white;
+    box-shadow: -2px 2px rgb(51, 51, 51);
+    bottom: 20px;
+    left: 320px;
+}
+.stock-in:hover{
+    background-color: rgb(183, 128, 9);
+    color: rgb(184, 184, 184);
+}
+
+
+.close-add{
+    background-color: red;
+    position: absolute;
+    padding: 3px;
+    width: 80px;
+    border-width: 0px;
+    border-radius: 5px;
+    color: white;
+    box-shadow: -2px 2px rgb(51, 51, 51);
+    bottom: 20px;
+    left: 40px;
+
+}
+
+
+.close-add:hover{
+    background-color: rgb(164, 0, 0);
+    color: rgb(184, 184, 184);
+}
+
+.save-add:disabled{
+
+    background-color: rgb(39, 130, 33);
+    color: rgb(184, 184, 184);
+
+}
+.save-add{
+    background-color: rgb(55, 182, 46);
+    position: absolute;
+    padding: 3px;
+    max-width: 120px;
+    width: 120px;
+    border-width: 0px;
+    border-radius: 5px;
+    color: white;
+    box-shadow: -2px 2px rgb(51, 51, 51);
+    bottom: -70px;
+    left: -140px;
+   
+}
+
+.save-add:hover{
+    background-color: rgb(39, 130, 33);
+    color: rgb(184, 184, 184);
+}
+
+
+.add_image-btn{
+    position: absolute;
+    bottom: 150px;
+    left: 40px;
+    overflow: hidden;
+}
+
+
+#add_image{
+    visibility: hidden;
+}
+
+    
+#add-price{
+    width: 260px;
+}
+
+
+.expirations-container{
+    position: relative;
+    border: 1px solid rgba(64, 63, 63, 0.827);
+    width: 300px;
+    top: 15px;
+    left: 4px;
+    height: 150px;
+    border-radius: 10px;
+    margin-top: -10px;
+    overflow-y: scroll;
+}
+
+.expirations-content{
+    padding: 5px;
+}
+
+.expiration-card{
+    display: flex;
+    font-size: smaller;
+    padding: 5px;
+    border-bottom: 1px solid rgba(64, 63, 63, 0.827);
+}
+
+.expiration-card div{
+    text-align: left;
+    margin-left: 10px;
+    margin-right: 10px;
+    
+
+
+    
+}
+
+
+
+
+.expired-row {
+    background-color: rgb(231, 34, 60);
+    color: white; /* Optional for better text contrast */
+  }
+  
+
+
+  .noActiviy-text{
+    position: absolute;
+    top: 115px;
+    margin: 0px;
+
+  }
+
+  .noActiviy-image{
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    top: 10px;
+    left: 50px;
+  }
+
+  .noActiviy-image img{
+    width: 150px;
+    height: 100px;
+
+  }
+
+  .noActivity-container{
+    background-color: red;
+  }

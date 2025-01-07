@@ -87,6 +87,12 @@
     background: rgb(82, 183, 54); 
     left: 35px; 
   }
+
+  .empty-day{
+    visibility: visible;
+    background-color: transparent;
+    border: 1px solid black;
+  }
   
   /* Glow effect for boxes with data */
   .glow { 
@@ -142,6 +148,50 @@
     border: none;
   }
 
+
+
+
+
+  .activityDate-card{
+    margin: 5px;
+    display: flex;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    margin: 15px;
+
+  }
+
+  .activityDate-card div{
+    font-size: medium;
+  }
+
+  .activityDate-card .activityDate-image{
+    background-color: red;
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    border-radius: 50px;
+  }
+
+  .activityDate-card .activityDate-patient{
+    margin-left: 65px;
+    text-align: left;
+
+    width: 200px;
+    position: absolute;
+  }
+
+  .activityDate-card .activityDate-activity{
+    margin-left: 65px;
+    margin-top: 20px;
+    width: 200px;
+    position: absolute;
+    text-align: left;
+
+    
+  
+  }
 
 
 

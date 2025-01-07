@@ -21,8 +21,6 @@ const EditModal = ({ visible, onClose, data }) => {
       console.log(fetchpatient)
     }, [fetchpatient])
 
- 
-
   return (
     <div className="edit-modal">
       <div className="edit-modal-content">

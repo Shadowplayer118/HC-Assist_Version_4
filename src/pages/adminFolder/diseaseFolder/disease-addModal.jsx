@@ -18,7 +18,9 @@ const EditModal = ({ visible, onClose, data }) => {
 
   const [selectedImage, setSelectedImage] = useState(null);
   const [preview, setPreview] = useState('');
-  const patient_name = firstName+" " +lastName
+  const patient_name = firstName+" " +lastName;
+
+  const staff_id = localStorage.getItem('logId');
 
   // Initialize states when data changes
   useEffect(() => {
@@ -50,6 +52,8 @@ const EditModal = ({ visible, onClose, data }) => {
   formData.append('disease_status', diseaseStatus);
   formData.append('disease_stage', diseaseStage);
   formData.append('disease_treatmentSched', diseaseSched);
+  formData.append('staff_id', staff_id);
+  
 
 
   // Append the selected image if it exists

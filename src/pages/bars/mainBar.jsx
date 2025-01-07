@@ -278,7 +278,8 @@ monitorSched &&
       </div>
     </div>
   ))
-    ):(
+    )
+    :(
       
       <div className="activityDate-activity">
         <div className="noActivity">
@@ -289,6 +290,7 @@ monitorSched &&
         </div>
       </div>   
     )}
+
             </div>
           </div>
 

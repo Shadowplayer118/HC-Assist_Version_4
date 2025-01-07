@@ -154,6 +154,14 @@
   
 }
 
+.side-bar img{
+    width: 20px;
+    position: absolute;
+    left: 35px;
+    margin-top: -10px;
+    padding: 10px;
+}
+
 .side-bar .link{
     background-color: #FFFFFF;
     flex-grow: 1;

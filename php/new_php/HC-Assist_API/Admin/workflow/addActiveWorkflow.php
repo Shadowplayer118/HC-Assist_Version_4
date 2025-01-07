@@ -79,7 +79,14 @@ $insertActiveWorkflow->execute();
     foreach ($steps as $step) {
         $step_name = $step['step_name'];
         $step_sequence = $step['sequence'];
-        $activeStep_status = "Not Finished"; // As specified
+
+        if($step_sequence == 1){
+            $activeStep_status = "Current";
+        }
+        else{
+            $activeStep_status = "Pending";
+        }
+         // As specified
 
         // Bind the parameters for the insert query
         $insertActiveSteps->bind_param("sisi", $step_name, $step_sequence, $activeStep_status, $activeWorkflow_id);

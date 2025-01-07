@@ -68,9 +68,13 @@ const ActiveWorkflowSteps = () => {
                     </div>
                     {/* Button with dynamic classes based on activeStep_status */}
                     <div 
-                      className={`activeStep_status ${data.activeStep_status === 'Finished' ? 'status-finished' : 'status-not-finished'}`}>
-                      {data.activeStep_status}
-                    </div>
+                        className={`activeStep_status 
+                        ${data.activeStep_status === 'Finished' ? 'status-finished' : 
+                        data.activeStep_status === 'Current' ? 'status-current' : 
+                        'status-not-finished'}`}
+                        >
+                        {data.activeStep_status}
+                      </div>
                   </div>
                 ))}
               </div>

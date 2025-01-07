@@ -48,22 +48,26 @@ function Sidebar() {
   return (
     <div className="side">
       <div className="side-bar">
-        <div className="link"><a href="/dashboard">Dashboard</a></div>
-        <div className="link"><a href="/patient">Patients</a></div>
-        <div className="link"><a href="/referral">Referrals</a></div>
-        <div className="link"><a href="/calendar">Calendar</a></div>
-        <div className="link"><a href="/pregnant">Pregnant</a></div>
-        <div className="link"><a href="/child">Child Nutrition</a></div>
-        <div className="link"><a href="/disease">Disease</a></div>
-        <div className="link"><a href="/immunization">Immunization</a></div>
-        <div className="link"><a href="/workflow">Workflow</a></div>
+        <div className="link"><img src="../../assets/icons/dashboard.png" alt="" /><a href="/dashboard">Dashboard</a></div>
+        <div className="link"><img src="../../assets/icons/patient.png" alt="" /><a href="/patient">Patients</a></div>
+        <div className="link"><img src="../../assets/icons/referral.png" alt="" /><a href="/referral">Referrals</a></div>
+        <div className="link"><img src="../../assets/icons/calendar.png" alt="" /><a href="/calendar">Calendar</a></div>
+        <div className="link"><img src="../../assets/icons/pregnant.png" alt="" /><a href="/pregnant">Pregnant</a></div>
+        <div className="link"><img src="../../assets/icons/child.png" alt="" /><a href="/child">Child Nutrition</a></div>
+        <div className="link"><img src="../../assets/icons/disease.png" alt="" /><a href="/disease">Disease</a></div>
+        <div className="link"><img src="../../assets/icons/immunization.png" alt="" /><a href="/immunization">Immunization</a></div>
+        <div className="link"><img src="../../assets/icons/workflow.png" alt="" /><a href="/workflow">Workflow</a></div>
+        
         <div className="link">
+        <img src="../../assets/icons/medicine.png" alt="" />
           <a href="/medicine">
             Medicine
           
           </a>  <NotificationBadge />
+
         </div>
-        <div className="link"><a href="/staff">Staff</a></div>
+      
+        <div className="link">  <img src="../../assets/icons/staff.png" alt="" /><a href="/staff">Staff</a></div>
       </div>
     </div>
   );

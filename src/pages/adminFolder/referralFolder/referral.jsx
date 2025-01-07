@@ -5,7 +5,7 @@ import Topbar from "../../bars/topBar";
 import Sidebar from "../../bars/sideBar";
 import Mainbar from "../../bars/mainBar";
 import EditModal from './referral-editModal';
-import AddModal from './referral-addModal';
+import AddReferral from './referral-addModal';
 
 import axios from 'axios';
 import { useEffect, useState } from 'react';
@@ -72,9 +72,11 @@ const Referrals = () => {
       <div className="main-container">
         
         <div className="main-top-staff">
-          <button className="openModalBtn" id="openModalBtn"  onClick={() => addPatient()}>
-            <img src="../assets/medical-icon_i-care-staff-area.png" alt="" />
-            <img src="../assets/+.png" alt="" className="plus" />
+        <button className="openModalBtn" id="openModalBtn">
+            {/* <img src="../assets/medical-icon_i-care-staff-area.png" alt="" /> */}
+            <a href="/referral-patientSelect">
+            <img src="../../assets/icons/white-referral.png" alt="" />
+            <img src="../assets/+.png" alt="" className="plus" /></a>
           </button>
           <select id="roleSelect" className="roleSelect">
             <option value="Purok">Status</option>
@@ -91,8 +93,7 @@ const Referrals = () => {
           </form>
         </div>
 
-        <EditModal visible={isOpenViewModal} onCLose={() => setIsOpenViewModal(false)} data={selectedReferral} />
-        <AddModal visible={isOpenAddModal} onCLose={() => setIsOpenAddModal(false)} />  
+        <AddReferral visible={isOpenViewModal} onCLose={() => setIsOpenViewModal(false)} data={selectedReferral} />
 
         <div className="table-container">
           <table id="staff-table" className="staff-table">

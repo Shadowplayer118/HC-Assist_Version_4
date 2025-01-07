@@ -1,0 +1,301 @@
+/* add Pregnant */
+
+
+.addPregnant-modal-title{
+    background-color: #3E4BBA;
+    padding: 5px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    color: white;
+    padding-left:20px; 
+    
+ }
+
+
+
+#addPregnantForm{
+    width: 600px;
+    justify-content: left;
+    height: 300px;
+    margin-top: 20px;
+    width: 200px;
+
+    
+}
+
+#addPregnantForm input{
+    height: 20px;
+    width: 200px;
+    margin-right: 10px;
+
+
+}
+
+#addPregnantForm select{
+    height: 20px;
+    margin-right: 10px;
+
+}
+
+
+#addPregnantForm label{
+    width: 110px;
+    font-size: 15px;
+    
+}
+
+
+
+
+.input-container{
+margin-bottom: -10px;
+position: relative;
+
+}
+
+
+
+#save-changes{
+margin-top: 20px;    
+}
+
+.steady{
+    position: absolute;
+    bottom: 90px;
+}
+
+.addPregnant-modal{
+    /* display: none; */
+    position: fixed;
+    z-index: 1000; /* Ensure modal appears above other content */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.addPregnant-modal-content{
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 530px;
+    height: 470px;
+    /* max-width: 500px; */
+    border-radius: 5px;
+    position: relative;
+    bottom: 50px;
+    overflow: hidden;
+ 
+
+}
+
+
+#addPregnant-form{
+    
+  
+    display: flex;
+    flex-wrap: wrap;
+    width: 600px;
+    justify-content: left;
+    height: 300px;
+    margin-top: 20px;
+    background-color: red;
+    
+
+
+}
+
+#addPregnant-form input{
+    height: 20px;
+    margin-right: 10px;
+}
+
+
+#addPregnant-form label{
+    width: 110px;
+    font-size: 11px;
+}
+
+
+.addPregnant-input-right{
+    display: flex;
+    flex-wrap: wrap;
+    width: 250px;
+    position: absolute;
+    right: 50px;
+    bottom: 150px;
+  
+
+}
+
+.addPregnant-modal input{
+    width: 250px;
+    border-width: 1px;
+    border-radius: 4px;
+    padding: 2px;
+    margin: 4px;
+  
+}
+
+
+
+#addPregnant-age{
+    width: 3vw;
+}
+
+#addPregnant-status{
+    width: 182px;
+}
+
+.gender-civilContainer{
+    display: flex;
+    flex-wrap: wrap;
+    
+    width: 45vw;
+}
+
+#addPregnant-gender{
+    width: 110px;
+}
+
+#addPregnant-civil_status{
+    width: 120px;
+}
+
+#save-changes{
+margin-top: 20px;    
+}
+
+.steady{
+    position: absolute;
+    bottom: 90px;
+}
+
+
+
+.addPregnant-input-squeeze{
+   
+    display: flex;
+    width: 260px;
+  
+}
+
+.addPregnant-input-squeeze .input-container{
+    
+
+}
+
+.addPregnant-input-squeeze input{
+ width: 120px;
+}
+
+
+
+
+.addPregnant-input-left{
+    width:300px;
+    height: 300px;
+    position: absolute;
+    top: 50px;
+    left: 40px;
+  
+}
+
+.addPregnant-preview-container{
+    background-color: red;
+    position: absolute;
+    width: 200px;
+    height: 230px;
+    margin-top: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.addPregnant-preview{
+    position: absolute;
+    width: 200px;
+    height: 230px;
+
+}
+
+.addPregnant-image-btn{
+    position: absolute;
+    bottom: 150px;
+    left: 40px;
+    overflow: hidden;
+}
+   
+
+.addPregnant-preview-whole{
+    position: relative;
+    left: 10px;
+}
+
+.close-addPregnant{
+    background-color: red;
+    position: absolute;
+    padding: 3px;
+    width: 80px;
+    border-width: 0px;
+    border-radius: 5px;
+    color: white;
+    box-shadow: -2px 2px rgb(51, 51, 51);
+    bottom: 20px;
+    left: 40px;
+
+    
+}
+
+.close-addPregnant:hover{
+    background-color: rgb(164, 0, 0);
+    color: rgb(184, 184, 184);
+}
+
+
+.save-addPregnant{
+    background-color: rgb(55, 182, 46);
+    position: absolute;
+    padding: 3px;
+    max-width: 120px;
+    width: 120px;
+    border-width: 0px;
+    border-radius: 5px;
+    color: white;
+    box-shadow: -2px 2px rgb(51, 51, 51);
+    bottom: -130px;
+    left: -140px;
+   
+}
+
+.save-addPregnant:hover{
+    background-color: rgb(39, 130, 33);
+    color: rgb(184, 184, 184);
+}
+
+#addPregnant-image{
+    visibility: hidden;
+}
+
+.autoLoad{
+   
+    font-size: smaller;
+
+    background-color: rgb(62, 75, 186);
+    position: relative;
+    top: 26px;
+    padding: 3px;
+    border-radius: 5px;
+    justify-content: center;
+    color: aliceblue;
+}
+
+.autoLoad:hover{
+    background-color: rgb(37, 45, 113);
+    color: rgb(184, 184, 184);
+    cursor: pointer;
+}

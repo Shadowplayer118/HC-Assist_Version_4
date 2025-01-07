@@ -15,6 +15,7 @@ $disease_patient_name = $_POST['disease_patient_name'] ?? null;
 $disease_status = $_POST['disease_status'] ?? null;
 $disease_stage = $_POST['disease_stage'] ?? null;
 $disease_treatmentSched = $_POST['disease_treatmentSched'] ?? null;
+$staffId = $_POST['staff_id'] ?? null;
 
 // Validate required fields
 if (!$disease_patient_id || !$disease_patient_name || !$disease_status || !$disease_stage || !$disease_treatmentSched) {
@@ -24,7 +25,7 @@ if (!$disease_patient_id || !$disease_patient_name || !$disease_status || !$dise
 
 // Insert into contagious_disease
 $diagnosis_date = date('Y-m-d'); // Current date
-$administered_by = 1;
+$administered_by = $staffId;
 
 $sql = "INSERT INTO contagious_disease (patient_id, disease_name, diagnosis_date, disease_status, disease_stage, administered_by)
         VALUES (?, ?, ?, ?, ?, ?)";

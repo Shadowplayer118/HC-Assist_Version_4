@@ -114,7 +114,7 @@ const Workflow = () => {
                     </div>
                     <div className="workflow-card-right">
                     <div className="link ">
-  <Link to={`/workflowSteps/${data.workflow_id}`}>View Steps</Link></div>
+  <Link to={`/workflowSteps/${data.workflow_id}`}><img src="../../assets/icons/mdi_eye.png" alt="" /></Link></div>
 
                     </div>
                   </div>
@@ -126,14 +126,22 @@ const Workflow = () => {
               <div className="workflow-content">
                 <div className="workflow-title">Active Workflow</div>
                 {activeWorkflowData && activeWorkflowData.map((data, index) => (
-                  <div className='workflow-card' key={index}>
+                  <div className='Activeworkflow-card' key={index}>
                   <div className='title'>{data.active_title}</div>
                   <div className='subtitle'>{data.active_description}</div>
-                  <div className='subtitle'>{data.patient_first_name.charAt(0) + '.'} {data.patient_last_name}</div>
-                  <div className='subtitle'>{data.staff_first_name.charAt(0) + '.'} {data.staff_last_name}</div>
-                  <div className='subtitle'>{data.active_status}</div>
+
+                  <div className="workflowLegend">
+
+                  <div className='patientName'>{data.patient_first_name.charAt(0) + '.'} {data.patient_last_name}</div>
+                  <div className='staffName'>{data.staff_first_name.charAt(0) + '.'} {data.staff_last_name}</div>
+                 
+                  <div className='workflowStatus'> <div className='workflowColor'></div>{data.active_status}</div>
+                  
+
+                  </div>
+                  
                   <div className="link ">
-                  <Link to={`/activeWorkflowSteps/${data.activeWorflow_id}`}>View Progress</Link></div>
+                  <Link to={`/activeWorkflowSteps/${data.activeWorflow_id}`}><img src="../../assets/icons/mdi_eye.png" alt="" /></Link></div>
                   </div>
                   
                   

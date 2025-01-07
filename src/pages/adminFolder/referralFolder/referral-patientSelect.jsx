@@ -4,14 +4,14 @@ import '../../../css/patient.css';
 import Topbar from "../../bars/topBar";
 import Sidebar from "../../bars/sideBar";
 import Mainbar from "../../bars/mainBar";
-import EditModal from './patient-editModal';
-import AddModal from './patient-addModal';
+
 
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
+import AddDiseaseModal from './referral-addModal';
 
-const StaffTable = () => {
+const Patientselect_Referral = () => {
   const [patientData, setPatientData] = useState(null);
   const [isOpenViewModal, setIsOpenViewModal] = useState(false);
   const [selectedPatient, setSelectedPatient] = useState(null);
@@ -19,7 +19,7 @@ const StaffTable = () => {
 
   async function fetchPatientData() {
     try {
-      const res = await axios.get('http://localhost/HC-Assist_Version_4/php/new_php/HC-Assist_API/Admin/patient/patient_load.php');
+      const res = await axios.get('http://localhost/HC_Assist_Version_2/HC-Assist_Version1/admin_side/patients_folder/patient_load.php');
       setPatientData(res.data);
     } catch (err) {
       console.error(err);
@@ -28,43 +28,35 @@ const StaffTable = () => {
 
   useEffect(() => {
     fetchPatientData();
-  }, [isOpenAddModal, selectedPatient, isOpenViewModal]);
+  }, [isOpenAddModal, selectedPatient]);
 
-  function viewById(data) {
-    setSelectedPatient(data);
-    setIsOpenViewModal(true);
-  }
+ 
 
   function addPatient() {
     setIsOpenAddModal(true);
   }
 
-  async function deletePatientData(id) {
-    try {
-      const res = await axios.delete('http://localhost/HC_Assist_Version_2/HC-Assist_Version1/admin_side/patients_folder/patient_delete.php', {
-        data: { id: id }
-      });
 
-      if (res.data.status) {
-        fetchPatientData();
-      }
-    } catch (err) {
-      console.error(err);
-    }
+  function selectPatient(data){
+    setSelectedPatient(data);
+    setIsOpenAddModal(true);
   }
 
   return (
     <div>
-      <Topbar location="Patient" />
+      <Topbar location={
+          <>
+            <a href="/referral" className='topLink'>Referral</a>  &gt; Patient Select
+          </>
+        } />
       <div className="mainbarContent">
-        <Sidebar/>
+        <Sidebar />
 
         <div className="main">
           <div className="main-container">
             <div className="main-top-staff">
-              <button className="openModalBtn" id="openModalBtn" onClick={() => addPatient()}>
-                <img src="../assets/medical-icon_i-care-staff-area.png" alt="" />
-                <img src="../assets/+.png" alt="" className="plus" />
+              <button className="openModalBtn" id="openModalBtn" style={{ backgroundColor: 'red' }}>
+              <a href="/referral">Cancel</a>
               </button>
 
               <select id="roleSelect" className="roleSelect">
@@ -81,11 +73,9 @@ const StaffTable = () => {
               </form>
             </div>
 
-            {/* Edit Modal */}
-            <EditModal visible={isOpenViewModal} onClose={() => setIsOpenViewModal(false)} data={selectedPatient} />
+            <AddDiseaseModal  visible={isOpenAddModal} onClose={() => setIsOpenAddModal(false)} data={selectedPatient}/>
 
-            {/* Add Modal */}
-            <AddModal visible={isOpenAddModal} onClose={() => setIsOpenAddModal(false)} />
+       
 
             <div className="table-container">
               <table id="staff-table" className="staff-table">
@@ -104,12 +94,10 @@ const StaffTable = () => {
                       <td>{data.purok}</td>
                       <td>{data.contact_number}</td>
                       <td>
-                        <button className="delete-btn" onClick={() => deletePatientData(data.patient_id)}>
-                          <img src="../../assets/icons/trashBin.png" alt="" />
+                        <button className="select-btn" onClick={() => selectPatient(data)}>
+                          Select
                         </button>
-                        <button className="edit-btn" onClick={() => viewById(data)}>
-                          <img src="../../assets/icons/mdi_eye.png" alt="" />
-                        </button>
+                      
                       </td>
                     </tr>
                   ))}
@@ -123,4 +111,4 @@ const StaffTable = () => {
   );
 };
 
-export default StaffTable;
+export default Patientselect_Referral;

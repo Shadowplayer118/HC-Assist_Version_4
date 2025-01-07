@@ -13,16 +13,31 @@ import { BrowserRouter } from 'react-router-dom';
 
 const Medicine = () => {
 
-  const [pregnantData, setpregnantData] = useState(null)
+  const [Medicine, setMedicine] = useState(null)
   const [isOpenViewModal, setIsOpenViewModal] = useState(false)
   const [selectedReferral, setSelectedReferral] = useState(null)
   const [isOpenAddModal, setIsOpenAddModal] = useState(false)
+  const [hasExpired,SetHasExpired] = useState([])
 
-  async function fetchpregnantData(){
+
+  async function fetchExpired(){
+    try{
+      const res = await axios.get('http://localhost/HC-Assist_Version_4/php/new_php/HC-Assist_API/Admin/inventory/expirationsHighlight.php')
+      // console.log(res.data)
+      SetHasExpired(res.data)
+      console.log(hasExpired);
+    }
+    catch(err){
+      console.error(err)
+    }
+  }
+
+
+  async function fetchMedicineData(){
     try{
       const res = await axios.get('http://localhost/HC-Assist_Version_4/php/old_php/Admin_Side/medicine_folder/medicine_load.php')
       // console.log(res.data)
-      setpregnantData(res.data)
+      setMedicine(res.data)
     }
     catch(err){
       console.error(err)
@@ -30,7 +45,9 @@ const Medicine = () => {
   }
 
   useEffect(() => {
-    fetchpregnantData();
+
+    fetchExpired();
+    fetchMedicineData();
   }, [isOpenAddModal, selectedReferral]);
 
   function viewById(data){
@@ -42,14 +59,14 @@ const Medicine = () => {
     setIsOpenAddModal(true)
   }
 
-  async function deletepregnantData(id){
+  async function deleteMedicine(id){
     try{
       const res = await axios.delete('http://localhost/HC_Assist_Version_2/HC-Assist_Version1/admin_side/patients_folder/patient_delete.php', {
         data: { id: id }
       })
       
       if(res.data.status){
-        fetchpregnantData()
+        fetchMedicineData()
       }
     }
     catch(err){
@@ -73,8 +90,8 @@ const Medicine = () => {
         
         <div className="main-top-staff">
           <button className="openModalBtn" id="openModalBtn"  onClick={() => addPatient()}>
-            <img src="../assets/medical-icon_i-care-staff-area.png" alt="" />
-            <img src="../assets/+.png" alt="" className="plus" />
+          <img src="../../assets/icons/white-medicine.png" alt="" />
+          <img src="../assets/+.png" alt="" className="plus" />
           </button>
 
           <select id="roleSelect" className="roleSelect">
@@ -93,8 +110,8 @@ const Medicine = () => {
           </form>
         </div>
 
-        <EditModal visible={isOpenViewModal} onCLose={() => setIsOpenViewModal(false)} data={selectedReferral} />
-        <AddModal visible={isOpenAddModal} onCLose={() => setIsOpenAddModal(false)} />  
+        <EditModal visible={isOpenViewModal} onClose={() => setIsOpenViewModal(false)} data={selectedReferral} />
+        <AddModal visible={isOpenAddModal} onClose={() => setIsOpenAddModal(false)} />  
 
         <div className="table-container">
           <table id="staff-table" className="staff-table">
@@ -107,28 +124,36 @@ const Medicine = () => {
               </tr>
             </thead>
             <tbody>
-              {/* <tr id="template-row" style={{ display: 'none' }} className="table_tr">
-                <td className="id"></td>
-                <td className="name"></td>
-                <td className="position"></td>
-                <td className="contact_number"></td>
-                <td className="actions">
-                  <button className="delete-btn">Delete</button>
-                  <button className="edit-btn">View</button>
-                </td>
-              </tr> */}
-              {pregnantData && pregnantData.map((data, index) => (
-                <tr key={index}>
-                  <td>{data.item_name}</td>
-                  <td>{data.brand}</td>
-                  <td>{data.stock}</td>
-                  <td>
-                    <button className="delete-btn" onClick={() => deletepregnantData(data.inventory_id)}><img src="../../assets/icons/trashBin.png" alt="" /></button>
-                    <button className="edit-btn" onClick={() => viewById(data)}><img src="../../assets/icons/mdi_eye.png" alt="" /></button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
+  {Medicine &&
+    Medicine.map((data, index) => {
+      // Check if the current row's inventory_id exists in the hasExpired array
+      const isExpired = hasExpired.includes(Number(data.inventory_id));
+
+      return (
+        <tr
+          key={index}
+          className={isExpired ? "expired-row" : ""}
+          
+        >
+          <td>{data.item_name}</td>
+          <td>{data.brand}</td>
+          <td>{data.stock}</td>
+          <td>
+            <button
+              className="delete-btn"
+              onClick={() => deleteMedicine(data.inventory_id)}
+            >
+              <img src="../../assets/icons/trashBin.png" alt="" />
+            </button>
+            <button className="edit-btn" onClick={() => viewById(data)}>
+              <img src="../../assets/icons/mdi_eye.png" alt="" />
+            </button>
+          </td>
+        </tr>
+      );
+    })}
+</tbody>
+
           </table>
         </div>
       </div>

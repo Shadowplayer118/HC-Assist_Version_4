@@ -27,6 +27,8 @@ import StaffWorkflow from "./pages/staffFolder/staffWorkflowFolder/Staffworkflow
 
 import MidwifePregnant from "./pages/midwifeFolder/midwifePregnantFolder/MidwifePregnant";
 import MidwifeCalendar from "./pages/midwifeFolder/midwifeCalendarFolder/MidwifeCalendar";
+import Patientselect_Referral from "./pages/adminFolder/referralFolder/referral-patientSelect";
+import Patientselect_Pregnant from "./pages/adminFolder/pregnantFolder/pregnant-patientSelect";
 
 function App() {
   return (
@@ -43,6 +45,9 @@ function App() {
         <Route path="/patient" element={<Patient />} />
         <Route path="/referral" element={<Referrals />} />
         <Route path="/pregnant" element={<Pregnant />} />
+        <Route path="/pregnant-patientSelect" element={<Patientselect_Pregnant/>} />
+
+
         <Route path="/child" element={<Child />} />
         <Route path="/disease" element={<Disease />} />
         <Route path="/immunization" element={<Immunization />} />
@@ -51,6 +56,7 @@ function App() {
         <Route path="/calendar" element={<Calendar />} />
         <Route path="/workflow" element={<Workflow />} />
         <Route path="/disease-patientSelect" element={<Patientselect_Disease />} />
+        <Route path="/referral-patientSelect" element={<Patientselect_Referral />} />
         <Route path="/workflowSteps/:workflow_id" element={<WorkflowSteps />} />
         <Route path="/activeWorkflowSteps/:activeWorkflow_id" element={<ActiveWorkflowSteps />} />
         <Route path="/monthlyReport" element={<ReportTable />} />

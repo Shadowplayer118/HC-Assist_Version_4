@@ -1,6 +1,8 @@
 import React from 'react';
 import '../../../css/dashboard.css'
 import '../../../css/patient.css'
+import '../../../css/pregnant.css'
+
 import Topbar from "../../bars/topBar";
 import Sidebar from "../../bars/sideBar";
 import Mainbar from "../../bars/mainBar";
@@ -20,7 +22,7 @@ const Pregnant = () => {
 
   async function fetchpregnantData(){
     try{
-      const res = await axios.get('http://localhost/HC-Assist_Version_4/php/old_php/Admin_Side/pregnant_folder/pregnant_load.php')
+      const res = await axios.get('http://localhost/HC-Assist_Version_4/php/new_php/HC-Assist_API/Admin/pregnant/pregnant_load.php')
       // console.log(res.data)
       setpregnantData(res.data)
     }
@@ -72,9 +74,11 @@ const Pregnant = () => {
       <div className="main-container">
         
         <div className="main-top-staff">
-          <button className="openModalBtn" id="openModalBtn"  onClick={() => addPatient()}>
-            <img src="../assets/medical-icon_i-care-staff-area.png" alt="" />
+          <button className="openModalBtn" id="openModalBtn">
+          <a href="/pregnant-patientSelect">
+            <img src="../../assets/icons/white-pregnant.png" alt="" />
             <img src="../assets/+.png" alt="" className="plus" />
+            </a>
           </button>
 
           <select id="roleSelect" className="roleSelect">

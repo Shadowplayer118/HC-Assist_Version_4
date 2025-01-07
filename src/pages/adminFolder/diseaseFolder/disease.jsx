@@ -74,7 +74,10 @@ const Disease = () => {
         <div className="main-top-staff">
           <button className="openModalBtn" id="openModalBtn">
             {/* <img src="../assets/medical-icon_i-care-staff-area.png" alt="" /> */}
-            <a href="/disease-patientSelect">Staff</a>
+            <a href="/disease-patientSelect">
+            <img src="../../assets/icons/white-disease.png" alt="" />
+            <img src="../assets/+.png" alt="" className="plus" />
+            </a>
           </button>
 
           <select id="roleSelect" className="roleSelect">

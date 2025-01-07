@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../../../css/inventory.css'
 
-const AddModal = ({ visible, onClose, data }) => {
+const StockInModal = ({ visible, onClose, data }) => {
   if (!visible) return null; // Prevent rendering when modal is not visible
 
   // State to manage form input values
@@ -17,22 +17,62 @@ const AddModal = ({ visible, onClose, data }) => {
   const [selectedImage, setSelectedImage] = useState('../../Images/medicine.png');
   const [preview, setPreview] = useState('../../Images/medicine.png');
 
+  const [expirations,SetExpirations] = useState([]);
+
+  const[isDisabled,setisDisabled] = useState(true);
+  
+
   // Populate form with existing data if available
   useEffect(() => {
     if (data) {
-      setitemName(data.first_name || '');
-      setbrand(data.middle_name || '');
-      setLastName(data.last_name || '');
-      setAge(data.age || '');
-      setstock(data.birth_date || '');
-      setprice(data.price || '');
-      setexpirationDate(data.civil_status || '');
-      setPurok(data.purok || '');
-      setHousehold(data.household || '');
-      setContactNumber(data.contact_number || '');
-      setBloodType(data.blood_type || '');
+
+      fetchExpirations(data.inventory_id);
+      setitemName(data.item_name);
+      setbrand(data.brand);
+      setcategory(data.category);
+      setstock(data.stock);
+      setprice(data.price);
+      setSelectedImage(data.image);
+      if(data.image==null||data.image.length==0){
+        setPreview('../../Images/medicine.png');
+      }
+      else{
+        setPreview(`../../../php/${data.image}`);
+      }
+
     }
-  }, [data]);
+  }, [data],expirations);
+  
+  function enableEdit(){
+    if(isDisabled == true){
+      setisDisabled(false);
+    }
+
+    else{
+      setisDisabled(true);
+    }
+
+  }
+  
+
+  const fetchExpirations = async (inventory_id) => {
+    try {
+      const response = await axios.get(
+        'http://localhost/HC-Assist_Version_4/php/new_php/HC-Assist_API/Admin/inventory/expirations.php',
+        { params: { inventory_id } }
+      );
+  
+      if (response.data && Array.isArray(response.data)) {
+        SetExpirations(response.data); // Update the state with API data
+      } else {
+        console.error('Unexpected API response format:', response.data);
+        SetExpirations([]); // Clear state if response is invalid
+      }
+    } catch (error) {
+      console.error('Error fetching expirations:', error);
+      SetExpirations([]); // Clear state on error
+    }
+  };
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -107,12 +147,12 @@ const AddModal = ({ visible, onClose, data }) => {
             </div>
             <div className="input-container">
               <label htmlFor="add-first_name">Item Name:</label>
-              <input type="text" id="add-first_name" name="first_name" value={itemName} onChange={(e) => setitemName(e.target.value)} required autoComplete='off'/>
+              <input type="text" id="add-first_name" name="first_name" value={itemName} onChange={(e) => setitemName(e.target.value)} required autoComplete='off' disabled={isDisabled}/>
             </div>
 
             <div className="input-container">
                 <label htmlFor="price">Category:</label><br />
-                <select id="add-price" name="price" value={category} onChange={(e) => setcategory(e.target.value)} required>
+                <select id="add-price" name="price" value={category} onChange={(e) => setcategory(e.target.value)} required disabled={isDisabled}>
                   <option value="">Select price</option>
                   <option value="Medicine">Medicine</option>
                   <option value="Bandage">Bandage</option>
@@ -123,11 +163,8 @@ const AddModal = ({ visible, onClose, data }) => {
 
             <div className="input-container">
               <label htmlFor="add-first_name">Item Brand:</label>
-              <input type="text" id="add-first_name" name="first_name" value={brand} onChange={(e) => setbrand(e.target.value)} required autoComplete='off'/>
+              <input type="text" id="add-first_name" name="first_name" value={brand} onChange={(e) => setbrand(e.target.value)} required autoComplete='off' disabled={isDisabled}/>
             </div>
-
-          
-          
 
         
             <div className="add-input-squeeze">
@@ -139,33 +176,53 @@ const AddModal = ({ visible, onClose, data }) => {
             <div className="add-input-squeeze">
               <div className="input-container">
                 <label htmlFor="age">Stock:</label>
-                <input type="number" id="add-age" name="age" value={stock} onChange={(e) => setstock(e.target.value)} required autoComplete='off'/>
+                <input type="number" id="add-age" name="age" value={stock} onChange={(e) => setstock(e.target.value)} required disabled={isDisabled} autoComplete='off'/>
               </div>
 
               <div className="input-container">
                 <label htmlFor="add-bdate">Price:</label>
-                <input type="number" id="add-bdate" name="bdate" value={price} onChange={(e) => setprice(e.target.value)} required/>
+                <input type="number" id="add-bdate" name="bdate" value={price} onChange={(e) => setprice(e.target.value)} required disabled={isDisabled}/>
               </div>
             </div>
 
-          
-             <div className="input-container">
-                <label htmlFor="add-bdate">Expiration Date:</label>
-                <input type="date" id="add-bdate" name="bdate" value={expirationDate} onChange={(e) => setexpirationDate(e.target.value)}/>
-              </div>
 
-            
+            <label htmlFor="add-bdate">Expirations:</label> <br />
+             <div className="expirations-container">
+             {expirations.length > 0 ? (
+        <div className='expirations-content'>
+          {expirations.map((item) => (
+            <div className='expiration-card' key={item.id}>
+              <div className="expDate">{item.expiration_date}</div>
+              <div className="expStocks">{item.stocked} Stocks</div>
+              <div className="resolve">res</div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p>No data available.</p>
+      )}
+
+             </div>
 
 
-            <button type="submit" id="save-changes" className="save-add">Save Changes</button>
+            <button type="submit" id="save-changes" className="save-add" disabled={isDisabled}>Save Changes</button>
           </div>
         </form>
+
         <button onClick={onClose}>
           <span className="close-add" id="close-add">Close</span>
+        </button>
+
+        <button onClick={onClose}>
+          <span className="stock-in" id="close-add">Stock In</span>
+        </button>
+
+        <button onClick={enableEdit}>
+          <span className="edit" id="close-add">Edit</span>
         </button>
       </div>
     </div>
   );
 };
 
-export default AddModal;
+export default StockInModal;
