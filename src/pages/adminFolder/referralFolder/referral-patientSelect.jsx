@@ -19,7 +19,7 @@ const Patientselect_Referral = () => {
 
   async function fetchPatientData() {
     try {
-      const res = await axios.get('http://localhost/HC_Assist_Version_2/HC-Assist_Version1/admin_side/patients_folder/patient_load.php');
+      const res = await axios.get('http://localhost/HC-Assist_Version_4/php/new_php/HC-Assist_API/Admin/patient/patient_load.php');
       setPatientData(res.data);
     } catch (err) {
       console.error(err);

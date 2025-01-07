@@ -448,27 +448,8 @@ margin-top: 20px;
   
 
 
-  .noActiviy-text{
-    position: absolute;
-    top: 115px;
-    margin: 0px;
+  
 
-  }
+ 
 
-  .noActiviy-image{
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    top: 10px;
-    left: 50px;
-  }
-
-  .noActiviy-image img{
-    width: 150px;
-    height: 100px;
-
-  }
-
-  .noActivity-container{
-    background-color: red;
-  }
+  

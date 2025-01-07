@@ -205,8 +205,8 @@ const EditModal = ({ visible, onClose, data }) => {
           ))}
         </div>
       ) : (
-        <div className='noActivity-container'> <div className="noActiviy-text">No Items have expired</div>
-        <div className="noActiviy-image"><img src="/Images/safe_medicine.png" alt="" /></div></div>
+        <div className='noActivityMed-container'> <div className="noActiviyMed-text">No Items have expired</div>
+        <div className="noActiviyMed-image"><img src="/Images/safe_medicine.png" alt="" /></div></div>
       )}
 
              </div>

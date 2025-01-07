@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import PieChart from "./piechart"; // Adjust the import path based on your structure
 import "../../css/mainBar.css";
+
 import DPieChart from "./Diseasepiechart"; // Adjust the import path based on your structure
 import ReportTable from "../adminFolder/dashboardFolder/monthlyReport";
 
@@ -282,9 +283,9 @@ monitorSched &&
     :(
       
       <div className="activityDate-activity">
-        <div className="noActivity">
+        <div className="">
         <div className="noActiviy-text">No Activities Today</div>
-        <div className="noActiviy-image"><img src="/Images/happy_nurse.jpg" alt="" /></div>
+        <div className="noActiviy-image"><img src="/Images/happy_nurse.jpg" alt=""/></div>
 
       
         </div>

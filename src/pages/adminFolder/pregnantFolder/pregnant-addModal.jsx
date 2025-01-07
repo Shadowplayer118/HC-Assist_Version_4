@@ -10,6 +10,8 @@ const AddPregnantModal = ({ visible, onClose, data }) => {
   const [firstName, setFirstName] = useState('');
   const [middleName, setMiddleName] = useState('');
   const [lastName, setLastName] = useState('');
+  const [patientId, setpatientId] = useState('');
+
 
   const [DateConcieved, setDateConcieved] = useState('');
   const [ExpectedDate, setExpectedDate] = useState('');
@@ -36,6 +38,7 @@ const AddPregnantModal = ({ visible, onClose, data }) => {
   // Initialize states when data changes
   useEffect(() => {
     if (data) {
+      setpatientId(data.patient_id || '');
       setFirstName(data.first_name || '');
       setLastName(data.last_name || '');
 
@@ -45,9 +48,74 @@ const AddPregnantModal = ({ visible, onClose, data }) => {
     }
   }, [data]);
 
-  function ValidateTrimester(){
-    const dateConcievedObj = new Date(DateConcieved);
+  
+
+
+    function ValidateTrimester(){
+      const dateConcievedObj = new Date(DateConcieved);
+
+
+      const today = new Date();
+    if(dateConcievedObj < today){
+      const yes = today-dateConcievedObj;
+      const diffDays = yes / (1000 * 60 * 60 * 24);
+      let daysSinceConception = Math.floor(diffDays);
+      console.log(daysSinceConception);
+      console.log(daysSinceConception);
+
+
+      
+    if(daysSinceConception > 280){
+      setThirdTri('');
+      setSecondTri('');
+    //  setIsEditSecond(true);
+    //  setIsEditThird(true);
+ 
+
+    }
+
+    else if(daysSinceConception <= 91){
+      setThirdTri('');
+      setSecondTri('');
+      // setIsEditSecond(true);
+      // setIsEditThird(true);
+    
+
+    }
+
+    else if(daysSinceConception <= 189){
+      setSecondTri('');
+      // setIsEditSecond(true);
+      
+      
+
+    }
+
+    else if(daysSinceConception <= 280){
+    console.log('okay');
+    setIsEditSecond(false);
+      setIsEditThird(false);
+
+    }
+
+    }
+    
+
   }
+
+
+
+
+    const handleStatusChange = (e) => {
+      const newStatus = e.target.value;
+      setDateConcieved(newStatus); // Update the status
+    
+      // Call another function when status changes
+      ValidateTrimester();
+    };
+
+
+
 
   function AutoFill() {
 
@@ -153,13 +221,6 @@ const AddPregnantModal = ({ visible, onClose, data }) => {
       setExpectedDate(dueDate.toISOString().split('T')[0]); 
     }
 
-   
-
-    
-
-  
-   
-
   }
   
   
@@ -176,21 +237,23 @@ const AddPregnantModal = ({ visible, onClose, data }) => {
   const handleSubmit = async (e) => {
   e.preventDefault();
 
-  const formData = new FormData();
-  formData.append('Pregnant_patient_id', data?.patient_id || ''); 
-  formData.append('Pregnant_patient_name', PregnantName);
-  formData.append('Pregnant_status', PregnantStatus);
-  formData.append('Pregnant_stage', PregnantStage);
-  formData.append('Pregnant_treatmentSched', PregnantSched);
-  formData.append('staff_id', staff_id);
-  
+  console.log(patientId);
 
+  const formData = new FormData();
+  formData.append('Pregnant_patient_id', patientId || ''); 
+  formData.append('start_date', DateConcieved);
+  formData.append('expected_due_date', ExpectedDate);
+  formData.append('pregnancy_status', Status);
+  formData.append('father', FatherName);
+  formData.append('father_contact', FatherContact);
+  formData.append('second_trimester', SecondTri);
+  formData.append('third_trimester', ThirdTri);
 
   // Append the selected image if it exists
 
   try {
     const response = await axios.post(
-      'http://localhost/HC-Assist_Version_4/php/new_php/HC-Assist_API/Admin/Pregnant/Pregnant_add.php',
+      'http://localhost/HC-Assist_Version_4/php/new_php/HC-Assist_API/Admin/pregnant/pregnantAdd.php',
       formData, {
         headers: {
           'Content-Type': 'multipart/form-data', // Ensure it's set to multipart/form-data
@@ -198,11 +261,12 @@ const AddPregnantModal = ({ visible, onClose, data }) => {
       }
     );
 
-    if (response.data.status === 'success') {
+    if (response.data === 'success') {
       alert('Patient edited successfully!');
       onClose(); // Close modal on success
     } else {
       alert('Failed to edit patient.');
+      console.log(response);
     }
   } catch (error) {
     console.error('Error editing patient:', error);
@@ -237,7 +301,7 @@ const AddPregnantModal = ({ visible, onClose, data }) => {
 
             <div className="input-container">
               <label htmlFor="addPregnant-last_name">Date Concieved:</label>
-              <input type="date" id="addPregnant-last_name" name="Pregnant_patient_name"  onChange={(e) => setDateConcieved(e.target.value)} required autoComplete='off'  />
+              <input type="date" id="addPregnant-last_name" name="Pregnant_patient_name"  onChange={handleStatusChange} required autoComplete='off'  />
             </div>
 
             <div className="addPregnant-input-squeeze">
