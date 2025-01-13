@@ -8,6 +8,7 @@ import Topbar from "../../bars/topBar";
 import Sidebar from "../../bars/sideBar";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import AddWorkflow from './workflow-addModal';
 
 const Workflow = () => {
   const [workflowData, setworkFlowData] = useState(null);
@@ -78,6 +79,9 @@ const Workflow = () => {
       <Topbar location="Workflow" />
       <div className="mainbarContent">
         <Sidebar />
+
+        <AddWorkflow visible={isOpenAddModal} onClose={() => setIsOpenAddModal(false)} />
+        
 
         <div className="main">
           <div className="main-container">

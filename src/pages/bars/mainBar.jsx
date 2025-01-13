@@ -112,7 +112,7 @@ const [monitorSched,setMonitoringSched] = useState([]);
       console.error("Error fetching monitoring data:", err);
     }
   };
-
+  
   const fetchPurokData = async () => {
     try {
       const res = await axios.get(
@@ -170,7 +170,13 @@ const [monitorSched,setMonitoringSched] = useState([]);
         {/* Main Top Section */}
         <div className="main-top">
           <div className="general-report-label">General Report</div>
-          <div className="month-filter">Monthly V</div>
+         
+          <select name="Purok-Data" id="Purok-Data" className="month-filter">
+            <option value="Purok">Purok</option>
+            <option value="Disease">Disease</option>
+            <option value="Pregnant">Pregnant</option>
+            <option value="Immunization">Immunization</option>
+          </select>
           <div className="monitoring-label">Monitoring</div>
           <button className="today">Today</button>
           <div className="disease-label">Disease</div>
@@ -226,13 +232,13 @@ const [monitorSched,setMonitoringSched] = useState([]);
                 </div>
               </div>
               <div className="right">
-                <div className="month">
-                  January 1, 2024 - January 30, 2024
+                <div className="perPurok">
+                 Patients Per Purok
                 </div>
                 <div className="Purokpie-chart" id="Purokpie-chart">
                   <PieChart chartData={userData} />
                 </div>
-                <table className="purok-list">
+                {/* <table className="purok-list">
                   <tbody>
                     <tr>
                       <td className="purok-color">c</td>
@@ -241,12 +247,8 @@ const [monitorSched,setMonitoringSched] = useState([]);
                       <td className="purok-percent">n%</td>
                     </tr>
                   </tbody>
-                </table>
-                <div className="total-container">
-                  <div className="total-label">Total</div>
-                  <div className="total-residence">0</div>
-                  <div className="total-percent">n%</div>
-                </div>
+                </table> */}
+               
               </div>
             </div>
           </div>
@@ -301,6 +303,8 @@ monitorSched &&
               <div className="squeez">
                 <h3>Status</h3>
                 <div className="flag">
+  
+
                 {diseaseMonitorData && (
   <img
     src={
@@ -314,7 +318,9 @@ monitorSched &&
     }
     alt="Flag"
   />
+  
 )}
+<div className="statusTitle">{diseaseMonitorData}</div>
 
 
 
@@ -333,9 +339,7 @@ monitorSched &&
                   </tr>
                 </tbody>
               </table>
-              <h2>Total</h2>
-              <div className="total-diseased">0</div>
-              <div className="percent-disease">n%</div>
+             
             </div>
           </div>
         </div>

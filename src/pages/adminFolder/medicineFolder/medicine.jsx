@@ -143,10 +143,10 @@ const Medicine = () => {
               className="delete-btn"
               onClick={() => deleteMedicine(data.inventory_id)}
             >
-              <img src="../../assets/icons/trashBin.png" alt="" />
+              <img src="../../assets/icons/trashBin.png" alt="" className='trash'/>
             </button>
             <button className="edit-btn" onClick={() => viewById(data)}>
-              <img src="../../assets/icons/mdi_eye.png" alt="" />
+              <img src="../../assets/icons/mdi_eye.png" alt="" className='eye'/>
             </button>
           </td>
         </tr>

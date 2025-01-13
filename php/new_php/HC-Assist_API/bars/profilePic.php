@@ -26,16 +26,17 @@ if (!$id || !$position) {
 }
 
 // Determine the table to query
-$table = $position === '"Patient"' ? 'Patient' : ($position === '"Staff"' ? 'Staff' : null);
+$table = $position === '"Patient"' ? 'Patient' : ($position === '"Admin"' ? 'Staff' : null);
 
 // if (!$table) {
 //     echo json_encode(['success' => false, 'message' => 'Invalid position']);
 //     exit;
 // }
 
-if($position == '"Staff"'){
+if($position == '"Admin"'){
     $stmt = $conn->prepare("SELECT image FROM $table WHERE staff_id = ?");
 }
+
 
 else{
     $stmt = $conn->prepare("SELECT image FROM $table WHERE patient_id = ?");

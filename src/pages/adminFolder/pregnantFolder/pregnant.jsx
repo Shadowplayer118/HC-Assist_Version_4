@@ -12,6 +12,7 @@ import AddModal from './pregnant-addModal';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
+import ViewPregnantModal from './pregnant-editModal';
 
 const Pregnant = () => {
 
@@ -97,8 +98,8 @@ const Pregnant = () => {
           </form>
         </div>
 
-        <EditModal visible={isOpenViewModal} onCLose={() => setIsOpenViewModal(false)} data={selectedReferral} />
-        <AddModal visible={isOpenAddModal} onCLose={() => setIsOpenAddModal(false)} />  
+        <ViewPregnantModal visible={isOpenViewModal} onClose={() => setIsOpenViewModal(false)} data={selectedReferral} />
+        {/* <AddModal visible={isOpenAddModal} onCLose={() => setIsOpenAddModal(false)} />   */}
 
         <div className="table-container">
           <table id="staff-table" className="staff-table">

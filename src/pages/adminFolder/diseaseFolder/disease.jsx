@@ -10,6 +10,7 @@ import AddModal from './disease-addModal';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
+import ViewDisease from './disease-editModal';
 
 const Disease = () => {
 
@@ -20,7 +21,7 @@ const Disease = () => {
 
   async function fetchpregnantData(){
     try{
-      const res = await axios.get('http://localhost/HC-Assist_Version_4/php/old_php/Admin_Side/disease_folder/disease_load.php')
+      const res = await axios.get('http://localhost/HC-Assist_Version_4/php/new_php/HC-Assist_API/Admin/disease/disease_load.php')
       // console.log(res.data)
       setpregnantData(res.data)
     }
@@ -96,8 +97,7 @@ const Disease = () => {
           </form>
         </div>
 
-        <EditModal visible={isOpenViewModal} onCLose={() => setIsOpenViewModal(false)} data={selectedReferral} />
-        <AddModal visible={isOpenAddModal} onCLose={() => setIsOpenAddModal(false)} />  
+        <ViewDisease visible={isOpenViewModal} onClose={() => setIsOpenViewModal(false)} data={selectedReferral} />
 
         <div className="table-container">
           <table id="staff-table" className="staff-table">

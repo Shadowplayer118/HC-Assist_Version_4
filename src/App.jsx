@@ -29,6 +29,22 @@ import MidwifePregnant from "./pages/midwifeFolder/midwifePregnantFolder/Midwife
 import MidwifeCalendar from "./pages/midwifeFolder/midwifeCalendarFolder/MidwifeCalendar";
 import Patientselect_Referral from "./pages/adminFolder/referralFolder/referral-patientSelect";
 import Patientselect_Pregnant from "./pages/adminFolder/pregnantFolder/pregnant-patientSelect";
+import Patientselect_Immunization from "./pages/adminFolder/immunizationFolder/immunization-patientSelect";
+import Patientselect_Child from "./pages/adminFolder/childFolder/child-patientSelect";
+import MedicalRecord from "./pages/adminFolder/medicalFolder/medical";
+import Patientselect_Medical from "./pages/adminFolder/medicalFolder/medical-patientSelect";
+import PatientDashbaord from "./pages/patientFolder/PatientDashboardFolder/patientDashboard";
+
+
+import StaffChild from "./pages/staffFolder/staffChildFolder/Staffchild";
+import StaffDisease from "./pages/staffFolder/staffDiseaseFolder/Staffdisease";
+import StaffImmunization from "./pages/staffFolder/staffImmunizationFolder/Staffimmunization";
+import StaffMedicalRecord from "./pages/staffFolder/staffMedicalFolder/Staffmedical";
+import StaffMedicine from "./pages/staffFolder/staffMedicineFolder/Staffmedicine";
+import StaffPatientTable from "./pages/staffFolder/staffPatientFolder/Staffpatient";
+import StaffPregnant from "./pages/staffFolder/staffPregnantFolder/Staffpregnant";
+import StaffReferrals from "./pages/staffFolder/staffReferralFolder/Staffreferral";
+import StaffCalendar from "./pages/staffFolder/staffCalendarFolder/Staffcalendar";
 
 function App() {
   return (
@@ -46,11 +62,11 @@ function App() {
         <Route path="/referral" element={<Referrals />} />
         <Route path="/pregnant" element={<Pregnant />} />
         <Route path="/pregnant-patientSelect" element={<Patientselect_Pregnant/>} />
-
-
         <Route path="/child" element={<Child />} />
+        <Route path="/child-patientSelect" element={<Patientselect_Child />} />
         <Route path="/disease" element={<Disease />} />
         <Route path="/immunization" element={<Immunization />} />
+        <Route path="/immunization-patientSelect" element={<Patientselect_Immunization />} />
         <Route path="/medicine" element={<Medicine />} />
         <Route path="/staff" element={<Staff />} />
         <Route path="/calendar" element={<Calendar />} />
@@ -60,22 +76,45 @@ function App() {
         <Route path="/workflowSteps/:workflow_id" element={<WorkflowSteps />} />
         <Route path="/activeWorkflowSteps/:activeWorkflow_id" element={<ActiveWorkflowSteps />} />
         <Route path="/monthlyReport" element={<ReportTable />} />
+        <Route path="/medical" element={<MedicalRecord />} />
+        <Route path="/medical-patientSelect" element={<Patientselect_Medical />} />
+
+
+
+
 
 
 
 
         <Route path="/PatientCalendar" element={<PatientCalendar/>} />
+        <Route path="/patientDashboard" element={<PatientDashbaord/>} />
+
 
 
 
 
 
         <Route path="/StaffDashboard" element={<StaffDashboard/>} />
-        
         <Route path="/Staffworkflow" element={<StaffWorkflow />} />
-       
         <Route path="/StaffActiveWorkflowSteps/:activeWorkflow_id" element={<StaffActiveWorkflowSteps/>} />
         <Route path="/StaffWorkflowSteps/:workflow_id" element={<StaffWorkflowSteps/>} />
+
+        <Route path="/Staffchild" element={<StaffChild/>} />
+        <Route path="/Staffdisease" element={<StaffDisease/>} />
+        <Route path="/Staffimmunization" element={<StaffImmunization/>} />
+        <Route path="/Staffmedical" element={<StaffMedicalRecord/>} />
+        <Route path="/Staffmedicine" element={<StaffMedicine/>} />
+        <Route path="/Staffpatient" element={<StaffPatientTable/>} />
+        <Route path="/Staffpregnant" element={<StaffPregnant/>} />
+        <Route path="/Staffreferral" element={<StaffReferrals/>} />
+        <Route path="/Staffcalendar" element={<StaffCalendar/>} />
+
+
+
+
+
+
+
 
         
 

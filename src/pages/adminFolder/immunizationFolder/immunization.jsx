@@ -10,6 +10,7 @@ import AddModal from './immunization-addModal';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
+import ViewImmu from './immunization-editModal';
 
 const Immunization = () => {
 
@@ -20,7 +21,7 @@ const Immunization = () => {
 
   async function fetchpregnantData(){
     try{
-      const res = await axios.get('http://localhost/HC-Assist_Version_4/php/old_php/Admin_Side/immunization_folder/pregnant_load.php')
+      const res = await axios.get('http://localhost/HC-Assist_Version_4/php/new_php/HC-Assist_API/Admin/immunization/immunization_load.php')
       // console.log(res.data)
       setpregnantData(res.data)
     }
@@ -72,9 +73,11 @@ const Immunization = () => {
       <div className="main-container">
         
         <div className="main-top-staff">
-          <button className="openModalBtn" id="openModalBtn"  onClick={() => addPatient()}>
-            <img src="../assets/medical-icon_i-care-staff-area.png" alt="" />
+          <button className="openModalBtn" id="openModalBtn">
+          <a href="/immunization-patientSelect">
+            <img src="../../assets/icons/white-disease.png" alt="" />
             <img src="../assets/+.png" alt="" className="plus" />
+            </a>
           </button>
 
           <select id="roleSelect" className="roleSelect">
@@ -93,8 +96,8 @@ const Immunization = () => {
           </form>
         </div>
 
-        <EditModal visible={isOpenViewModal} onCLose={() => setIsOpenViewModal(false)} data={selectedReferral} />
-        <AddModal visible={isOpenAddModal} onCLose={() => setIsOpenAddModal(false)} />  
+        <ViewImmu visible={isOpenViewModal} onClose={() => setIsOpenViewModal(false)} data={selectedReferral} />
+        {/* <AddModal visible={isOpenAddModal} onCLose={() => setIsOpenAddModal(false)} />   */}
 
         <div className="table-container">
           <table id="staff-table" className="staff-table">

@@ -1,0 +1,37 @@
+#child-bp{
+    width: 76px;
+    
+}
+
+#child-heartR{
+    width: 76px;
+}
+
+#child-temp{
+    width: 76px;
+}
+
+#child-weight{
+    width: 120px;
+}
+
+#child-height{
+    width: 120px;
+}
+
+.small-label label{
+    font-size: 10px;
+    margin-left: 5px;
+}
+
+#child-status{
+    width: 260px;
+}
+
+#child-guard{
+    width: 120px;
+}
+
+#child-contact{
+    width: 120px;
+}

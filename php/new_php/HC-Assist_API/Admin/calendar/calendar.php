@@ -42,7 +42,7 @@ $sql = "
         p.image, 
         DATE(isch.immunization_schedule_date) AS schedule_date, 
         'Immunization' AS schedule_type
-    FROM patient p
+    FROM patient p 
     JOIN immunization im ON p.patient_id = im.patient_id
     JOIN immunization_schedule isch ON im.immunization_id = isch.immunization_id
    

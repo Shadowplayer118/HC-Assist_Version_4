@@ -417,6 +417,11 @@ margin-top: 20px;
     overflow-y: scroll;
 }
 
+
+.expirations-container::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Edge */
+  }
+
 .expirations-content{
     padding: 5px;
 }
@@ -442,14 +447,48 @@ margin-top: 20px;
 
 
 .expired-row {
-    background-color: rgb(231, 34, 60);
+    background-color: rgba(237, 24, 53, 0.916);
     color: white; /* Optional for better text contrast */
+    border: 1px solid black;
+    margin: 1000px;
+  }
+
+  .expired-row .trash{
+    background-color: wheat;
+    
+  }
+
+  .expired-row .eye{
+    background-color: wheat;
+    
   }
   
 
+  .resolve img{
+width: 20px;
+  }
 
-  
+  .resolve img:hover{
+background-color: #888;
+cursor: pointer;
+}
 
- 
+.noActiviyMed-image img{
+    width: 140px;
+    height: 90px;
+    position: relative;
+    left: 50px;
+    bottom: 10px;
+}
 
-  
+
+.noActiviyMed-image{
+    width: 10px; 
+    height: 10px;
+}
+
+.noActiviyMed-text{
+    position: relative;
+    left: 30px;
+    top: 10px;
+}

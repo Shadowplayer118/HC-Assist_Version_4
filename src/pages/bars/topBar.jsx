@@ -17,6 +17,8 @@ function Topbar(props) {
   useEffect(() => {
     const logId = localStorage.getItem('logId');
     const logPosition = localStorage.getItem('logPosition');
+    console.log(logPosition);
+    
 
     if (logId && logPosition) {
       axios

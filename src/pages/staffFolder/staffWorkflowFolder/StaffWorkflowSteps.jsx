@@ -200,10 +200,8 @@ const formatDate = (date) => {
           <div className="main-container">
 
             <div className="main-top-staff">
-               <a href="/workflow">Cancel</a>
+               <a href="/StaffWorkflow">Cancel</a>
               <button className="cancel-workfow">Add Steps</button>
-
-
 
             </div>
 

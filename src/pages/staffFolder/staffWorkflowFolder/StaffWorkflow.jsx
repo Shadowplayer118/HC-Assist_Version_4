@@ -5,10 +5,9 @@ import '../../../css/workflow.css';
 import { Link } from 'react-router-dom';
 
 import Topbar from "../../bars/topBar";
-import Sidebar from "../../bars/sideBar";
+import SidebarStaff from '../../bars/sideBarStaff';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import SidebarStaff from '../../bars/sideBarStaff';
 
 const StaffWorkflow = () => {
   const [workflowData, setworkFlowData] = useState(null);
@@ -17,7 +16,6 @@ const StaffWorkflow = () => {
   const [isOpenAddModal, setIsOpenAddModal] = useState(false);
   const [activeWorkflowData, setactiveWorkFlowData] = useState(null);
   
-  const staffId = localStorage.getItem('logId');
 
   const navigate = useNavigate();
 
@@ -31,38 +29,18 @@ const StaffWorkflow = () => {
   }
 
   
-  // async function fetchActiveworkflowData() {
-  //   try {
-  //     const res = await axios.get('http://localhost/HC-Assist_Version_4/php/new_php/HC-Assist_API/Admin/workflow/activeWorkflow.php');
-  //     setactiveWorkFlowData(res.data);
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // }
-
-
-const fetchActiveworkflowData = async(staffId) =>{
-    try{
-      const response = await axios.get('http://localhost/HC-Assist_Version_4/php/new_php/HC-Assist_API/staff/workflow/StaffActiveWorkflow.php',{
-        params: {
-          staff_id:staffId
-        }
-      })
-      setactiveWorkFlowData(response.data);
-      console.log(activeWorkflowData);
-    }
-    catch(error){
-      console.error("Error fetching active workflows:", error);
-
+  async function fetchActiveworkflowData() {
+    try {
+      const res = await axios.get('http://localhost/HC-Assist_Version_4/php/new_php/HC-Assist_API/staff/workflow/StaffActiveWorkflow.php');
+      setactiveWorkFlowData(res.data);
+    } catch (err) {
+      console.error(err);
     }
   }
 
-
-
   useEffect(() => {
     fetchworkflowData();
-    fetchActiveworkflowData(staffId);
-    console.log(activeWorkflowData);
+    fetchActiveworkflowData();
   }, [isOpenAddModal, selectedReferral]);
 
   function viewById(data) {
@@ -91,7 +69,7 @@ const fetchActiveworkflowData = async(staffId) =>{
 
   function handleViewActiveSteps(Activeworkflow_id) {
     
-    navigate(`/activeWorkflowSteps/${Activeworkflow_id}`);
+    navigate(`/StaffActiveWorkflowSteps/${Activeworkflow_id}`);
   
 }
 
@@ -99,7 +77,9 @@ const fetchActiveworkflowData = async(staffId) =>{
     <div>
       <Topbar location="Workflow" />
       <div className="mainbarContent">
-        <SidebarStaff/>
+      <SidebarStaff/>
+
+        
 
         <div className="main">
           <div className="main-container">
@@ -136,7 +116,7 @@ const fetchActiveworkflowData = async(staffId) =>{
                     </div>
                     <div className="workflow-card-right">
                     <div className="link ">
-  <Link to={`/workflowSteps/${data.workflow_id}`}>View Steps</Link></div>
+  <Link to={`/StaffWorkflowSteps/${data.workflow_id}`}><img src="../../assets/icons/mdi_eye.png" alt="" /></Link></div>
 
                     </div>
                   </div>
@@ -148,14 +128,22 @@ const fetchActiveworkflowData = async(staffId) =>{
               <div className="workflow-content">
                 <div className="workflow-title">Active Workflow</div>
                 {activeWorkflowData && activeWorkflowData.map((data, index) => (
-                  <div className='workflow-card' key={index}>
+                  <div className='Activeworkflow-card' key={index}>
                   <div className='title'>{data.active_title}</div>
                   <div className='subtitle'>{data.active_description}</div>
-                  <div className='subtitle'>{data.patient_first_name.charAt(0) + '.'} {data.patient_last_name}</div>
-                  <div className='subtitle'>{data.staff_first_name.charAt(0) + '.'} {data.staff_last_name}</div>
-                  <div className='subtitle'>{data.active_status}</div>
+
+                  <div className="workflowLegend">  
+
+                  <div className='patientName'>{data.patient_first_name.charAt(0) + '.'} {data.patient_last_name}</div>
+                  <div className='staffName'>{data.staff_first_name.charAt(0) + '.'} {data.staff_last_name}</div>
+                 
+                  <div className='workflowStatus'> <div className='workflowColor'></div>{data.active_status}</div>
+                  
+
+                  </div>
+                  
                   <div className="link ">
-                  <Link to={`/StaffActiveWorkflowSteps/${data.activeWorflow_id}`}>View Progress</Link></div>
+                  <Link to={`/StaffActiveWorkflowSteps/${data.activeWorflow_id}`}><img src="../../assets/icons/mdi_eye.png" alt="" /></Link></div>
                   </div>
                   
                   

@@ -21,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $household = $_POST['household'] ?? '';
     $contact_number = $_POST['contact_number'] ?? '';
     $blood_type = $_POST['blood_type'] ?? '';
+    $philhealthNum = $_POST['philhealthNum'] ?? '';
 
     // Image upload handling
     if (isset($_FILES['add_image'])) {
@@ -45,11 +46,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Prepare SQL query
-    $sql = "INSERT INTO patient (first_name, middle_name, last_name, age, birth_date, gender, civil_status, purok, household, contact_number, blood_type, image) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO patient (password, philhealthNum, first_name, middle_name, last_name, age, birth_date, gender, civil_status, purok, household, contact_number, blood_type, image) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     if ($stmt = $conn->prepare($sql)) {
-        $stmt->bind_param("sssissssssss", $first_name, $middle_name, $last_name, $age, $birth_date, $gender, $civil_status, $purok, $household, $contact_number, $blood_type, $imagePath);
+        $stmt->bind_param("sssssissssssss", $philhealthNum, $philhealthNum, $first_name, $middle_name, $last_name, $age, $birth_date, $gender, $civil_status, $purok, $household, $contact_number, $blood_type, $imagePath);
         if ($stmt->execute()) {
             echo json_encode(["status" => "success"]);
         } else {

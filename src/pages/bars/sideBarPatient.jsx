@@ -48,9 +48,11 @@ function SidebarPatient() {
   return (
     <div className="side">
       <div className="side-bar">
+
+      <div className="link"><a href="/patientDashboard">Dashbaord</a></div>
        
         <div className="link"><a href="/referral">Referrals</a></div>
-        <div className="link"><a href="/calendar">Calendar</a></div>
+        <div className="link"><a href="/patientCalendar">Calendar</a></div>
       
 
         <div className="link">

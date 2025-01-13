@@ -777,3 +777,105 @@ left: 300px;
   .status-current{
     background-color: greenyellow;
   }
+
+
+
+
+
+  .workflow_form{
+    position: relative;
+    top: 20px;
+  }
+
+  
+
+
+  .steps-container{
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.462);
+    position: relative;
+    top: 10px;
+    max-height: 170px;
+    height: 170px;
+    overflow-y: scroll;
+    padding: 10px;
+    border-radius: 10px;
+  }
+
+  .steps-container label{
+    margin-top: 15px;
+  }
+
+  .add-step-btn{
+    margin: 10px;
+  }
+
+#workflow-title{
+    width: 440px;
+
+}
+
+  #workflow-description{
+    width: 450px;
+    height: 80px;
+  }
+
+.steps-container input{
+
+    width: 400px;
+    height: 30px;
+    margin-top: 10px;
+  }
+
+
+  .save-workflow{
+    background-color: rgb(55, 182, 46);
+   
+    max-width: 120px;
+    width: 120px;
+    border-width: 0px;
+    border-radius: 5px;
+    color: white;
+    box-shadow: -2px 2px rgb(51, 51, 51);
+    height: 25px;
+    position: absolute;
+    bottom: -70px;
+  
+  }
+
+
+  .save-workflow:hover{
+    background-color: rgb(42, 130, 35);
+    color: rgb(161, 161, 161);
+
+  }
+
+  .add-step-btn{
+    background-color: rgb(68, 42, 242);
+    width: 80px;
+    border-width: 0px;
+    border-radius: 5px;
+    color: white;
+    box-shadow: -2px 2px rgb(51, 51, 51);
+    height: 20px;
+  }
+
+  .add-step-btn:hover{
+    background-color: rgb(59, 38, 191);
+    color: rgb(161, 161, 161);
+  }
+
+
+  .close-workflow{
+ 
+    background-color: red;
+    position: absolute;
+    padding: 3px;
+    width: 80px;
+    border-width: 0px;
+    border-radius: 5px;
+    color: white;
+    box-shadow: -2px 2px rgb(51, 51, 51);
+    bottom: 22px;
+    left: 150px;
+  }
+ 

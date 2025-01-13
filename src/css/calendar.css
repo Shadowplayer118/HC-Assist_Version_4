@@ -76,22 +76,22 @@
   
   /* Colors for different types of activities */
   .red-box { 
-    background: rgb(170, 54, 54); 
+    background: rgb(233, 45, 45); 
     left: 5px; 
   }
   .blue-box { 
-    background: rgb(60, 60, 169); 
+    background: rgb(74, 74, 226); 
     left: 20px; 
   }
   .green-box { 
-    background: rgb(82, 183, 54); 
+    background: rgb(93, 219, 58); 
     left: 35px; 
   }
 
   .empty-day{
     visibility: visible;
     background-color: transparent;
-    border: 1px solid black;
+    border: 1px solid rgba(70, 66, 66, 0.533);
   }
   
   /* Glow effect for boxes with data */

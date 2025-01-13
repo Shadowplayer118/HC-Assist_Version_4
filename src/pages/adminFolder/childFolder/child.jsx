@@ -5,11 +5,12 @@ import Topbar from "../../bars/topBar";
 import Sidebar from "../../bars/sideBar";
 import Mainbar from "../../bars/mainBar";
 import EditModal from './child-editModal';
-import AddModal from './child-addModal';
 
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
+import ChildModal from './child-addModal';
+import ChildView from './child-editModal';
 
 const Child = () => {
 
@@ -20,7 +21,7 @@ const Child = () => {
 
   async function fetchchildData(){
     try{
-      const res = await axios.get('http://localhost/HC-Assist_Version_4/php/old_php/Admin_Side/child_nutrition_folder/child_nutrition_load.php')
+      const res = await axios.get('http://localhost/HC-Assist_Version_4/php/new_php/HC-Assist_API/Admin/child/child_nutrition_load.php')
       // console.log(res.data)
       setchildData(res.data)
     }
@@ -72,9 +73,11 @@ const Child = () => {
       <div className="main-container">
         
         <div className="main-top-staff">
-          <button className="openModalBtn" id="openModalBtn"  onClick={() => addPatient()}>
-            <img src="../assets/medical-icon_i-care-staff-area.png" alt="" />
+          <button className="openModalBtn" id="openModalBtn">
+          <a href="/child-patientSelect">
+            <img src="../../assets/icons/white-child.png" alt="" />
             <img src="../assets/+.png" alt="" className="plus" />
+            </a>
           </button>
 
           <select id="roleSelect" className="roleSelect">
@@ -93,8 +96,8 @@ const Child = () => {
           </form>
         </div>
 
-        <EditModal visible={isOpenViewModal} onCLose={() => setIsOpenViewModal(false)} data={selectedReferral} />
-        <AddModal visible={isOpenAddModal} onCLose={() => setIsOpenAddModal(false)} />  
+        <ChildView visible={isOpenViewModal} onClose={() => setIsOpenViewModal(false)} data={selectedReferral} />
+        {/* <ChildModal visible={isOpenAddModal} onClose={() => setIsOpenAddModal(false)} />   */}
 
         <div className="table-container">
           <table id="staff-table" className="staff-table">

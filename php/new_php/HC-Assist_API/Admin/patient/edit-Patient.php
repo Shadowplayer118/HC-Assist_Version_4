@@ -1,94 +1,66 @@
 <?php
-
 include '../../connection.php';
 
-// Allow cross-origin requests (for development purposes)
+// Allow cross-origin requests from any domain (for development purposes, you can specify a domain instead of '*')
 header("Access-Control-Allow-Origin: *");
 
 // Allow specific HTTP methods
-header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+header("Access-Control-Allow-Methods: POST");
 
-// Allow specific headers
-header("Access-Control-Allow-Headers: Content-Type, Authorization");
+// Handle POST request
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $patient_id = $_POST['patient_id'] ?? '';
+    $first_name = $_POST['first_name'] ?? '';
+    $middle_name = $_POST['middle_name'] ?? '';
+    $last_name = $_POST['last_name'] ?? '';
+    $age = $_POST['age'] ?? '';
+    $birth_date = $_POST['birth_date'] ?? '';
+    $gender = $_POST['gender'] ?? '';
+    $civil_status = $_POST['civil_status'] ?? '';
+    $purok = $_POST['purok'] ?? '';
+    $household = $_POST['household'] ?? '';
+    $contact_number = $_POST['contact_number'] ?? '';
+    $blood_type = $_POST['blood_type'] ?? '';
+    $philhealthNum = $_POST['philhealthNum'] ?? '';
 
-// Read the incoming JSON data from the POST request
-$data = json_decode(file_get_contents('php://input'), true);
+    // Image upload handling
+    if (isset($_FILES['edit_image'])) {
+        $currentDateTime = date('YmdHis'); // Format: YYYYMMDDHHMMSS
+        
+        // Generate a 5-character random string
+        $randomCode = bin2hex(random_bytes(3)); // 3 bytes = 6 characters in hex, but we'll use 5 characters
+        $randomCode = substr($randomCode, 0, 5); // Take only the first 5 characters
 
-// Check if JSON decoding was successful
-if ($data === null) {
-    echo json_encode(['status' => 'error', 'message' => 'Invalid JSON data.']);
-    exit;
+        // Construct the filename with current date-time and random 5-character code
+        $imageFileName = "patientImage" . $currentDateTime . $randomCode . '.' . pathinfo($_FILES['edit_image']['name'], PATHINFO_EXTENSION);
+        
+        $targetPath = "../../../../uploads/$imageFileName";
+
+        if (move_uploaded_file($_FILES['edit_image']['tmp_name'], $targetPath)) {
+            $imagePath = "/uploads/$imageFileName";
+        } else {
+            $imagePath = '';
+        }
+    } else {
+        $imagePath = '';
+    }
+
+    // Prepare SQL query
+    $sql = "UPDATE patient SET password=?, philhealthNum=?, first_name=?, middle_name=?, last_name=?, age=?, birth_date=?, gender=?, civil_status=?, purok=?, household=?, contact_number=?, blood_type=?, image=?
+            WHERE patient_id=?";
+
+    if ($stmt = $conn->prepare($sql)) {
+        $stmt->bind_param("sssssissssssssi", $philhealthNum, $philhealthNum, $first_name, $middle_name, $last_name, $age, $birth_date, $gender, $civil_status, $purok, $household, $contact_number, $blood_type, $imagePath, $patient_id);
+        if ($stmt->execute()) {
+            echo json_encode(["status" => "success"]);
+        } else {
+            echo json_encode(["status" => "error", "message" => "Database insertion failed."]);
+        }
+        $stmt->close();
+    } else {
+        echo json_encode(["status" => "error", "message" => "Prepared statement failed."]);
+    }
+
+    $conn->close();
 }
-
-// Extract data from the decoded JSON
-$first_name = $data['first_name'] ?? null;
-$middle_name = $data['middle_name'] ?? null;
-$last_name = $data['last_name'] ?? null;
-$gender = $data['gender'] ?? null;
-$purok = $data['purok'] ?? null;
-$household = $data['household'] ?? null;
-$civil_status = $data['civil_status'] ?? null;
-$age = $data['age'] ?? null;
-$contact_number = $data['contact_number'] ?? null;
-$blood_type = $data['blood_type'] ?? null;
-$birth_date = $data['birth_date'] ?? null;
-$patient_id = $data['patient_id'] ?? null; // Ensure patient_id is provided
-
-// Check if patient_id is provided
-if (!$patient_id) {
-    echo json_encode(['status' => 'error', 'message' => 'Patient ID is required.']);
-    exit;
-}
-
-// SQL query to update data in the patient table
-$sql = "UPDATE patient 
-        SET first_name = ?, 
-            middle_name = ?, 
-            last_name = ?, 
-            gender = ?, 
-            purok = ?, 
-            household = ?, 
-            civil_status = ?, 
-            age = ?, 
-            contact_number = ?, 
-            blood_type = ? 
-        WHERE patient_id = ?";
-
-// Prepare the SQL statement
-$stmt = $conn->prepare($sql);
-
-if (!$stmt) {
-    echo json_encode(['status' => 'error', 'message' => 'Failed to prepare the SQL statement.']);
-    exit;
-}
-
-// Bind the parameters to the prepared statement
-$stmt->bind_param(
-    "sssssssissi",
-    $first_name,
-    $middle_name,
-    $last_name,
-    $gender,
-    $purok,
-    $household,
-    $civil_status,
-    $age,
-    $contact_number,
-    $blood_type,
-    $patient_id
-);
-
-// Execute the query and check for success
-if ($stmt->execute()) {
-    $response = ['status' => 'success', 'message' => 'Patient updated successfully.'];
-    echo json_encode($response);
-} else {
-    $response = ['status' => 'error', 'message' => 'Failed to update patient.'];
-    echo json_encode($response);
-}
-
-// Close the prepared statement and database connection
-$stmt->close();
-$conn->close();
-
 ?>

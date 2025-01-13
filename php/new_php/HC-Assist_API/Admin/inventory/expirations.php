@@ -19,6 +19,7 @@ if ($conn->connect_error) {
 
 // Get inventory_id from the request
 $inventory_id = isset($_GET['inventory_id']) ? $_GET['inventory_id'] : null;
+$current_date = date("Y-m-d");
 
 if ($inventory_id === null) {
     echo json_encode([
@@ -29,7 +30,7 @@ if ($inventory_id === null) {
 }
 
 // Prepare the query
-$query = "SELECT stocked, expiration_id, inventory_id, expiration_date FROM expirations WHERE inventory_id = ? AND actionTaken = 'none'";
+$query = "SELECT stocked, expiration_id, inventory_id, expiration_date FROM expirations WHERE inventory_id = ? AND actionTaken = 'none' AND expiration_date <= ?";
 $stmt = $conn->prepare($query);
 
 // Check if the statement was prepared successfully
@@ -42,7 +43,7 @@ if (!$stmt) {
 }
 
 // Bind the parameter
-$stmt->bind_param("i", $inventory_id);
+$stmt->bind_param("is", $inventory_id,$current_date);
 
 // Execute the query
 $stmt->execute();

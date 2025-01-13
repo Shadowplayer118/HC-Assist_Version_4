@@ -1,50 +1,66 @@
 <?php
-
 include '../../connection.php';
 
+// Allow cross-origin requests from any domain (for development purposes, you can specify a domain instead of '*')
 header("Access-Control-Allow-Origin: *");
 
 // Allow specific HTTP methods
-header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+header("Access-Control-Allow-Methods: POST");
 
-// Allow specific headers
-header("Access-Control-Allow-Headers: Content-Type, Authorization");
+// Handle POST request
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $staff_id = $_POST['staff_id'] ?? '';
+    $first_name = $_POST['first_name'] ?? '';
+    $middle_name = $_POST['middle_name'] ?? '';
+    $last_name = $_POST['last_name'] ?? '';
+    $age = $_POST['age'] ?? '';
+    $birth_date = $_POST['birth_date'] ?? '';
+    $gender = $_POST['gender'] ?? '';
+    $civil_status = $_POST['civil_status'] ?? '';
+    $contact_number = $_POST['contact_number'] ?? '';
+    $purok_assigned = $_POST['purok_assigned'] ?? '';
+    $password = $_POST['password'] ?? '';
+    $position = $_POST['position'] ?? '';
 
-// Read the incoming JSON data from the POST request
-$data = json_decode(file_get_contents('php://input'), true);
 
-// Check if JSON decoding was successful
-if ($data === null) {
-    echo json_encode(['status' => 'error', 'message' => 'Invalid JSON data.']);
-    exit;
+    // Image upload handling
+    if (isset($_FILES['add_image'])) {
+        $currentDateTime = date('YmdHis'); // Format: YYYYMMDDHHMMSS
+        
+        // Generate a 5-character random string
+        $randomCode = bin2hex(random_bytes(3)); // 3 bytes = 6 characters in hex, but we'll use 5 characters
+        $randomCode = substr($randomCode, 0, 5); // Take only the first 5 characters
+
+        // Construct the filename with current date-time and random 5-character code
+        $imageFileName = "staffImage" . $currentDateTime . $randomCode . '.' . pathinfo($_FILES['add_image']['name'], PATHINFO_EXTENSION);
+        
+        $targetPath = "../../../../uploads/$imageFileName";
+
+        if (move_uploaded_file($_FILES['add_image']['tmp_name'], $targetPath)) {
+            $imagePath = "/uploads/$imageFileName";
+        } else {
+            $imagePath = '';
+        }
+    } else {
+        $imagePath = '';
+    }
+
+    // Prepare SQL query
+    $sql = "INSERT INTO staff (position, password, first_name, middle_name, last_name, age, birth_date, gender, civil_status, purok_assigned, contact_number, image) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+    if ($stmt = $conn->prepare($sql)) {
+        $stmt->bind_param("sssssissssss", $position, $password, $first_name, $middle_name, $last_name, $age, $birth_date, $gender, $civil_status, $purok_assigned, $contact_number, $imagePath);
+        if ($stmt->execute()) {
+            echo json_encode(["status" => "success"]);
+        } else {
+            echo json_encode(["status" => "error", "message" => "Database insertion failed."]);
+        }
+        $stmt->close();
+    } else {
+        echo json_encode(["status" => "error", "message" => "Prepared statement failed."]);
+    }
+
+    $conn->close();
 }
-
-$password = $_POST['password'];
-$first_name = $_POST['first_name'];
-$middle_name = $_POST['middle_name'];
-$last_name = $_POST['last_name'];
-$gender = $_POST['gender'];
-$purok_assigned = $_POST['purok_assigned'];
-$position = $_POST['position'];
-$civil_status = $_POST['civil_status'];
-$age = $_POST['age'];
-$contact_number = $_POST['contact_number'];
-$username = $first_name . " " . $last_name; // Correct concatenation
-
-$sql = "INSERT INTO staff (username, password, first_name, middle_name, last_name, gender, purok_assigned, position, civil_status, age, contact_number) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-$stmt = $conn->prepare($sql);
-
-// Correct type specifiers and added missing variable
-$stmt->bind_param("sssssssssis", $username, $password, $first_name, $middle_name, $last_name, $gender, $purok_assigned, $position, $civil_status, $age, $contact_number);
-
-if ($stmt->execute()) {
-    $response = ['status' => 'success', 'message' => 'Character added successfully.'];
-    echo json_encode($response);
-} else {
-    $response = ['status' => 'error', 'message' => 'Failed to add character.'];
-    echo json_encode($response);
-}
-
-$stmt->close();
-$conn->close();
 ?>

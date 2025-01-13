@@ -95,7 +95,7 @@ const handleStepClick = async (sequence) => {
         <div className="main">
           <div className="main-container">
             <div className="main-top-staff">
-              <a href="/workflow">Cancel</a>
+              <a href="/StaffWorkflow">Cancel</a>
               <button className="cancel-workfow"  onClick={() => handleReset(activeWorkflow_id)}>Reset Workflow</button>
             </div>
 

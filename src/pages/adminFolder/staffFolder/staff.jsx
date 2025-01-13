@@ -4,8 +4,8 @@ import '../../../css/patient.css';
 import Topbar from "../../bars/topBar";
 import Sidebar from "../../bars/sideBar";
 import Mainbar from "../../bars/mainBar";
-import EditModal from './staff-editModal';
-import AddModal from './staff-addModal';
+import StaffEditModal from './staff-editModal';
+import StaffAddModal from './staff-addModal';
 
 import axios from 'axios';
 import { useEffect, useState } from 'react';
@@ -89,8 +89,8 @@ const Staff = () => {
           </form>
         </div>
 
-        <EditModal visible={isOpenViewModal} onCLose={() => setIsOpenViewModal(false)} data={selectedReferral} />
-        <AddModal visible={isOpenAddModal} onCLose={() => setIsOpenAddModal(false)} />  
+        <StaffEditModal visible={isOpenViewModal} onClose={() => setIsOpenViewModal(false)} data={selectedReferral} />
+        <StaffAddModal visible={isOpenAddModal} onClose={() => setIsOpenAddModal(false)} />  
 
         <div className="table-container">
           <table id="staff-table" className="staff-table">

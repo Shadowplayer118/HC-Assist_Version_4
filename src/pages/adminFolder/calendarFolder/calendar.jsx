@@ -12,6 +12,9 @@ const Calendar = () => {
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]); // YYYY-MM-DD
   // New state for selected date
   const [activitiesDate, setActivitiesDate] = useState([]);
+  const [Preview, setPreview] = useState('');
+
+  
   // New state for selected date
 
 
@@ -35,6 +38,8 @@ const Calendar = () => {
      
         console.log('Data received:', response.data);
         setActivitiesDate(response.data);
+        setPreview(`../../../php/${response.data.image}` || '../../Images/blank_patient.jpg');
+        console.log();
       
       // Handle the response as needed
   } catch (error) {

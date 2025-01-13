@@ -4,12 +4,12 @@ import '../../../css/patient.css'
 import Topbar from "../../bars/topBar";
 import Sidebar from "../../bars/sideBar";
 import Mainbar from "../../bars/mainBar";
-import EditModal from './referral-editModal';
 import AddReferral from './referral-addModal';
 
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
+import ViewReferral from './referral-editModal';
 
 const Referrals = () => {
 
@@ -20,7 +20,7 @@ const Referrals = () => {
 
   async function fetchreferralData(){
     try{
-      const res = await axios.get('http://localhost/HC-Assist_Version_4/php/old_php/Admin_Side/referral_folder/referral_load.php')
+      const res = await axios.get('http://localhost/HC-Assist_Version_4/php/new_php/HC-Assist_API/Admin/referral/referral_load.php')
       // console.log(res.data)
       setReferralData(res.data)
     }
@@ -93,7 +93,7 @@ const Referrals = () => {
           </form>
         </div>
 
-        <AddReferral visible={isOpenViewModal} onCLose={() => setIsOpenViewModal(false)} data={selectedReferral} />
+        <ViewReferral visible={isOpenViewModal} onClose={() => setIsOpenViewModal(false)} data={selectedReferral} />
 
         <div className="table-container">
           <table id="staff-table" className="staff-table">
