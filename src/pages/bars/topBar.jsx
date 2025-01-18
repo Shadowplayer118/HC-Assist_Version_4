@@ -18,6 +18,8 @@ function Topbar(props) {
     const logId = localStorage.getItem('logId');
     const logPosition = localStorage.getItem('logPosition');
     console.log(logPosition);
+    console.log(logId);
+
     
 
     if (logId && logPosition) {

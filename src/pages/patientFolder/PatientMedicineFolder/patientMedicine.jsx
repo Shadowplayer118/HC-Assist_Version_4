@@ -1,22 +1,26 @@
 import React from 'react';
 import '../../../css/dashboard.css'
 import '../../../css/patient.css'
+import '../../../css/medicine.css'
+
 import Topbar from "../../bars/topBar";
 import Sidebar from "../../bars/sideBar";
-import Mainbar from "../../bars/mainBar";
-import EditModal from './medicine-editModal';
-import AddModal from './medicine-addModal';
+// import EditModal from './medicine-editModal';
+// import AddModal from './medicine-addModal';
 
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
+import SidebarPatient from '../../bars/sideBarPatient';
 
-const Medicine = () => {
+const PatientMedicine = () => {
 
   const [pregnantData, setpregnantData] = useState(null)
   const [isOpenViewModal, setIsOpenViewModal] = useState(false)
   const [selectedReferral, setSelectedReferral] = useState(null)
   const [isOpenAddModal, setIsOpenAddModal] = useState(false)
+  const link = "../../../php/";
+
 
   async function fetchpregnantData(){
     try{
@@ -65,38 +69,19 @@ const Medicine = () => {
 
 <Topbar location="Medicine"/>
            <div class="mainbarContent">
-           <Sidebar />
+           <SidebarPatient />
 
                    
 <div className="main">
       <div className="main-container">
         
         <div className="main-top-staff">
-          <button className="openModalBtn" id="openModalBtn"  onClick={() => addPatient()}>
-            <img src="../assets/medical-icon_i-care-staff-area.png" alt="" />
-            <img src="../assets/+.png" alt="" className="plus" />
-          </button>
-
-          <select id="roleSelect" className="roleSelect">
-            <option value="Purok">Status</option>
-            <option value="Bartolome">Approved</option>
-            <option value="Rosasa">Pending</option>
-            <option value="Rosasa">Denied</option>
-
-          </select>
-
-          <form id="filterForm" className="filterForm">
-            <button type="submit" id="filter-btn" className="filter-btn">
-              <img src="../assets/search.png" alt="" />
-            </button>
-            <input type="text" id="filtername" className="filtername" name="name" value="" />
-          </form>
+      
         </div>
 
-        <EditModal visible={isOpenViewModal} onCLose={() => setIsOpenViewModal(false)} data={selectedReferral} />
-        <AddModal visible={isOpenAddModal} onCLose={() => setIsOpenAddModal(false)} />  
 
-        <div className="table-container">
+
+        {/* <div className="table-container">
           <table id="staff-table" className="staff-table">
             <thead>
               <tr>
@@ -107,16 +92,7 @@ const Medicine = () => {
               </tr>
             </thead>
             <tbody>
-              {/* <tr id="template-row" style={{ display: 'none' }} className="table_tr">
-                <td className="id"></td>
-                <td className="name"></td>
-                <td className="position"></td>
-                <td className="contact_number"></td>
-                <td className="actions">
-                  <button className="delete-btn">Delete</button>
-                  <button className="edit-btn">View</button>
-                </td>
-              </tr> */}
+      
               {pregnantData && pregnantData.map((data, index) => (
                 <tr key={index}>
                   <td>{data.item_name}</td>
@@ -124,13 +100,40 @@ const Medicine = () => {
                   <td>{data.stock}</td>
                   <td>
                     <button className="delete-btn" onClick={() => deletepregnantData(data.inventory_id)}><img src="../../assets/icons/trashBin.png" alt="" /></button>
-                    <button className="edit-btn" onClick={() => viewById(data)}><img src="../../assets/icons/mdi_eye.png" alt="" /></button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
+        </div> */}
+
+
+<div className="Medcard-title">Available Medicine</div>
+<div className="Medcard-container">
+  {pregnantData &&
+    pregnantData.map((data, index) => (
+      <div
+        className="Medcard"
+        key={index}
+        style={{
+          backgroundColor: data.stock == 0 ? "grey" : "white",
+          color: data.isActive != 1 ? "black" : "white", // Conditionally set background color
+        }}
+      >
+        <div className="Medcard-profile">
+        <img   src={data.image ? link + data.image : "/Images/medicine.png"} alt=""   style={{
+          opacity: data.stock == 0 ? "5%" : "100%", // Conditionally set background color
+        }}/>
         </div>
+        <div className="Medcredentials">
+          <div>{data.item_name}</div>
+          <div>{data.brand}</div>
+          <div>{data.stock}</div>
+
+        </div>
+      </div>
+    ))}
+</div>
       </div>
     </div>
            
@@ -144,4 +147,4 @@ const Medicine = () => {
   );
 };
 
-export default Medicine;
+export default PatientMedicine;

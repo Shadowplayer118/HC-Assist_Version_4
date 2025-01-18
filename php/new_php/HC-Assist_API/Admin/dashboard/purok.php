@@ -12,8 +12,48 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Query to count patients grouped by purok
-$sql = "SELECT purok, COUNT(*) AS count FROM patient GROUP BY purok";
+// Get filter from the query string
+$filter = isset($_GET['filter']) ? $_GET['filter'] : 'Purok';
+
+// Initialize the query based on the filter
+switch ($filter) {
+    case 'Disease':
+        $sql = "SELECT purok, COUNT(*) AS count 
+                FROM patient 
+                INNER JOIN contagious_disease 
+                ON patient.patient_id = contagious_disease.patient_id 
+                GROUP BY purok";
+        break;
+
+    case 'Pregnant':
+        $sql = "SELECT purok, COUNT(*) AS count 
+                FROM patient 
+                INNER JOIN pregnant 
+                ON patient.patient_id = pregnant.patient_id 
+                GROUP BY purok";
+        break;
+
+    case 'Children':
+        $sql = "SELECT purok, COUNT(*) AS count 
+                FROM patient 
+                WHERE age < 18 
+                GROUP BY purok";
+        break;
+
+    case 'Senior':
+        $sql = "SELECT purok, COUNT(*) AS count 
+                FROM patient 
+                WHERE age > 65 
+                GROUP BY purok";
+        break;
+
+    default:
+        $sql = "SELECT purok, COUNT(*) AS count 
+                FROM patient 
+                GROUP BY purok";
+        break;
+}
+
 $result = $conn->query($sql);
 
 $response = [];

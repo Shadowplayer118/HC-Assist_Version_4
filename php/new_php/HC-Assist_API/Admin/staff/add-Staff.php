@@ -12,7 +12,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $staff_id = $_POST['staff_id'] ?? '';
     $first_name = $_POST['first_name'] ?? '';
     $middle_name = $_POST['middle_name'] ?? '';
+ 
     $last_name = $_POST['last_name'] ?? '';
+    $username = $first_name . '_'  .$last_name;
     $age = $_POST['age'] ?? '';
     $birth_date = $_POST['birth_date'] ?? '';
     $gender = $_POST['gender'] ?? '';
@@ -46,11 +48,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Prepare SQL query
-    $sql = "INSERT INTO staff (position, password, first_name, middle_name, last_name, age, birth_date, gender, civil_status, purok_assigned, contact_number, image) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO staff (username, position, password, first_name, middle_name, last_name, age, birth_date, gender, civil_status, purok_assigned, contact_number, image) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     if ($stmt = $conn->prepare($sql)) {
-        $stmt->bind_param("sssssissssss", $position, $password, $first_name, $middle_name, $last_name, $age, $birth_date, $gender, $civil_status, $purok_assigned, $contact_number, $imagePath);
+        $stmt->bind_param("ssssssissssss",$username, $position, $password, $first_name, $middle_name, $last_name, $age, $birth_date, $gender, $civil_status, $purok_assigned, $contact_number, $imagePath);
         if ($stmt->execute()) {
             echo json_encode(["status" => "success"]);
         } else {

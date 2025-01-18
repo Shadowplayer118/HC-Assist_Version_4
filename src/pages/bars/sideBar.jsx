@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import NotificationBadge from "../adminFolder/medicineFolder/medicine-Expiration";
 
+
+
 function Sidebar() {
   useEffect(() => {
     const linkElements = document.querySelectorAll(".link");
@@ -64,7 +66,7 @@ function Sidebar() {
           <a href="/medicine">
             Medicine
           
-          </a>  <NotificationBadge />
+          </a>  <NotificationBadge/>
 
         </div>
       

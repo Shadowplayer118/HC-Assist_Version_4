@@ -1,29 +1,33 @@
 import React from 'react';
-import '../../../css/dashboard.css'
-import '../../../css/patient.css'
+import '../../../css/dashboard.css';
+import '../../../css/patient.css';
 import Topbar from "../../bars/topBar";
 import Sidebar from "../../bars/sideBar";
 import Mainbar from "../../bars/mainBar";
-import EditModal from './referral-editModal';
-import AddModal from './referral-addModal';
+import StaffEditModal from './staff-editModal';
+import StaffAddModal from './staff-addModal';
 
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import SidebarPatient from '../../bars/sideBarPatient';
 
-const PatientReferrals = () => {
-
-  const [referralData, setReferralData] = useState(null)
+const PatientStaff = () => {
+  const [staffData, setStaffData] = useState(null)
   const [isOpenViewModal, setIsOpenViewModal] = useState(false)
   const [selectedReferral, setSelectedReferral] = useState(null)
   const [isOpenAddModal, setIsOpenAddModal] = useState(false)
+  const [Preview, setPreview] = useState(false)
+  const link = "../../../php/";
 
-  async function fetchreferralData(){
+
+
+
+  async function fetchstaffData(){
     try{
-      const res = await axios.get('http://localhost/HC-Assist_Version_4/php/old_php/Admin_Side/referral_folder/referral_load.php')
+      const res = await axios.get('http://localhost/HC-Assist_Version_4/php/old_php/Admin_Side/staff_folder/staff_load.php')
       // console.log(res.data)
-      setReferralData(res.data)
+      setStaffData(res.data)
     }
     catch(err){
       console.error(err)
@@ -31,7 +35,7 @@ const PatientReferrals = () => {
   }
 
   useEffect(() => {
-    fetchreferralData();
+    fetchstaffData();
   }, [isOpenAddModal, selectedReferral]);
 
   function viewById(data){
@@ -43,14 +47,14 @@ const PatientReferrals = () => {
     setIsOpenAddModal(true)
   }
 
-  async function deletereferralData(id){
+  async function deletestaffData(id){
     try{
       const res = await axios.delete('http://localhost/HC_Assist_Version_2/HC-Assist_Version1/admin_side/patients_folder/patient_delete.php', {
         data: { id: id }
       })
       
       if(res.data.status){
-        fetchreferralData()
+        fetchstaffData()
       }
     }
     catch(err){
@@ -58,13 +62,11 @@ const PatientReferrals = () => {
     }
   }
 
-
-
   return (
 
     <div>
 
-<Topbar location="Referrals"/>
+<Topbar location="Staff"/>
            <div class="mainbarContent">
            <SidebarPatient />
 
@@ -73,42 +75,33 @@ const PatientReferrals = () => {
       <div className="main-container">
         
         <div className="main-top-staff">
-          <button className="openModalBtn" id="openModalBtn"  onClick={() => addPatient()}>
+          {/* <button className="openModalBtn" id="openModalBtn"  onClick={() => addPatient()}>
             <img src="../assets/medical-icon_i-care-staff-area.png" alt="" />
             <img src="../assets/+.png" alt="" className="plus" />
           </button>
+
           <select id="roleSelect" className="roleSelect">
             <option value="Purok">Status</option>
             <option value="Bartolome">Approved</option>
             <option value="Rosasa">Pending</option>
             <option value="Rosasa">Denied</option>
 
-          </select>
-          <form id="filterForm" className="filterForm">
+          </select> */}
+
+          {/* <form id="filterForm" className="filterForm">
             <button type="submit" id="filter-btn" className="filter-btn">
               <img src="../assets/search.png" alt="" />
             </button>
             <input type="text" id="filtername" className="filtername" name="name" value="" />
-          </form>
+          </form> */}
         </div>
 
-        <EditModal visible={isOpenViewModal} onCLose={() => setIsOpenViewModal(false)} data={selectedReferral} />
-        <AddModal visible={isOpenAddModal} onCLose={() => setIsOpenAddModal(false)} />  
+      
 
-        <div className="table-container">
-          <table id="staff-table" className="staff-table">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Purok</th>
-                <th>Contact #</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
+     
               {/* <tr id="template-row" style={{ display: 'none' }} className="table_tr">
-                <td className="id"></td>
-                <td className="name"></td>
+                <td className="id"></div>
+                <td className="name"></div>
                 <td className="position"></td>
                 <td className="contact_number"></td>
                 <td className="actions">
@@ -116,20 +109,42 @@ const PatientReferrals = () => {
                   <button className="edit-btn">View</button>
                 </td>
               </tr> */}
-              {referralData && referralData.map((data, index) => (
-                <tr key={index}>
-                  <td>{data.first_name} {data.last_name}</td>
-                  <td>{data.referral_date}</td>
-                  <td>{data.approval_status}</td>
-                  <td>
-                    <button className="delete-btn" onClick={() => deletereferralData(data.referral_id)}><img src="../../assets/icons/trashBin.png" alt="" /></button>
-                    <button className="edit-btn" onClick={() => viewById(data)}><img src="../../assets/icons/mdi_eye.png" alt="" /></button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+               <div className="PatientStaffcard-title">Available BHW</div>
+            <div className="PatienStaffcard-container">
+
+           
+           
+  {staffData &&
+    staffData.map((data, index) => (
+      <div
+        className="PatienStaffcard"
+        key={index}
+        style={{
+          backgroundColor: data.isActive != 1 ? "grey" : "white",
+          color: data.isActive != 1 ? "white" : "black", // Conditionally set background color
+        }}
+      >
+        <div className="PatienStaffcard-profile">
+          <img   src={data.image ? link + data.image : "/Images/blank_staff.jpg"} alt=""   style={{
+          opacity: data.isActive != 1 ? "30%" : "100%", // Conditionally set background color
+        }}/>
         </div>
+        <div className="PatienStaffcredentials">
+          <div>Name: {data.first_name} {data.last_name}</div>
+          <div>Contact: {data.contact_number}</div>
+          <div>Position: {data.position}</div>
+          <div>{data.isActive != 1 ? "Unavailable" : "Available"}</div>
+
+          
+          
+
+        </div>
+      </div>
+    ))}
+</div>
+
+            
+         
       </div>
     </div>
            
@@ -143,4 +158,4 @@ const PatientReferrals = () => {
   );
 };
 
-export default PatientReferrals;
+export default PatientStaff;

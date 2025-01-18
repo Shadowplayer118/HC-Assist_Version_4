@@ -51,6 +51,7 @@ if ($resultMostEntries->num_rows > 0) {
 
     // Calculate the percentage
     $percentage = round(($totalCases / $totalPatients) * 100, 2);
+    // $percentage = 49;
     
 
     // Determine the status based on the percentage

@@ -164,6 +164,7 @@
 
 .side-bar .link{
     background-color: #FFFFFF;
+    
     flex-grow: 1;
     text-align: start;
     padding-top: 10px;
@@ -173,9 +174,17 @@
     
 }
 
+
+
+
+
+
 .side-bar .link:hover{
     background-color: rgb(209, 216, 222);
 }
+
+
+
 
 .side-bar :first-child{
     border-top-left-radius: 20px;
@@ -414,14 +423,14 @@
 .flag{
     position: relative;
     right: -40px;
-    top: 5px;
+    top: -10px;
 }
 
 
 .statusTitle{
     position: relative;
-    bottom: 20px;
-    right: 10px;
+    bottom: 70px;
+    right: 119px;
 }
 .perPurok{
     font-size: small;
@@ -431,7 +440,7 @@
 
 .Diseasepie-chart{
     position: relative;
-    top: -40px;
+    bottom: 90px;
     width: 150px;
     height: 150px;
 }
@@ -685,21 +694,109 @@ border-radius: 10px;
 .dashboard-profilePicture{
     background-color: red;
     width: 150px; 
-    height: 170px;
+    height: 160px;
     border-radius: 10px;
+    position: absolute;
+    left: 20px;
+    top: 35px;
 }
 
 .credential_container_top{
     position: absolute;
-    top: 10px;
+    top: 20px;
     left: 160px;
+    width: 200px;
 }
 
 .labelForHolder{
-    font-size: smaller;
+    font-size: 8px;
     text-align: left;
+    margin: 20px;
+    width: 250px;
+    /* background-color: red; */
 }
 
 .squeezeData{
 display: flex;
+width: 250px;
 }
+
+.name{
+    position: absolute;
+
+}
+
+
+.number{
+    position: absolute;
+    top: 40px
+
+}
+.third-line{
+    position: absolute;
+    top: 80px;
+}
+
+.fourth-line{
+    top: 120px;
+    position: absolute;
+}
+
+.fifth-line{
+    position: absolute;
+    top: 160px;
+}
+
+
+.data{
+    font-size: 14px;
+    margin: -10px;
+    padding-left: 10px;
+}
+
+.Request-edit{
+    position: absolute;
+    background-color: #3E4BBA;
+    padding: 3px;
+    border-radius: 5px;
+    color: aliceblue;
+    top: 180px;
+    left: -139px;
+    font-size: smaller;
+}
+
+.currentMedicalRecord-container{
+        position: relative;
+    top: 230px;
+    height: 150px;
+}
+
+.PatientMedicalRecord{
+    height: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 400px;
+    position: relative;
+    left: 15px;
+
+}
+
+
+.PatientProfile-divider{
+    position: absolute;
+    bottom: 150px;
+    left: 30px;
+}
+
+.PatientMedicalRecord div{
+    width: 50px;
+}
+
+
+.MedicalRecord-data{
+    background-color: purple;
+}
+
+
+
+

@@ -20,7 +20,7 @@ try {
     }
 
     $staffId = isset($_GET['staff_id']) ? $_GET['staff_id'] : '';
-    $staffId = 21;
+    
 
 
     // Prepare the SQL query to get data from active_workflow, patient, and staff

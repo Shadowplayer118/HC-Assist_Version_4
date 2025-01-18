@@ -15,6 +15,16 @@ const StaffWorkflow = () => {
   const [selectedReferral, setSelectedReferral] = useState(null);
   const [isOpenAddModal, setIsOpenAddModal] = useState(false);
   const [activeWorkflowData, setactiveWorkFlowData] = useState(null);
+
+
+  const logId = localStorage.getItem('LogId');
+
+
+
+
+  const [staff_id, setstaff_id] = useState(logId);
+  
+ 
   
 
   const navigate = useNavigate();
@@ -29,18 +39,42 @@ const StaffWorkflow = () => {
   }
 
   
-  async function fetchActiveworkflowData() {
-    try {
-      const res = await axios.get('http://localhost/HC-Assist_Version_4/php/new_php/HC-Assist_API/staff/workflow/StaffActiveWorkflow.php');
-      setactiveWorkFlowData(res.data);
-    } catch (err) {
-      console.error(err);
+  // async function fetchActiveworkflowData() {
+  //   try {
+  //     const res = await axios.get('http://localhost/HC-Assist_Version_4/php/new_php/HC-Assist_API/staff/workflow/StaffActiveWorkflow.php',{
+  //       params: {
+  //         staff_id:29
+  //       }
+  //     });
+  //     setactiveWorkFlowData(res.data);
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // }
+
+    const fetchActiveworkflowData = async(staff_id) =>{
+      try{
+        const response = await axios.get('http://localhost/HC-Assist_Version_4/php/new_php/HC-Assist_API/staff/workflow/StaffActiveWorkflow.php',{
+          params: {
+            staff_id:staff_id
+          }
+        })
+        setactiveWorkFlowData(response.data);
+      }
+      catch{
+  
+      }
     }
-  }
 
   useEffect(() => {
+       const logId = localStorage.getItem('logId');
+    const logPosition = localStorage.getItem('logPosition');
+    console.log(logPosition);
+    console.log(logId);
     fetchworkflowData();
-    fetchActiveworkflowData();
+    fetchActiveworkflowData(logId);
+  
+
   }, [isOpenAddModal, selectedReferral]);
 
   function viewById(data) {
@@ -83,6 +117,8 @@ const StaffWorkflow = () => {
 
         <div className="main">
           <div className="main-container">
+          <div className="lint">{staff_id}</div>
+
 
             <div className="main-top-staff">
               <button className="openModalBtn" id="openModalBtn" onClick={() => addPatient()}>
@@ -104,6 +140,7 @@ const StaffWorkflow = () => {
                 <input type="text" id="filtername" className="filtername" name="name" value="" />
               </form>
             </div>
+
 
             <div className="workflow-container">
               <div className="workflow-content">

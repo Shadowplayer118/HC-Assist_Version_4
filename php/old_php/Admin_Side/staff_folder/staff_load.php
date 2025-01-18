@@ -1,7 +1,7 @@
 <?php
 include '../connection.php';
 
-$sqlQuery = "Select * from staff ORDER BY staff_id DESC";
+$sqlQuery = "Select * from staff ORDER BY staff_id AND isActive DESC";
 $result = mysqli_query($conn,$sqlQuery);
 
 

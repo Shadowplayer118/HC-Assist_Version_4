@@ -2,8 +2,8 @@ import React from 'react';
 import '../../../css/dashboard.css'
 import '../../../css/patient.css'
 import Topbar from "../../bars/topBar";
-import Sidebar from "../../bars/sideBar";
-import Mainbar from "../../bars/mainBar";
+// import Sidebar from "../../bars/sideBar";
+// import Mainbar from "../../bars/mainBar";
 
 
 import axios from 'axios';
@@ -17,6 +17,12 @@ const PatientDashbaord = () => {
   const [isOpenViewModal, setIsOpenViewModal] = useState(false)
   const [selectedReferral, setSelectedReferral] = useState(null)
   const [isOpenAddModal, setIsOpenAddModal] = useState(false)
+  const [patientData, setPatientData] = useState(null);
+
+  const logId = localStorage.getItem('logId');
+  const logPosition = localStorage.getItem('logPosition');
+  console.log(logPosition);
+  console.log(logId);
 
   async function fetchpregnantData(){
     try{
@@ -29,8 +35,26 @@ const PatientDashbaord = () => {
     }
   }
 
+
+  async function fetchPatientData(patientId) {
+    try {
+      const response = await axios.get('http://localhost/your_php_file.php', {
+        params: { patient_id: patientId },
+      });
+      setPatientData(response.data); // Set the retrieved data in the state
+      setError(null); // Clear any previous error
+    } catch (err) {
+      console.error('Error fetching patient data:', err);
+      setError('Failed to fetch patient data. Please try again.'); // Set error message
+    }
+  }
+
   useEffect(() => {
+
     fetchpregnantData();
+    if (logId) {
+      fetchPatientData(logId);
+    }
   }, [isOpenAddModal, selectedReferral]);
 
   function viewById(data){
@@ -81,51 +105,59 @@ const PatientDashbaord = () => {
                 <div className="credential_container_top">
 
 
-                  <div className="dataHolder">Name Name Name</div>
-                  <div className='labelForHolder'>Patient Name</div>
-                  <div className="dataHolder">01931299</div>
-                  <div className='labelForHolder'>Philhealth Number</div>
 
-                  <div className="squeezeData">
+                  <div className='labelForHolder name'>
+                    <div className="data">Dhaniel Malinao</div><br/>
+                    Patient Name</div>
+                  <div className='labelForHolder number'>
+                  <div className="data">040 119 009 77899</div><br/>
+                    Philhealth #</div>
 
-                  <div className="dataHolder">12/12/12</div>
-                  <div className='labelForHolder'>birth date</div>
-                  <div className="dataHolder">34</div>
-                  <div className='labelForHolder'>age</div>
+<div className="squeezeData third-line">
+                  <div className='labelForHolder'><div className="data">10/10/10</div><br/>birth date</div>
+                  <div className='labelForHolder'><div className="data">22</div><br/>age</div>
+                  <div className='labelForHolder'><div className="data">Male</div><br/>Gender</div>
 
-                  </div>
+</div>
+                
+                <div className="squeezeData fourth-line">
 
-                  <div className="squeezeData">
-                  <div className="dataHolder">Male</div>
-                  <div className='labelForHolder'>Gender</div>
+                <div className='labelForHolder'><div className="data">Single</div><br/>Civil Status</div>
 
-                  <div className="dataHolder">Single</div>
-                  <div className='labelForHolder'>Civil Status</div>
-                  </div>
+<div className='labelForHolder'><div className="data">Gumamela</div><br/>Purok</div>
 
-         <div className="squeezeData">
-         <div className="dataHolder">Gumamela</div>
-                  <div className='labelForHolder'>Purok</div>
+                </div>
 
-
-                  <div className="dataHolder">Name</div>
-         <div className='labelForHolder'>Household</div>
-                 
-         </div>
-
-      
-
-         <div className="dataHolder">O+</div>
-         <div className='labelForHolder'>Blood type</div>
-
-                 
-                 
+                {/* <div className="squeezeData fifth-line">
+                  <div className='labelForHolder'><div className="data">Malinao</div><br/>Household</div>
+                  <div className='labelForHolder'><div className="data">O+</div><br/>Blood type</div>
+                </div> */}
 
                 </div>
                 <div className="credential_container_bottom"></div>
                 <div className="_container_bottom"></div>
               </div>
               <div className="currentMedicalRecord-container">
+                <div className="PatientProfile-divider"><u>Health Data</u></div>
+
+                <div className="PatientMedicalRecord">
+                <div className='labelForHolder'><div className="data">10/10/10</div><br/>Record Date</div>
+              
+
+                  <div className='labelForHolder'><div className="data">69</div><br/>Weight</div>
+                  <div className='labelForHolder'><div className="data">69</div><br/>Height</div>
+                
+                  <div className='labelForHolder'><div className="data">69</div><br/>Blood Pressure</div>
+                  <div className='labelForHolder'><div className="data">O+</div><br/>Blood Type</div>
+                  <div className='labelForHolder'><div className="data">69</div><br/>Heart Rate</div>
+                  <div className='labelForHolder'><div className="data">69</div><br/>Temperature</div>
+                  <div className='labelForHolder'><div className="data">Healthy</div><br/>Status</div>
+
+                </div>
+
+              
+
+
 
               </div>
 

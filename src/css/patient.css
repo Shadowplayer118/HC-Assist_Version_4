@@ -880,3 +880,77 @@ margin-top: 20px;
 #edit-image{
     visibility: hidden;
 }
+
+
+
+
+
+
+/* patient Side */
+
+
+.PatienStaffcard-container{
+    position: relative;
+    height: 360px;
+    width: 980px;
+    max-height: 400px;
+    top: 45px;
+    left: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: auto;
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+    border-top-left-radius: 0px;
+
+
+}
+
+.PatienStaffcard-container::-webkit-scrollbar{
+    display: none;
+}
+
+.PatienStaffcard{
+    background-color: aliceblue;
+    height: 230px;
+    width: 210px;
+    margin: 15px;  
+    border-radius: 10px; 
+    overflow: hidden;
+    font-size: 12px;
+    box-shadow: -4px 4px 4px rgba(51, 51, 51, 0.708);
+    
+
+}
+
+.PatienStaffcard-profile{
+    background-color: rgb(61, 61, 61);
+    height: 140px;
+}
+
+.PatienStaffcard-profile img{
+    height: 140px;
+    width: 220px;
+
+    /* opacity: 10%; */
+}
+
+.PatienStaffcredentials{
+    margin: 10px;
+}
+
+.PatientStaffcard-title{
+    background-color: #3E4BBA;
+    color: aliceblue;
+    position: absolute;
+    padding: 5px;
+    border-top-left-radius: 5px;
+    left: 220px;
+    top: 100px;
+    width: 150px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    padding-left: 20px;
+
+}

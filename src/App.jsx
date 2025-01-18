@@ -22,7 +22,8 @@ import StaffDashboard from "./pages/staffFolder/staffDashboardFolder/StaffDashbo
 
 import StaffActiveWorkflowSteps from "./pages/staffFolder/staffWorkflowFolder/StaffActiveWorkflowSteps";
 import StaffWorkflowSteps from "./pages/staffFolder/staffWorkflowFolder/StaffWorkflowSteps";
-import StaffWorkflow from "./pages/staffFolder/staffWorkflowFolder/Staffworkflow";
+
+
 
 
 import MidwifePregnant from "./pages/midwifeFolder/midwifePregnantFolder/MidwifePregnant";
@@ -45,6 +46,11 @@ import StaffPatientTable from "./pages/staffFolder/staffPatientFolder/Staffpatie
 import StaffPregnant from "./pages/staffFolder/staffPregnantFolder/Staffpregnant";
 import StaffReferrals from "./pages/staffFolder/staffReferralFolder/Staffreferral";
 import StaffCalendar from "./pages/staffFolder/staffCalendarFolder/Staffcalendar";
+import StaffWorkflow from "./pages/staffFolder/staffWorkflowFolder/StaffWorkflow";
+import PatientReferrals from "./pages/patientFolder/PatientReferralFolder/PatientRreferral";
+import PatientStaff from "./pages/patientFolder/PatientStaffFolder/patientStaff";
+import PatientMedicalRecord from "./pages/patientFolder/PatientMedicalFolder/patientMedical";
+import PatientMedicine from "./pages/patientFolder/PatientMedicineFolder/patientMedicine";
 
 function App() {
   return (
@@ -88,6 +94,15 @@ function App() {
 
         <Route path="/PatientCalendar" element={<PatientCalendar/>} />
         <Route path="/patientDashboard" element={<PatientDashbaord/>} />
+
+        <Route path="/PatientRreferral" element={<PatientReferrals/>} />
+        <Route path="/patientStaff" element={<PatientStaff/>} />
+        <Route path="/patientMedical" element={<PatientMedicalRecord/>} />
+        <Route path="/patientMedicine" element={<PatientMedicine/>} />
+
+
+
+
 
 
 

@@ -57,6 +57,7 @@ const PieChart = ({ chartData }) => {
                   />
                 </td>
                 <td>{item.text}</td>
+               
               </tr>
             ))}
           </tbody>

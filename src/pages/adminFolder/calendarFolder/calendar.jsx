@@ -153,7 +153,7 @@ const Calendar = () => {
 
         <div className="calendar-container">
           <div className="calendar-controls">
-            <div className="name">Calendar</div>
+            <div className="name"></div>
             <button onClick={handlePrevMonth}>Previous Month</button>
             <span>{`${getMonthName(currentMonth)} ${currentYear}`}</span>
             <button onClick={handleNextMonth}>Next Month</button>

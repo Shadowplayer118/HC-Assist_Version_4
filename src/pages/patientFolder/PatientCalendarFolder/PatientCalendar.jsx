@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../../../css/calendar.css"; // Ensure the CSS file path is correct
 import Topbar from "../../bars/topBar";
+import Sidebar from "../../bars/sideBar";
 import axios from 'axios';
 import SidebarPatient from "../../bars/sideBarPatient";
 
@@ -12,6 +13,9 @@ const PatientCalendar = () => {
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]); // YYYY-MM-DD
   // New state for selected date
   const [activitiesDate, setActivitiesDate] = useState([]);
+  const [Preview, setPreview] = useState('');
+
+  
   // New state for selected date
 
 
@@ -35,6 +39,8 @@ const PatientCalendar = () => {
      
         console.log('Data received:', response.data);
         setActivitiesDate(response.data);
+        setPreview(`../../../php/${response.data.image}` || '../../Images/blank_patient.jpg');
+        console.log();
       
       // Handle the response as needed
   } catch (error) {
@@ -120,9 +126,9 @@ const PatientCalendar = () => {
       calendarDays.push(
         <div key={date} className="day" onClick={() => handleDayClick(day)}>
           {day}
-          <div className={`small-box red-box ${dayData.includes("Pregnancy") ? "glow" : ""}`} />
-          <div className={`small-box blue-box ${dayData.includes("Contagious Disease") ? "glow" : ""}`} />
-          <div className={`small-box green-box ${dayData.includes("Immunization") ? "glow" : ""}`} />
+          <div className={`small-box red-box ${dayData.includes("Pregnancy") ? "glow" : "empty-day"}`} />
+          <div className={`small-box blue-box ${dayData.includes("Contagious Disease") ? "glow" : "empty-day"}`} />
+          <div className={`small-box green-box ${dayData.includes("Immunization") ? "glow" : "empty-day"}`} />
         </div>
       );
     }
@@ -134,7 +140,7 @@ const PatientCalendar = () => {
     <div>
       <Topbar location="Calendar" />
       <div className="mainbarContent">
-        <SidebarPatient />
+        <SidebarPatient/>
 
         <div className="week">
           <div>Sunday</div>
@@ -148,7 +154,7 @@ const PatientCalendar = () => {
 
         <div className="calendar-container">
           <div className="calendar-controls">
-            <div className="name">Calendar</div>
+            <div className="name"></div>
             <button onClick={handlePrevMonth}>Previous Month</button>
             <span>{`${getMonthName(currentMonth)} ${currentYear}`}</span>
             <button onClick={handleNextMonth}>Next Month</button>
@@ -167,12 +173,17 @@ const PatientCalendar = () => {
         <div className="activityDate-image">{data.image}</div>
         <div className="activityDate-patient">
           {data.first_name} {data.last_name}
-        </div>
+        </div> <br/>
         <div className="activityDate-activity">{data.activity}</div>   
       </div>
     ))
   ) : (
-    <div className="no-activities">No activities for this date.</div> // Fallback message
+    <div className="noActivity">
+        <div className="noActiviy-text" style={{position:'relative',left:'5px',top:'20px'}}>No Activities Today</div>
+        <div className="noActiviy-image"><img src="/Images/happy_nurse.jpg" alt=""  style={{position:'relative',left:'80px',top:'20px'}}/></div>
+
+      
+        </div> // Fallback message
   )}
 </div>
 

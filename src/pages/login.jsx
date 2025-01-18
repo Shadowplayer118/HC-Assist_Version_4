@@ -25,7 +25,7 @@ const Login = () => {
             window.location.href = '/PatientCalendar';
             break;
         case 'Staff':
-            window.location.href = '/StaffWorkflow';
+            window.location.href = '/StaffDashboard';
             break;
         case 'Midwife':
             window.location.href = '/MidwifeCalendar';

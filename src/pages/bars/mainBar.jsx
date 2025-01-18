@@ -85,7 +85,15 @@ const [monitorSched,setMonitoringSched] = useState([]);
           "rgb(184, 255, 41)",
           "rgb(156, 110, 247)",
         ],
+
+        // borderColor: [
+        //   "rgb(0, 0, 0)", // Red border
+        //  // Purple border
+        // ],
+        
         borderWidth: 1,
+        
+        
       },
     ],
   });
@@ -113,10 +121,10 @@ const [monitorSched,setMonitoringSched] = useState([]);
     }
   };
   
-  const fetchPurokData = async () => {
+  const fetchPurokData = async (filterType) => {
     try {
       const res = await axios.get(
-        "http://localhost/HC-Assist_Version_4/php/new_php/HC-Assist_API/Admin/dashboard/purok.php"
+        `http://localhost/HC-Assist_Version_4/php/new_php/HC-Assist_API/Admin/dashboard/purok.php?filter=${filterType}`
       );
       const labels = res.data.map((item) => item.purok);
       const data = res.data.map((item) => item.count);
@@ -129,6 +137,7 @@ const [monitorSched,setMonitoringSched] = useState([]);
       console.error("Error fetching Purok data:", err);
     }
   };
+  
 
   const fetchDiseaseData = async () => {
     try {
@@ -152,9 +161,9 @@ const [monitorSched,setMonitoringSched] = useState([]);
   const getCardColorClass = (scheduleType) => {
     switch (scheduleType) {
       case 'Contagious Disease':
-        return 'green-bg'; // Green for Contagious Disease
+        return 'blue-bg'; // Green for Contagious Disease
       case 'Immunization':
-        return 'yellow-bg'; // Yellow for Immunization
+        return 'green-bg'; // Yellow for Immunization
       case 'Pregnancy':
         return 'red-bg'; // Red for Pregnancy
       default:
@@ -171,12 +180,19 @@ const [monitorSched,setMonitoringSched] = useState([]);
         <div className="main-top">
           <div className="general-report-label">General Report</div>
          
-          <select name="Purok-Data" id="Purok-Data" className="month-filter">
-            <option value="Purok">Purok</option>
-            <option value="Disease">Disease</option>
-            <option value="Pregnant">Pregnant</option>
-            <option value="Immunization">Immunization</option>
-          </select>
+          <select
+  name="Purok-Data"
+  id="Purok-Data"
+  className="month-filter"
+  onChange={(e) => fetchPurokData(e.target.value)}
+>
+  <option value="Purok">Purok</option>
+  <option value="Disease">Disease</option>
+  <option value="Pregnant">Pregnant</option>
+  <option value="Children">Children</option>
+  <option value="Senior">Senior</option>
+</select>
+
           <div className="monitoring-label">Monitoring</div>
           <button className="today">Today</button>
           <div className="disease-label">Disease</div>
@@ -301,7 +317,7 @@ monitorSched &&
           <div className="disease-container">
             <div className="disease">
               <div className="squeez">
-                <h3>Status</h3>
+                <h3>Status:</h3>
                 <div className="flag">
   
 

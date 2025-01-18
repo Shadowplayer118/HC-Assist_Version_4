@@ -50,13 +50,15 @@ function SidebarPatient() {
       <div className="side-bar">
 
       <div className="link"><a href="/patientDashboard">Dashbaord</a></div>
+      <div className="link"><a href="/patientMedical">Medical History</a></div>
        
-        <div className="link"><a href="/referral">Referrals</a></div>
+        <div className="link"><a href="/PatientRreferral">Referrals</a></div>
         <div className="link"><a href="/patientCalendar">Calendar</a></div>
+        <div className="link"><a href="/patientStaff">BHW</a></div>
       
 
         <div className="link">
-          <a href="/medicine">
+          <a href="/patientMedicine">
             Medicine
           
           </a> 
