@@ -63,38 +63,217 @@ const ReportTable = ({visible, onClose}) => {
 
   return (
     <div className="report-mainbarContent">
-   
-      <div className="">
+  <div>
+    <div className="generateReportBtn">
+      <button onClick={generatePDF}>Download PDF</button>
+      <button className="onClose" onClick={onClose}>Close</button>
+    </div>
 
-        <div className="generateReportBtn">
-            <button onClick={generatePDF}>Download PDF</button>
-            <button className="onClose" onClick={onClose}>Close</button>
-        </div>
+    <div className="report-form">
+      <h2 className="report-form-title">Patient and Health Report <div className="report-form-location">Barangay Brgy_name, Municipality</div><div className="report-form-subtitle">Health Center records as of January 1-31 2025</div></h2>
+      
+
+      
+      {/* Manually position each metric */}
+
+      <h3>Medical Reports</h3>
    
-            
-        <div className="report-form">
-          <h2 className="report-form-title">Patient and Health Report</h2>
-          <table className="report-form-table">
-            <thead className="report-form-header">
-              <tr>
-                <th>Metric</th>
-                <th>Value</th>
-              </tr>
-            </thead>
-            <tbody className="report-form-data">
-              {Object.entries(reportData).map(([key, value]) => (
-                <tr key={key}>
-                  <td>{formatKey(key)}</td>
-                  <td>{value}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+
+    <div className="generateReport-compress">
+
+    <div className="report-item">
+        <span className="report-label">Total Patients: </span>
+        <span className="report-value">{reportData.total_patients}</span>
       </div>
-   
+
+      
+      <div className="report-item">
+        <span className="report-label">Total Males: </span>
+        <span className="report-value">{reportData.total_boys}</span>
+      </div>
+
+      <div className="report-item">
+        <span className="report-label">Total Females: </span>
+        <span className="report-value">{reportData.total_girls}</span>
+      </div>
 
     </div>
+
+    
+
+    <div className="generateReport-compress">
+    </div>
+
+    <div className="generateReport-compress">
+
+    <div className="report-item">
+        <span className="report-label">Average Weight: </span>
+        <span className="report-value">{reportData.avg_weight}</span>
+      </div>
+
+       <div className="report-item">
+        <span className="report-label">Average Height: </span>
+        <span className="report-value">{reportData.avg_height}</span>
+      </div>
+
+      <div className="report-item">
+        <span className="report-label">Average BP: </span>
+        <span className="report-value">{reportData.avg_blood_pressure}</span>
+      </div>
+
+    </div>
+
+
+
+    <div className="generateReport-compress">
+
+    <div className="report-item">
+        <span className="report-label">Average Heart-Rate: </span>
+        <span className="report-value">{reportData.avg_heart_rate}</span>
+      </div>
+
+
+
+      <div className="report-item">
+        <span className="report-label">Average Temperature: </span>
+        <span className="report-value">{reportData.avg_temperature}</span>
+      </div>
+
+    </div>
+
+      
+     
+
+    
+
+   
+
+
+
+
+      <div className="report-item">
+        <span className="report-label">Total Senior Citizens: </span>
+        <span className="report-value">{reportData.total_seniors}</span>
+      </div>
+
+
+      <div className="report-item">
+        <span className="report-label">Total Contagious Disease: </span>
+        <span className="report-value">{reportData.active_diseases}</span>
+      </div>
+
+      <h3>Pregnancy Data</h3>
+
+      <div className="generateReport-compress">
+      <div className="report-item">
+        <span className="report-label">Total Pregnancies: </span>
+        <span className="report-value">{reportData.total_pregnancies}</span>
+      </div>
+
+      <div className="report-item">
+        <span className="report-label">Delivered Pregnancies: </span>
+        <span className="report-value">{reportData.total_delivered_pregnancies}</span>
+      </div>
+      </div>
+
+      <div className="generateReport-compress">
+      <div className="report-item">
+        <span className="report-label">Ongoing Preganacies: </span>
+        <span className="report-value">{reportData.total_ongoing_pregnancies}</span>
+      </div>
+
+      <div className="report-item">
+        <span className="report-label">Miscarriage: </span>
+        <span className="report-value">{reportData.total_miscarriage_pregnancies}</span>
+      </div>
+      </div>
+
+   
+
+    
+
+      <div className="report-item">
+        <span className="report-label">Total Immunizations: </span>
+        <span className="report-value">{reportData.total_immunizations}</span>
+      </div>
+
+
+      <div className="report-item">
+        <span className="report-label">Total Apporved Referrals: </span>
+        <span className="report-value">{reportData.approved_referrals}</span>
+      </div>
+
+
+      <h3>Children Data</h3>
+
+
+  
+
+      <div className="generateReport-compress">
+      <div className="report-item">
+        <span className="report-label">Total Children: </span>
+        <span className="report-value">{reportData.total_children}</span>
+      </div>
+
+ 
+      </div>
+      <div className="generateReport-compress">
+
+      <div className="report-item">
+        <span className="report-label">Average Child Weight: </span>
+        <span className="report-value">{reportData.avg_child_weight}</span>
+      </div>
+
+      <div className="report-item">
+        <span className="report-label">Average Child Weight: </span>
+        <span className="report-value">{reportData.avg_child_weight}</span>
+      </div>
+
+      </div>
+      
+    <div className="generateReport-compress">
+
+    <div className="report-item">
+        <span className="report-label">Average Child Height: </span>
+        <span className="report-value">{reportData.avg_child_height}</span>
+      </div>
+
+
+      <div className="report-item">
+        <span className="report-label">Average Child BP: </span>
+        <span className="report-value">{reportData.avg_child_blood_pressure}</span>
+      </div>
+    </div>
+
+    
+    <div className="generateReport-compress">
+
+    <div className="report-item">
+        <span className="report-label">Average Child Heart-Rate: </span>
+        <span className="report-value">{reportData.avg_child_heart_rate}</span>
+      </div>
+
+      <div className="report-item">
+        <span className="report-label">Average Child : </span>
+        <span className="report-value">{reportData.avg_child_temperature}</span>
+      </div>
+    </div>
+
+
+   
+
+
+
+
+
+  
+
+
+      {/* Add more items similarly */}
+    </div>
+  </div>
+</div>
+
   );
 };
 

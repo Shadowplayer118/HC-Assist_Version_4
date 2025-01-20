@@ -36,6 +36,8 @@ const Staff = () => {
     setIsOpenViewModal(true)
   }
 
+
+
   function addPatient(){
     setIsOpenAddModal(true)
   }
@@ -121,6 +123,12 @@ const Staff = () => {
                   <td>
                     <button className="delete-btn" onClick={() => deletestaffData(data.staff_id)}><img src="../../assets/icons/trashBin.png" alt="" /></button>
                     <button className="edit-btn" onClick={() => viewById(data)}><img src="../../assets/icons/mdi_eye.png" alt="" /></button>
+                    <input
+  type="checkbox"
+  className="edit-checkbox"
+  // onChange={(e) => viewById(data)}
+  defaultChecked={false}
+/>
                   </td>
                 </tr>
               ))}

@@ -559,10 +559,10 @@ left:36px;
 .report-form{
     position: absolute;
     width: 400px;
-    height: 400px;
+    height: 435px;
     font-size: 10px;
+    background-color: white;
 
-    border-radius: 10px;
     padding: 10px;
     left: 400px;
     top: 0px;
@@ -571,12 +571,15 @@ left:36px;
 
 
 .report-form-title{
-    color:#FFFFFF;
-    background-color: #3E4BBA;
+    font-size: small;
     position: sticky;
     top: 1px;
     text-align: center;
     
+}
+
+.report-form-subtitle{
+    font-weight: lighter;
 }
 
 .report-form-data td{
@@ -615,15 +618,42 @@ left:36px;
 
 .generateReportBtn{
     position: fixed;
-    bottom: 30px;
-    left: 410px;
-
+    bottom: 5px;
+    left: 400px;
 
     
 }
 
 .generateReportBtn button{
     margin-right: 10px;
+}
+
+.report-item{
+    border: 1px solid black;
+}
+
+.report-value{
+    border-left: 1px solid black;
+    padding-left: 5px;
+    padding-right: 5px;
+
+}
+
+.report-label{
+    
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.report-form h3{
+
+    color:aliceblue;
+    background-color:#3E4BBA;
+
+}
+
+.generateReport-compress{
+    display: flex;
 }
 
 

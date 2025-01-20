@@ -10,12 +10,11 @@ import ReportTable from "../adminFolder/dashboardFolder/monthlyReport";
 const Mainbar = () => {
   
 
-
-
 const [monitorSched,setMonitoringSched] = useState([]);
   const [monitoringData, setMonitoringData] = useState(null);
   const [diseaseMonitorData, setDiseaseMonitorData] = useState(null);
   const[isOpenModal,setIsOpenModal] = useState(false);
+  const link = "../../../php/";
   
 
 
@@ -280,7 +279,7 @@ monitorSched &&
       <div className="monitoring-card-left">
         <div className="monitoring-profile">
           <img
-            src="../assets/profile.jpg"
+            src={link + data.image}
             alt="Profile"
           />
         </div>

@@ -285,3 +285,106 @@ margin-top: 20px;
     
     
 }
+
+
+.print-Referral{
+    background-color: red;
+    position: absolute;
+    padding: 3px;
+    width: 80px;
+    border-width: 0px;
+    border-radius: 5px;
+    color: white;
+    box-shadow: -2px 2px rgb(51, 51, 51);
+    bottom: 20px;
+    left: 260px;
+    background-color: #3E4BBA;
+    color: aliceblue;
+}
+
+.printReferral-modal{
+
+    height: 1000px;
+    background-color: #4e40b43d;
+    z-index: 100;
+
+  
+}
+
+.printReferral-modal-content{
+
+    background-color: white;
+    position: fixed;
+    width: 500px;
+    height: 300px;
+    left: 390px;
+    top: 100px;
+    padding: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.61);
+
+
+}
+
+.printReferral-conf{
+    display: flex;
+}
+
+.printReferral-date{
+    padding-left: 250px;
+    border-bottom: 1px solid black;
+}
+
+.printReferral-content{
+    position: relative;
+    height: 160px;
+    top: 20px;
+}
+
+.printReferral-cred{
+    position: absolute;
+    top: 180px;
+}
+
+.printReferral-approveDateCont{
+    position: relative;
+    left: 390px;
+    bottom: 45px;
+}
+
+.printReferral-approveDate{
+    position: absolute;
+    width: 130px;
+    left: 370px;
+    bottom: 20px;
+}
+
+.printReferral-num{
+    border-bottom: 1px solid black;
+}
+
+.printReferral-approve{
+    border-top: 1px solid black;
+}
+
+.printReferral-desc{
+    padding-left: 20px;
+    border: 1px solid black;
+    height: 110px;
+}
+
+
+.printReferral-name{
+    margin-bottom: 10px;
+}
+
+.printReferral-btns{
+    width: 500px;
+    position: absolute;
+    top: 450px;
+    left: 380px;
+
+}
+
+.printReferral-btns button{
+    margin-left: 10px;
+}

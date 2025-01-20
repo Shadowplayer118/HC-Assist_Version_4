@@ -13,6 +13,7 @@ const Calendar = () => {
   // New state for selected date
   const [activitiesDate, setActivitiesDate] = useState([]);
   const [Preview, setPreview] = useState('');
+  const link = "../../../php/";
 
   
   // New state for selected date
@@ -169,7 +170,7 @@ const Calendar = () => {
   {activitiesDate && activitiesDate.length > 0 ? (
     activitiesDate.map((data, index) => (
       <div className="activityDate-card" key={index}>
-        <div className="activityDate-image">{data.image}</div>
+        <div className="activityDate-image"><img src={link + data.image} alt="" /></div>
         <div className="activityDate-patient">
           {data.first_name} {data.last_name}
         </div> <br/>

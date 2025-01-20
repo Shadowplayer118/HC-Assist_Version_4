@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "../../../css/calendar.css"; // Ensure the CSS file path is correct
 import Topbar from "../../bars/topBar";
-import SidebarStaff from '../../bars/sideBarStaff';
+import Sidebar from "../../bars/sideBar";
 import axios from 'axios';
+import SidebarStaff from "../../bars/sideBarStaff";
 
 
 const StaffCalendar = () => {
@@ -13,6 +14,7 @@ const StaffCalendar = () => {
   // New state for selected date
   const [activitiesDate, setActivitiesDate] = useState([]);
   const [Preview, setPreview] = useState('');
+  const link = "../../../php/";
 
   
   // New state for selected date
@@ -139,7 +141,7 @@ const StaffCalendar = () => {
     <div>
       <Topbar location="Calendar" />
       <div className="mainbarContent">
-      <SidebarStaff/>
+        <SidebarStaff />
 
         <div className="week">
           <div>Sunday</div>
@@ -153,7 +155,7 @@ const StaffCalendar = () => {
 
         <div className="calendar-container">
           <div className="calendar-controls">
-            <div className="name">Calendar</div>
+            <div className="name"></div>
             <button onClick={handlePrevMonth}>Previous Month</button>
             <span>{`${getMonthName(currentMonth)} ${currentYear}`}</span>
             <button onClick={handleNextMonth}>Next Month</button>
@@ -169,7 +171,7 @@ const StaffCalendar = () => {
   {activitiesDate && activitiesDate.length > 0 ? (
     activitiesDate.map((data, index) => (
       <div className="activityDate-card" key={index}>
-        <div className="activityDate-image">{data.image}</div>
+        <div className="activityDate-image"><img src={link + data.image} alt="" /></div>
         <div className="activityDate-patient">
           {data.first_name} {data.last_name}
         </div> <br/>

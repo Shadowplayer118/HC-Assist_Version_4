@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../../../css/referral.css'
+import PrintReferral from './referral-print';
+
 
 
 const ViewReferral = ({ visible, onClose, data }) => {
@@ -25,6 +27,16 @@ const ViewReferral = ({ visible, onClose, data }) => {
 
   const staff_id = localStorage.getItem('logId');
 
+
+
+  const [showPrintModal, setShowPrintModal] = useState(false);
+
+ 
+
+
+
+
+
   // Initialize states when data changes
   useEffect(() => {
     if (data) {
@@ -40,6 +52,17 @@ const ViewReferral = ({ visible, onClose, data }) => {
       console.log(data);
     }
   }, [data]);
+
+
+  const handleOpenPrintModal = () => {
+    setShowPrintModal(true); // Show the print modal
+  };
+
+  const handleClosePrintModal = () => {
+    setShowPrintModal(false); // Hide the print modal
+  };
+
+
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -89,6 +112,12 @@ const ViewReferral = ({ visible, onClose, data }) => {
 
   return (
     <div className="addReferral-modal">
+
+<PrintReferral
+        visible={showPrintModal}
+        onClose={handleClosePrintModal}
+        data={data}
+      />
       <div className="addReferral-modal-content">
         <h3 className='addReferral-modal-title'>Referral Information</h3>
  
@@ -160,13 +189,22 @@ const ViewReferral = ({ visible, onClose, data }) => {
             </div>
 
 
-
             <button type="submit" id="save-changes" className="save-addReferral">Save Changes</button>
           </div>
         </form>
 
         <button onClick={onClose} className="close-addReferral">Close</button>
+        <button
+            type="button"
+            onClick={handleOpenPrintModal}
+            className="print-Referral"
+          >
+            Print
+          </button>
       </div>
+
+
+     
     </div>
   );
 };
